@@ -1,7 +1,7 @@
 # About
-`inside-emacs` is a top-up for the video serie **inside emacs**.
+`inside-emacs` is a top-up for the video series **inside emacs**.
 
-Watch [](here).
+Watch [https://youtu.be/F1IXixEhQwk](here).
 
 # Content
 
@@ -58,6 +58,33 @@ I've learnt a lot of emacs cool stuff from [https://github.com/magnars](magnars)
 * [http://emacsrocks.com/](emacs rocks),
 * [https://www.youtube.com/channel/UC0uTPqBCFIpZxlz_Lv1tk_g](protesilaos
   (youtube)).
+
+# Inside Emacs 1
+
+| commands                         | packages                                                           |
+|----------------------------------|--------------------------------------------------------------------|
+| `avy-goto-word-or-subword-1`     | [https://github.com/abo-abo/avy](avy)                              |
+| `cleanup-buffer`                 | [./src/inside-emacs-1/utils.el](customized)                        |
+| `company-complete-selection`     | [https://github.com/company-mode/company-mode](company)            |
+| `er/expand-region`               | [https://github.com/magnars/expand-region.el](expand-region)       |
+| `iedit-mode`                     | [https://github.com/victorhge/iedit](iedit)                        |
+| `iy-go-to-char`                  | [https://github.com/doitian/iy-go-to-char](iy-go-to-char)          |
+| `iy-go-to-char-kill-region`      | [https://github.com/doitian/iy-go-to-char](iy-go-to-char)          |
+| `iy-go-to-char-kill-ring-save`   | [https://github.com/doitian/iy-go-to-char](iy-go-to-char)          |
+| `mc--insert-number-and-increase` | [https://github.com/magnars/multiple-cursors.el](multiple-cursors) |
+| `mc/mark-next-like-this`         | [https://github.com/magnars/multiple-cursors.el](multiple-cursors) |
+| `mc/mark-next-like-this-word`    | [https://github.com/magnars/multiple-cursors.el](multiple-cursors) |
+| `replace-string`                 | built-in                                                           |
+| `scroll-left`                    | built-in                                                           |
+| `scroll-right`                   | built-in                                                           |
+| `ta-avy-goto-end-of-line`        | [./src/inside-emacs-1/utils.el](customized)                        |
+| `ta-mark-sexp-at-point`          | [./src/inside-emacs-1/utils.el](customized)                        |
+| `ta-toggle-narrow`               | [./src/inside-emacs-1/utils.el](customized)                        |
+| `ta-yank-line-below`             | [./src/inside-emacs-1/utils.el](customized)                        |
+| `yank-rectangle`                 | built-in                                                           |
+
+Video grabbed with my [https://github.com/tonyaldon/emacs.d](emacs
+configuration) at commit `f760601bfc92bac7570f74396dbe1e4910af86af`.
 
 # Contact
 
