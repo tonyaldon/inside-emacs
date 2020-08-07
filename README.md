@@ -85,6 +85,37 @@ I've learnt a lot of emacs cool stuff from [magnars](https://github.com/magnars)
 Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
 at commit `f760601bfc92bac7570f74396dbe1e4910af86af`.
 
+# Inside Emacs 2
+
+| commands                         | packages                                                           |
+|----------------------------------|--------------------------------------------------------------------|
+| `avy-goto-word-or-subword-1`     | [avy](https://github.com/abo-abo/avy)                              |
+| `dired-do-find-marked-files`     | built-in                                                           |
+| `dired-mark`                     | built-in                                                           |
+| `dired-narrow`                   | [dired-narrow](https://melpa.org/#/dired-narrow)                   |
+| `dired-unmark-all-marks`         | built-in                                                           |
+| `er/expand-region`               | [expand-region](https://github.com/magnars/expand-region.el)       |
+| `forward-paragraph`              | built-in                                                           |
+| `isearch-backward`               | built-in                                                           |
+| `isearch-forward`                | built-in                                                           |
+| `kmacro-bind-to-key`             | built-in                                                           |
+| `kmacro-end-macro`               | built-in                                                           |
+| `kmacro-start-macro`             | built-in                                                           |
+| `mc--insert-number-and-increase` | [multiple-cursors](https://github.com/magnars/multiple-cursors.el) |
+| `mc/mark-next-like-this`         | [multiple-cursors](https://github.com/magnars/multiple-cursors.el) |
+| `replace-string`                 | built-in                                                           |
+| `set-mark-command`               | built-in                                                           |
+| `ta-mark-inside-quotes-or-pairs` | [customized](./src/inside-emacs-2/utils.el)                        |
+| `ta-toggle-write-mode`           | [customized](./src/inside-emacs-2/utils.el)                        |
+| `ta-w-finish-edit`               | [customized](./src/inside-emacs-2/utils.el)                        |
+| `transpose-frame`                | [transpose-frame](https://melpa.org/#/transpose-frame)             |
+| `universal-argument`             | built-in                                                           |
+| `winner-undo`                    | built-in                                                           |
+| `yas-expand`                     | [yasnippet](https://github.com/joaotavora/yasnippet)               |
+
+Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
+at commit `f760601bfc92bac7570f74396dbe1e4910af86af`.
+
 # Contact
 
 Do you have any question or suggestion? Please, feel free to:
