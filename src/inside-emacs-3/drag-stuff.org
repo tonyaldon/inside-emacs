@@ -1,0 +1,4 @@
+* prettier
+- See [[https://prettier.io/docs/en/cli.html][prettier cli (documentation)]].
+- If you want to format ~file.html~ html file, run the command
+  ~prettier --write file.html~.

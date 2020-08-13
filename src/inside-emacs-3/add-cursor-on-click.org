@@ -1,0 +1,560 @@
+* Backup
+** rsync
+*** With rsync how can I always replace the DEST file by the SRC file?
+- Use ~-a~ flag of ~rsync~.
+- It is a quick way of saying you want recursion and want to
+  preserve almost everything.
+- If you want to /always/ replace all the files with the same
+  ~path~ on ~path/to/dest/~ by the files on ~path/to/src/~, run
+  the command:
+
+#+BEGIN_SRC bash
+rsync -a path/to/src/ path/to/dest/
+#+END_SRC
+
+*** With rsync how can I always replace the DEST file by the SRC file /only/ if the SRC file is newer than the ~DEST~ file?
+- Use ~-au~ flags of ~rsync~.
+- Skip files that are newer on the receiver (~-u~ flag).
+- If you want to replace all the files with the same
+  ~path~ on ~path/to/dest/~ by the files on ~path/to/src/~ that
+  are /newer/, run the command:
+
+#+BEGIN_SRC bash
+rsync -au path/to/src/ path/to/dest/
+#+END_SRC
+
+*** With rsync how can I keep the newer file between DEST and SRC file on the receiver and keep a *copy* on the receiver of the *older* of ~DEST~ file and ~SRC~ file?
+- Use ~-aub~ flags of ~rsync~.
+- ~-u~ flag: skip files that are newer on the receiver.
+- ~-b~ flag: with this option, preexisting destination files are renamed as each file is transferred or deleted.
+- If you want to keep the /newer/ files between ~path/to/dest/~
+  and ~path/to/src/~ on the receiver (~path/to/dest/~) and keep a
+  /copy/ on the receiver (~path/to/dest/~) of the /older/ files
+  (by appending them a ~~~), run the command:
+
+#+BEGIN_SRC bash
+rsync -aub path/to/src/ path/to/dest/
+#+END_SRC
+
+*** With rsync how can I synchronize DEST directory and SRC directory?
+- Use ~-au~ flags of ~rsync~.
+- ~-a~ flag: it is a quick way of saying you want recursion and want to preserve almost everything.
+- ~-u~ flag: skip files that are newer on the receiver.
+- If you want to synchronize ~path/to/src/~ and ~path/to/dest/~,
+  that is (~DEST~ and ~SRC~ become the same copy, keeping
+  all files that were on ~DEST~ but not on ~SRC~ and vice-versa,
+  and keeping the newer files (with the same ~path~) of the ~DEST~
+  and ~SRC~ directory), run the commands:
+
+#+BEGIN_SRC bash
+rsync -au path/to/src/ path/to/dest/
+rsync -au path/to/dest/ path/to/src/
+#+END_SRC
+
+*** With rsync how can I synchronize DEST directory and SRC directory, keep a copy of the older files and generate a log file?
+- Use ~-aub~ and ~--backup-dir~ flags of ~rsync~.
+- It is a quick way of saying you want recursion and want to preserve almost everything (~-a~ flag).
+- ~-u~ flag: skip files that are newer on the receiver.
+- ~-b~ flag: with this option, preexisting destination files are
+  renamed as each file is transferred or deleted.
+- ~--backup-dir~: in  combination  with the ~--backup~ option, this
+  tells rsync to store all backups in the specified directory on the
+  receiving side.
+- If you want to synchronize ~path/to/src/~ and ~path/to/dest/~,
+  and keep a copy of the older files in a *specified directory*
+  ~backup~ (on both directorise ~path/to/src/~ and ~path/to/dest/~)
+  and a log file ~backup.log~ (available on both directorise ~path/to/src/~
+  and ~path/to/dest/~) that keep track of the synchronization
+  process , run the commands:
+
+#+BEGIN_SRC bash
+rsync -aub --backup-dir="backup" path/to/dest/ path/to/src/ \
+  | tee -a path/to/src/backup.log
+rsync -aub --backup-dir="backup" path/to/src/ path/to/dest/ \
+  | tee -a path/to/src/backup.log
+rsync -aub --backup-dir="backup" path/to/dest/ path/to/src/ \
+  | tee -a path/to/src/backup.log
+rsync path/to/src/backup.log path/to/dest/backup.log
+#+END_SRC
+
+- Note 1: In the file ~backup.log~, you can see what happen
+  during the synchronization. This way you can see the files that
+  have been deleted on the ~SRC~ directory but still present on
+  the ~DEST~ directory that you copied back into to the ~SRC~
+  directory.
+- Note 2: The directory ~backup~ contains all older files.
+- Note 3: If on the ~SRC~ and ~DEST~ you had the file ~path-to/some-file~
+  that differed, after the synchronization you can see the
+  difference (how the newer was changed from the older), by running
+  the command:
+
+#+BEGIN_SRC bash
+git diff path/to/src/backup/path-to/some-file path/to/src/path-to/some-file
+#+END_SRC
+
+- Note 4: After the synchronization, if you are happy, you can delete
+  on both side (~SRC~ and ~DEST~ directories), the file
+  ~backup.log~ and the directory ~backup~. To do so, run the
+  commands:
+
+#+BEGIN_SRC bash
+rm -rf path/to/src/backup path/to/src/backup.log
+rm -rf path/to/dest/backup path/to/dest/backup.log
+#+END_SRC
+
+*** With rsync how can I delete files on DEST that are not present on SRC?
+- Use ~-a~, ~--delete~ flags of ~rsync~.
+- (~-a~ flag): it is a quick way of saying you want recursion and want to preserve almost everything.
+- ~--delete~ flag: this tells rsync to delete extraneous files from
+  the receiving side (ones  that  aren’t on  the  sending  side), but
+  only for the directories that are being synchronized.  You must have
+  asked rsync to send the whole directory (e.g. "dir" or "dir/")
+  without  using a  wildcard  for the directory’s contents
+  (e.g. "dir/*") since the wildcard is expanded by the shell and rsync
+  thus gets a request to transfer individual files, not the files’
+  parent  directory.
+- If you want to delete files on ~path/to/dest/~ that are not present
+  on ~path/to/src/~, run the command:
+
+#+BEGIN_SRC bash
+rsync -a --delete path/to/src/ path/to/dest/
+#+END_SRC
+
+*** With rsync how can I delete files on DEST that I've note exclude the first time with rsync ?
+- Use ~-a~, ~--delete-excluded~, ~--exclude~ flags of ~rsync~.
+- ~-a~ flag: it is a quick way of saying you want recursion and want to preserve almost everything.
+- ~--delete-excluded~ flag: in  addition  to  deleting  the files on the receiving side that are not on the sending side, this tells rsync to also delete any files on the receiving side that are excluded with ~--exclude~.
+- ~--exclude~ flag: exclude files matching a pattern.
+- If you first have send the  directories ~node_modules~
+  accidentally from the ~path/to/src/~ directory to the
+  ~path/to/dest/~ directory, you can delete them later. To do so,
+  run the command:
+
+#+BEGIN_SRC bash
+rsync -a --exclude="*node_modules*" --delete-excluded \
+  path/to/src/ path/to/dest/
+#+END_SRC
+
+*** With rsync how can I do a incremental backup?
+- Use ~-avz~, ~--exclude~ and ~--exclude-exclude~ flags of
+  ~rsync~ command.
+- ~-a~ flag: it is a quick way of saying you want recursion and want
+  to preserve almost everything.
+- ~-v~ flag: increases the amount of information you are given during
+  the transfer.
+- ~-z~ flag: compresses the file data as it is sent to the destination
+  machine.
+- ~--exclude~ flag: exclude files matching a pattern.
+- ~--delete-excluded~ flag: in  addition  to  deleting  the files on
+  the receiving side that are not on the sending side, this tells
+  rsync to also delete any files on the receiving side that are
+  excluded with ~--exclude~.
+- If you want ~DEST~ directory to be the exact copy of ~SRC~
+  directory, but you just want to send the file that have changed
+  ~SRC~, delete on ~DEST~ the file you have deleted on ~SRC~, and
+  do not send (exclude) on ~DEST~ the ~node_modules~ directory on
+  ~SRC~, run the command:
+
+#+BEGIN_SRC bash
+rsync -avz --exclude="*node_modules*" --delete-exclude \
+  path/to/src/ path/to/dest/
+#+END_SRC
+
+** Backup and archive
+*** What is a Backup?
+- A /backup/ is a copy of data that can be used to restore the
+  original in the event that your data is lost or damaged. If a
+  company experiences data loss due to hardware failure, human
+  error or natural disaster, a backup can be used to quickly
+  restore that data.
+*** What is an Archive?
+- An /archive/ is a collection of historical records that are kept
+  for long-term retention and used for future
+  reference. Typically, archives contain data that is not actively
+  used.
+*** What is the difference between /backup/ and /archive/?
+- Basically, a /backup/ is a /copy/ of a set of data, while an
+  /archive/ holds /original/ data that has been /removed/ from its
+  original location.
+** Back up /etc directory
+*** How can I review or revert changes that were made to /etc?
+- Use ~etckeeper~ tool.
+- ~etckeeper~: store ~/etc~ in ~git~.
+- See [[https://etckeeper.branchable.com/README/][etckeeper]] README.
+- If you want to install and initialize ~etckeeper~ on ubuntu,
+  run the commands:
+
+#+BEGIN_SRC bash
+sudo apt install etckeeper
+#+END_SRC
+
+- If you want to ~commit~ changes made in ~/etc~ installing new
+  package using ~apt~, do /nothing/, ~etckeeper~ do it for you.
+- If you want to ~commit~ changes made in ~/etc~, run the
+  commands:
+
+#+BEGIN_SRC bash
+cd /etc
+sudo git add .  # or only a few files
+sudo git commit -m "your message"
+#+END_SRC
+
+- If you want to /configure/ and tweak ~etckeeper~, see files and
+  directories ~/etc/etckeeper/~ and ~/etc/etckeeper/etckeeper.conf~.
+- If you want to /skip/ some files or directories from being
+  stored into ~git~ repository, add them to ~/etc/.gitignore~.
+- If I want to /revert/ changes to a previous state (commit), you
+  must ~checkout~ to the previous commit and re-initialize
+  ~etckeeper~, to do so run the commands:
+
+#+BEGIN_SRC bash
+sudo git checkout <previous-commit>
+sudo etckeeper init
+#+END_SRC
+
+*** How can I back up the /etc directory to usb drive?
+- Use ~rsync~ command.
+- ~rsync~: a fast, versatile, remote (and local) file-copying tool.
+- Be aware that ~/etc~ directory contains secret informations. For
+  instance, SHA-512 password are stored in the file
+  ~/etc/shadow~.
+** Large files with git
+*** What is ~git-annex~?
+- [[https://git-annex.branchable.com/][git-annex (homepage)]]
+- [[https://git-annex.branchable.com/not/][git-annex is NOT ...]]
+- [[https://git-annex.branchable.com/walkthrough/][git-annex (walkthrough)]]
+- [[https://git-annex.branchable.com/tips/emacs_integration/][git-annex (emacs integration)]]
+*** What is ~git-lfs~?
+- [[https://git-lfs.github.com/][git-lfs (homepage)]]
+- [[https://www.atlassian.com/git/tutorials/git-lfs][git-lfs (tutorial)]]
+- [[https://www.youtube.com/watch?v=006RUPVIP-c][git-lfs (talk)]]
+*** What is the difference between ~git-lfs~ and ~git-annex~?
+- See discussions [[https://git-annex.branchable.com/todo/git_smudge_clean_interface_suboptiomal/][git smudge clean interface suboptiomal]] and [[https://lwn.net/Articles/774125/][large
+  files with git (article)]].
+- ~git-lfs~ differs from ~git-annex~ in that:
+- With ~git-lfs~, all the large files in the repository are usually
+  present in the working tree; it doesn't have a way to drop content
+  that is not wanted locally while keeping other content locally
+  available, as ~git-annex~ does.
+- And so ~git-lfs~ does not need to be able to get content like
+  ~git-annex~ can do either.
+- ~git-lfs~ also differs in that it uses a central server, which is
+  trusted to retain content, so it doesn't try to avoid losing the
+  local copy, which could be the only copy, as ~git-annex~ does.
+
+* UI
+** GTK
+*** How to make chromium using ~GTK~?
+- If you want that ~chromium~ uses ~GTK~, in ~chromium~ allow ~GTK+~
+  theme in: ~Settings > Preferences > Appearence > Use GTK+ theme~.
+*** How can I add ~emacs~ like keybinding in ~GTK~ applications like ~chromium~?
+- In ~gtk-2~ add the line  in your ~GTK~ config file
+  ~/.gtkrc-2.0~.
+
+#+BEGIN_SRC text
+gtk-key-theme-name = "Emacs"
+#+END_SRC
+
+- In ~gtk-3~, add the following line in your ~GTK~ config file
+  ~/.config/gtk-3.0/settings.ini~.
+
+#+BEGIN_SRC text
+gtk-key-theme-name = Emacs
+#+END_SRC
+
+*** Where the emacs like keybinding in ~GTK~ applications are defined?
+- In ~gtk-2~, the implemented ~emacs~ keybinding can be found in the
+  file ~/usr/share/themes/Emacs/gtk-2.0-key/gtkrc~:
+
+#+BEGIN_SRC text
+#
+# Bindings for GtkTextView and GtkEntry
+#
+binding "gtk-emacs-text-entry"
+{
+  bind "<ctrl>b" { "move-cursor" (logical-positions, -1, 0) }
+  bind "<shift><ctrl>b" { "move-cursor" (logical-positions, -1, 1) }
+  bind "<ctrl>f" { "move-cursor" (logical-positions, 1, 0) }
+  bind "<shift><ctrl>f" { "move-cursor" (logical-positions, 1, 1) }
+
+  bind "<alt>b" { "move-cursor" (words, -1, 0) }
+  bind "<shift><alt>b" { "move-cursor" (words, -1, 1) }
+  bind "<alt>f" { "move-cursor" (words, 1, 0) }
+  bind "<shift><alt>f" { "move-cursor" (words, 1, 1) }
+
+  bind "<ctrl>a" { "move-cursor" (paragraph-ends, -1, 0) }
+  bind "<shift><ctrl>a" { "move-cursor" (paragraph-ends, -1, 1) }
+  bind "<ctrl>e" { "move-cursor" (paragraph-ends, 1, 0) }
+  bind "<shift><ctrl>e" { "move-cursor" (paragraph-ends, 1, 1) }
+
+  bind "<ctrl>w" { "cut-clipboard" () }
+  bind "<ctrl>y" { "paste-clipboard" () }
+
+  bind "<ctrl>d" { "delete-from-cursor" (chars, 1) }
+  bind "<alt>d" { "delete-from-cursor" (word-ends, 1) }
+  bind "<ctrl>k" { "delete-from-cursor" (paragraph-ends, 1) }
+  bind "<alt>backslash" { "delete-from-cursor" (whitespace, 1) }
+
+  bind "<alt>space" { "delete-from-cursor" (whitespace, 1)
+                      "insert-at-cursor" (" ") }
+  bind "<alt>KP_Space" { "delete-from-cursor" (whitespace, 1)
+                         "insert-at-cursor" (" ")  }
+
+  #
+  # Some non-Emacs keybindings people are attached to
+  #
+  bind "<ctrl>u" {
+     "move-cursor" (paragraph-ends, -1, 0)
+     "delete-from-cursor" (paragraph-ends, 1)
+  }
+  bind "<ctrl>h" { "delete-from-cursor" (chars, -1) }
+  bind "<ctrl>w" { "delete-from-cursor" (word-ends, -1) }
+}
+
+#
+# Bindings for GtkTextView
+#
+binding "gtk-emacs-text-view"
+{
+  bind "<ctrl>p" { "move-cursor" (display-lines, -1, 0) }
+  bind "<shift><ctrl>p" { "move-cursor" (display-lines, -1, 1) }
+  bind "<ctrl>n" { "move-cursor" (display-lines, 1, 0) }
+  bind "<shift><ctrl>n" { "move-cursor" (display-lines, 1, 1) }
+
+  bind "<ctrl>space" { "set-anchor" () }
+  bind "<ctrl>KP_Space" { "set-anchor" () }
+}
+
+#
+# Bindings for GtkTreeView
+#
+binding "gtk-emacs-tree-view"
+{
+  bind "<ctrl>s" { "start-interactive-search" () }
+  bind "<ctrl>f" { "move-cursor" (logical-positions, 1) }
+  bind "<ctrl>b" { "move-cursor" (logical-positions, -1) }
+}
+
+#
+# Bindings for menus
+#
+binding "gtk-emacs-menu"
+{
+  bind "<ctrl>n" { "move-current" (next) }
+  bind "<ctrl>p" { "move-current" (prev) }
+  bind "<ctrl>f" { "move-current" (child) }
+  bind "<ctrl>b" { "move-current" (parent) }
+}
+
+class "GtkEntry" binding "gtk-emacs-text-entry"
+class "GtkTextView" binding "gtk-emacs-text-entry"
+class "GtkTextView" binding "gtk-emacs-text-view"
+class "GtkTreeView" binding "gtk-emacs-tree-view"
+class "GtkMenuShell" binding "gtk-emacs-menu"
+#+END_SRC
+
+- In ~gtk-3~, the implemented ~emacs~ keybinding can be found in the
+  file ~/usr/share/themes/Emacs/gtk-3.0/gtk-keys.css~.
+
+#+BEGIN_SRC css
+/*
+ * Bindings for GtkTextView and GtkEntry
+ */
+@binding-set gtk-emacs-text-entry
+{
+  bind "<ctrl>b" { "move-cursor" (logical-positions, -1, 0) };
+  bind "<shift><ctrl>b" { "move-cursor" (logical-positions, -1, 1) };
+  bind "<ctrl>f" { "move-cursor" (logical-positions, 1, 0) };
+  bind "<shift><ctrl>f" { "move-cursor" (logical-positions, 1, 1) };
+
+  bind "<alt>b" { "move-cursor" (words, -1, 0) };
+  bind "<shift><alt>b" { "move-cursor" (words, -1, 1) };
+  bind "<alt>f" { "move-cursor" (words, 1, 0) };
+  bind "<shift><alt>f" { "move-cursor" (words, 1, 1) };
+
+  bind "<ctrl>a" { "move-cursor" (paragraph-ends, -1, 0) };
+  bind "<shift><ctrl>a" { "move-cursor" (paragraph-ends, -1, 1) };
+  bind "<ctrl>e" { "move-cursor" (paragraph-ends, 1, 0) };
+  bind "<shift><ctrl>e" { "move-cursor" (paragraph-ends, 1, 1) };
+
+  /* bind "<ctrl>w" { "cut-clipboard" () }; */
+  bind "<ctrl>y" { "paste-clipboard" () };
+
+  bind "<ctrl>d" { "delete-from-cursor" (chars, 1) };
+  bind "<alt>d" { "delete-from-cursor" (word-ends, 1) };
+  bind "<ctrl>k" { "delete-from-cursor" (paragraph-ends, 1) };
+  bind "<alt>backslash" { "delete-from-cursor" (whitespace, 1) };
+
+  bind "<alt>space" { "delete-from-cursor" (whitespace, 1)
+                      "insert-at-cursor" (" ") };
+  bind "<alt>KP_Space" { "delete-from-cursor" (whitespace, 1)
+                         "insert-at-cursor" (" ")  };
+  /*
+   * Some non-Emacs keybindings people are attached to
+   */
+  bind "<ctrl>u" { "move-cursor" (paragraph-ends, -1, 0)
+                   "delete-from-cursor" (paragraph-ends, 1) };
+
+  bind "<ctrl>h" { "delete-from-cursor" (chars, -1) };
+  bind "<ctrl>w" { "delete-from-cursor" (word-ends, -1) };
+}
+
+/*
+ * Bindings for GtkTextView
+ */
+@binding-set gtk-emacs-text-view
+{
+  bind "<ctrl>p" { "move-cursor" (display-lines, -1, 0) };
+  bind "<shift><ctrl>p" { "move-cursor" (display-lines, -1, 1) };
+  bind "<ctrl>n" { "move-cursor" (display-lines, 1, 0) };
+  bind "<shift><ctrl>n" { "move-cursor" (display-lines, 1, 1) };
+
+  bind "<ctrl>space" { "set-anchor" () };
+  bind "<ctrl>KP_Space" { "set-anchor" () };
+}
+
+/*
+ * Bindings for GtkTreeView
+ */
+@binding-set gtk-emacs-tree-view
+{
+  bind "<ctrl>s" { "start-interactive-search" () };
+  bind "<ctrl>f" { "move-cursor" (logical-positions, 1) };
+  bind "<ctrl>b" { "move-cursor" (logical-positions, -1) };
+}
+
+/*
+ * Bindings for menus
+ */
+@binding-set gtk-emacs-menu
+{
+  bind "<ctrl>n" { "move-current" (next) };
+  bind "<ctrl>p" { "move-current" (prev) };
+  bind "<ctrl>f" { "move-current" (child) };
+  bind "<ctrl>b" { "move-current" (parent) };
+}
+
+entry {
+  -gtk-key-bindings: gtk-emacs-text-entry;
+}
+
+textview {
+  -gtk-key-bindings: gtk-emacs-text-entry, gtk-emacs-text-view;
+}
+
+treeview {
+  -gtk-key-bindings: gtk-emacs-tree-view;
+}
+
+GtkMenuShell {
+  -gtk-key-bindings: gtk-emacs-menu;
+}
+#+END_SRC
+** Xft
+*** How can I scale up my screen view?
+- Use ~~/.Xresources~ file and/or ~xrdb~ command.
+- Many desktop environments use ~xrdb~ to load ~~/.Xresources~
+  files on session startup to initialize the resource database.
+- See [[https://wiki.archlinux.org/index.php/x_resources][Xresources]] and [[https://wiki.archlinux.org/index.php/HiDPI][HiDPX]] archlinux.
+- If you want to scale up what you see on your screen, saying that
+  your ~dpi~ (dot per inch) is equal to ~96~ and you want to
+  raise up to ~144 dpi~ (dpi must be a multiple of 96), you can
+  add this line ~Xft.dpi: 144~ to the file ~~/.Xresources~, and
+  run the command:
+
+#+BEGIN_SRC bash
+xrdb -merge ~/.Xresources
+#+END_SRC
+
+- If you want to check the currently loaded resources, run the
+  command:
+
+#+BEGIN_SRC bash
+xrdb -query all
+#+END_SRC
+
+- To see the default settings of your installed ~X11 apps~, look in
+  ~/etc/X11/app-defaults/~.
+** i3 window manager
+*** How can I debug i3status and i3blocks config files?
+- Use ~i3status~ or ~i3bloks~ commands.
+- ~i3blocks~: a flexible scheduler for your i3bar blocks.
+- ~i3status~: generates a status line for i3bar.
+- If you want to debug ~i3status~ config file, run the command:
+
+#+BEGIN_SRC bash
+i3status ~/config/i3/config
+#+END_SRC
+
+- If you want to debug ~i3blocks~ config file, run the command:
+
+#+BEGIN_SRC bash
+i3blocks -c ~/.config/i3blocks/config
+#+END_SRC
+
+*** How can I know the key name use by i3 config file for a specific key?
+- Use ~xev~ command.
+- ~xev~: print contents of X events.
+- If you want to get information about a specific key on your
+  keyboard, that you can use in your i3 config file, run the
+  command ~xev~ in your terminal, a (Event tester) window popup, then press the
+  key from which you want to get information. For instance,
+  pressing the ~space~ key on my keyboard, I get this following
+  output where ~keycode 65 (keysym 0x20, space)~ is the interesting
+  part and the name to use in i3 config file is ~space~.
+
+#+BEGIN_SRC text
+KeyRelease event, serial 34, synthetic NO, window 0x1400001,
+    root 0x14f, subw 0x0, time 713381482, (524,452), root:(528,472),
+    state 0x0, keycode 65 (keysym 0x20, space), same_screen YES,
+    XLookupString gives 1 bytes: (20) " "
+    XFilterEvent returns: False
+#+END_SRC
+
+** Gnome
+*** How can I reset all gnome settings?
+- Use ~gnome-tweaks~ command.
+- ~gnome-tweaks~: customize your Ubuntu Gnome desktop.
+- If you want to reset all gnome desktop settings to default,
+  launch ~gnome-tweak~ and in its gnome menu click ~Reset to
+  Defaults~.
+- if you want to install ~gnome-tweaks~, run the command:
+
+#+BEGIN_SRC bash
+sudo apt install gnome-tweaks
+#+END_SRC
+
+*** How can I modify the text size on Gnome desktop?
+- Use ~gsettings~ command.
+- ~gsettings~: GSettings configuration tool.
+- See example [[https://askubuntu.com/questions/197828/how-to-find-and-change-the-screen-dpi][find and change the screen dpi]] on askubuntu.
+- If you want to change the ~dpi~ in Ubuntu Gnome desktop, you
+  can't because it's hard coded to a value of ~96 dpi~. But you
+  can change the text size of the applications. For instance, to
+  increase the text size by ~1.2~ (of the hard coded ~96 dpi~,
+  i.e. ~1.2*96~), /set/ to ~1.2~ the value of the /key/
+  ~text-scaling-factor~ of the /shema/ ~org.gnome.desktop.interface~
+  run the command:
+
+#+BEGIN_SRC bash
+gsettings set org.gnome.desktop.interface text-scaling-factor 1.2
+#+END_SRC
+
+- If you want to go back to the default text size, /reset/ the
+  value of /key/ ~text-scaling-factor~. To do so, run the command:
+
+#+BEGIN_SRC bash
+gsettings reset org.gnome.desktop.interface text-scaling-factor
+#+END_SRC
+
+** fonts
+*** How can I list all available font on my system?
+- Use ~fc-list~ command.
+- ~fc-list~: list available fonts.
+- If you want to list all available font, run the command:
+
+#+BEGIN_SRC bash
+fc-list
+#+END_SRC
+
+- Note: the font ~symbola~ allow you to print all ~unicode~ character.

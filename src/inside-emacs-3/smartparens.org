@@ -1,0 +1,4 @@
+* How can I automatically restart applications on boot/reboot?
+- Use ~pm2 startup~ and ~pm2 save~ commands.
+- Enable the pm2 startup hook (~pm2 startup~).
+- Freeze a process list for automatic respawn (~pm2 save~).
