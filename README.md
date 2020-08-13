@@ -116,6 +116,24 @@ at commit `f760601bfc92bac7570f74396dbe1e4910af86af`.
 Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
 at commit `f760601bfc92bac7570f74396dbe1e4910af86af`.
 
+# Inside Emacs 3
+
+| commands                           | packages                                                           |
+|------------------------------------|--------------------------------------------------------------------|
+| `mc/add-cursor-on-click`           | [multiple-cursors](https://github.com/magnars/multiple-cursors.el) |
+| `sp-splice-sexp`                   | [smartparens](https://github.com/Fuco1/smartparens)                |
+| `sp-backward-kill-sexp`            | [smartparens](https://github.com/Fuco1/smartparens)                |
+| `ta-mark-sexp-at-point`            | [customized](./src/inside-emacs-3/utils.el)                        |
+| `yas-expand`                       | [yasnippet](https://github.com/joaotavora/yasnippet)               |
+| `drag-stuff-down`                  | [drag-stuff](https://github.com/rejeep/drag-stuff.el)              |
+| `ta-aw-other-window-scroll-buffer` | [customized](./src/inside-emacs-3/utils.el)                        |
+| `scroll-other-window`              | built-in                                                           |
+| `scroll-other-window-down`         | built-in                                                           |
+| `mc/mark-next-like-this`           | [multiple-cursors](https://github.com/magnars/multiple-cursors.el) |
+
+Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
+at commit `4cbdb3ce735ae296387069ef7ff309f0cfa812e8`.
+
 # Contact
 
 Do you have any question or suggestion? Please, feel free to:
