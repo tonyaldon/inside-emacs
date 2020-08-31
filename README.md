@@ -50,14 +50,6 @@ more **fluent** when I **read**, **modify** or **write** code.
 
 I hope these videos can help you in your `emacs` trip.
 
-# Great video series
-
-I've learnt a lot of emacs cool stuff from [magnars](https://github.com/magnars) and
-[protesilaos](https://protesilaos.com/about/). Go for it:
-
-* [emacs rocks](http://emacsrocks.com/),
-* [protesilaos (youtube)](https://www.youtube.com/channel/UC0uTPqBCFIpZxlz_Lv1tk_g).
-
 # Inside Emacs 1
 
 <details>
@@ -212,6 +204,14 @@ at commit `4cbdb3ce735ae296387069ef7ff309f0cfa812e8`.
 
 Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
 at commit `4cbdb3ce735ae296387069ef7ff309f0cfa812e8`.
+
+# Great video series
+
+I've learnt a lot of emacs cool stuff from [magnars](https://github.com/magnars) and
+[protesilaos](https://protesilaos.com/about/). Go for it:
+
+* [emacs rocks](http://emacsrocks.com/),
+* [protesilaos (youtube)](https://www.youtube.com/channel/UC0uTPqBCFIpZxlz_Lv1tk_g).
 
 # Contact
 
