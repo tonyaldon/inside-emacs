@@ -205,6 +205,49 @@ at commit `4cbdb3ce735ae296387069ef7ff309f0cfa812e8`.
 Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
 at commit `4cbdb3ce735ae296387069ef7ff309f0cfa812e8`.
 
+# Inside Emacs 5
+
+## Inside Emacs 5 (part 1)
+
+<details>
+<summary>Command lines</summary>
+
+	emacsclient -h
+	emacsclient -nw
+	emacs --daemon
+	ps -aux | grep emacs
+	emacsclient --eval "(kill-emacs)"
+	man pidof
+	pidof emacs
+	ps -ax | grep emacs
+	emacs -nw
+
+</details>
+
+Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
+at commit `33c04510f94e5eb96ed7b072dfba410cbc70a9d0`.
+
+## Inside Emacs 5 (part 2)
+
+<details>
+<summary>Command lines</summary>
+
+	cd ~/.config/systemd/user
+	locate emacs.service
+	cp /usr/share/emacs/28.0.50/etc/emacs.service .
+	emacsclient -nw
+	emacsclient --eval "(kill-emacs)"
+	ps -ax | grep emacs
+	systemctl enable emacs --user
+	systemctl status emacs --user
+	systemctl start emacs --user
+	emacsclient -nc
+
+</details>
+
+Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
+at commit `33c04510f94e5eb96ed7b072dfba410cbc70a9d0`.
+
 # Great video series
 
 I've learnt a lot of emacs cool stuff from [magnars](https://github.com/magnars) and
