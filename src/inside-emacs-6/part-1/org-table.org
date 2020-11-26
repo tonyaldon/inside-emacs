@@ -1,0 +1,63 @@
+* scene 1: create tables
+# TAB, RET and |
+
+| expense | price |
+| bar     |    12 |
+| food    |    21 |
+
+| expense | price |
+|---------+-------|
+| bar     |    12 |
+
+# use C-|
+
+|   |   |   |   |   |
+|---+---+---+---+---|
+|   |   |   |   |   |
+
+# use C-| and provide format: 2x2
+
+|   |   |
+|---+---|
+|   |   |
+
+* scene 2: convert from region
+# org-table-create-or-convert-from-region
+
+# use C-| on a region
+
+expense,price
+bar,12
+food,21
+
+expense price
+bar 12
+food 21
+
+expense	price
+bar	12
+food	21
+
+# use C-u C-u C-u C-| on a region to provide a regexp separator
+
+name:tags
+jack:tall,blond
+kim:small,brown
+
+# retrieve a table from wikipedia
+# https://en.wikipedia.org/wiki/Relation_(database)
+
+| ID (Integer) | Name (String)      | Address (String)   |
+|          102 | Yonezawa Akinori   | Naha, Okinawa      |
+|          202 | Nilay Patel        | Sendai, Miyagi     |
+|          104 | Murata Makoto      | Kumamoto, Kumamoto |
+|          152 | Matsumoto Yukihiro | Okinawa, Okinawa   |
+
+* scene 3: import tables
+# M-x org-table-import
+
+| ID (Integer) | Name (String)      | Address (String)   |
+|          102 | Yonezawa Akinori   | Naha, Okinawa      |
+|          202 | Nilay Patel        | Sendai, Miyagi     |
+|          104 | Murata Makoto      | Kumamoto, Kumamoto |
+|          152 | Matsumoto Yukihiro | Okinawa, Okinawa   |
