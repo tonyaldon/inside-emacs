@@ -248,6 +248,36 @@ at commit `33c04510f94e5eb96ed7b072dfba410cbc70a9d0`.
 Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
 at commit `33c04510f94e5eb96ed7b072dfba410cbc70a9d0`.
 
+# Inside Emacs 6
+
+## Inside Emacs 6 (part 1)
+
+Some modes used in the video: `org-mode`, `whitespace-mode`,
+`tsv-mode` and `csv-mode`.
+
+<details>
+  <summary>Commands</summary>
+
+| commands                                  | default key bindings | packages                                                           |
+|-------------------------------------------+----------------------+--------------------------------------------------------------------|
+| `avy-goto-line`                           |                      | [avy](https://github.com/abo-abo/avy)                              |
+| `csv-align-fields`                        | C-c C-a              | [csv-mode](https://elpa.gnu.org/packages/csv-mode.html)            |
+| `er/expand-region`                        |                      | [expand-region](https://github.com/magnars/expand-region.el)       |
+| `mc/mark-next-like-this-word`             |                      | [multiple-cursors](https://github.com/magnars/multiple-cursors.el) |
+| `org-ctrl-c-ctrl-c`                       | C-c C-c              | built-in                                                           |
+| `org-cycle`                               | TAB                  | built-in                                                           |
+| `org-return`                              | RET                  | built-in                                                           |
+| `org-table-create-or-convert-from-region` | C-x <left>           | built-in                                                           |
+| `previous-buffer`                         |                      | built-in                                                           |
+| `tsv-mode`                                |                      | [csv-mode](https://elpa.gnu.org/packages/csv-mode.html)            |
+| `universal-argument`                      | C-u                  | built-in                                                           |
+| `whitespace-mode`                         |                      | built-in                                                           |
+
+</details>
+
+Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
+at commit `fc02ec1c2d2caa52b22410adb465f79c115c7e2a`.
+
 # Great video series
 
 I've learnt a lot of emacs cool stuff from [magnars](https://github.com/magnars) and
