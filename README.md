@@ -267,8 +267,8 @@ Some modes used in the video: `org-mode`, `whitespace-mode`,
 | `org-ctrl-c-ctrl-c`                       | C-c C-c              | built-in                                                           |
 | `org-cycle`                               | TAB                  | built-in                                                           |
 | `org-return`                              | RET                  | built-in                                                           |
-| `org-table-create-or-convert-from-region` | C-x <left>           | built-in                                                           |
-| `previous-buffer`                         |                      | built-in                                                           |
+| `org-table-create-or-convert-from-region` | C-&#124;             | built-in                                                           |
+| `previous-buffer`                         | C-x &lt;left&gt;     | built-in                                                           |
 | `tsv-mode`                                |                      | [csv-mode](https://elpa.gnu.org/packages/csv-mode.html)            |
 | `universal-argument`                      | C-u                  | built-in                                                           |
 | `whitespace-mode`                         |                      | built-in                                                           |
