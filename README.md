@@ -259,7 +259,7 @@ Some modes used in the video: `org-mode`, `whitespace-mode`,
   <summary>Commands</summary>
 
 | commands                                  | default key bindings | packages                                                           |
-|-------------------------------------------+----------------------+--------------------------------------------------------------------|
+|-------------------------------------------|----------------------|--------------------------------------------------------------------|
 | `avy-goto-line`                           |                      | [avy](https://github.com/abo-abo/avy)                              |
 | `csv-align-fields`                        | C-c C-a              | [csv-mode](https://elpa.gnu.org/packages/csv-mode.html)            |
 | `er/expand-region`                        |                      | [expand-region](https://github.com/magnars/expand-region.el)       |
