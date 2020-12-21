@@ -1,0 +1,34 @@
+* scene 1
+# M-a   (org-backward-sentence)
+# M-e   (org-forward-sentence)
+
+| binding | inkscape command        | section | Default |
+|---------+-------------------------+---------+---------|
+| C-t     | Dialogs Toggle          | Dialogs | F12     |
+| a       | Dialog Align Distribute | Dialogs | C-S-a   |
+| e       | Dialog Export           | Dialogs | C-S-e   |
+
+* scene 2
+# use of TAB and S-TAB
+
+| binding | inkscape command        | section | Default |
+|---------+-------------------------+---------+---------|
+| C-t     | Dialogs Toggle          | Dialogs | F12     |
+| a       | Dialog Align Distribute | Dialogs | C-S-a   |
+| e       | Dialog Export           | Dialogs | C-S-e   |
+
+# use of C-m or RET
+
+| binding | inkscape command        | section | Default |
+|---------+-------------------------+---------+---------|
+| C-t     | Dialogs Toggle          | Dialogs | F12     |
+| a       | Dialog Align Distribute | Dialogs | C-S-a   |
+| e       | Dialog Export           | Dialogs | C-S-e   |
+* scene 3
+# to play with my-org-table-previous-row
+
+| binding | inkscape command        | section | Default |
+|---------+-------------------------+---------+---------|
+| C-t     | Dialogs Toggle          | Dialogs | F12     |
+| a       | Dialog Align Distribute | Dialogs | C-S-a   |
+| e       | Dialog Export           | Dialogs | C-S-e   |
