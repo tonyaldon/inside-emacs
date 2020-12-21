@@ -278,6 +278,66 @@ Some modes used in the video: `org-mode`, `whitespace-mode`,
 Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
 at commit `fc02ec1c2d2caa52b22410adb465f79c115c7e2a`.
 
+## Inside Emacs 6 (part 2)
+
+<details>
+  <summary>Emacs Lisp</summary>
+
+| functions/variables                | docstring                                                                                   |
+|------------------------------------|---------------------------------------------------------------------------------------------|
+| `command-remapping`                | Return the remapping for command COMMAND.                                                   |
+| `org-at-table-hline-p`             | Non-nil when point is inside a hline in a table.                                            |
+| `org-at-table-p`                   | Non-nil if the cursor is inside an Org table.                                               |
+| `org-table-current-column`         | Return current column number.                                                               |
+| `org-table-current-line`           | Return the index of the current data line.                                                  |
+| `org-table-goto-column`            | Move the cursor to the Nth column in the current table line.                                |
+| `org-table-maybe-eval-formula`     | Check if the current field starts with "=" or ":=". If yes, store the formula and apply it. |
+| `org-table-maybe-recalculate-line` | Recompute the current line if marked for it, and if we haven’t just done it.                |
+
+</details>
+
+<details>
+  <summary>Commands</summary>
+
+command-remapping
+
+| commands                      | default key bindings | packages                                                           |
+|-------------------------------|----------------------|--------------------------------------------------------------------|
+| `avy-goto-char`               |                      | [avy](https://github.com/abo-abo/avy)                              |
+| `avy-goto-line`               |                      | [avy](https://github.com/abo-abo/avy)                              |
+| `er/expand-region`            |                      | [expand-region](https://github.com/magnars/expand-region.el)       |
+| `eval-defun`                  |                      | built-in                                                           |
+| `eval-expression`             | M-:                  | built-in                                                           |
+| `iy-go-to-char`               |                      | [iy-go-to-char](https://github.com/doitian/iy-go-to-char)          |
+| `join-line`                   |                      | built-in                                                           |
+| `kill-ring-save`              | M-w                  | built-in                                                           |
+| `mc/mark-next-like-this-word` |                      | [multiple-cursors](https://github.com/magnars/multiple-cursors.el) |
+| `my-org-table-previous-row`   |                      | [customized](./src/inside-emacs-6/part-2/previous-row.el)          |
+| `next-buffer`                 | C-x &lt;right&gt;    | built-in                                                           |
+| `org-backward-sentence`       | M-a                  | built-in                                                           |
+| `org-cycle`                   | TAB                  | built-in                                                           |
+| `org-forward-sentence`        | M-e                  | built-in                                                           |
+| `org-return`                  | RET                  | built-in                                                           |
+| `org-shifttab`                | S-TAB                | built-in                                                           |
+| `previous-buffer`             | C-x &lt;left&gt;     | built-in                                                           |
+| `sp-backward-sexp`            |                      | [smartparens](https://github.com/Fuco1/smartparens)                |
+| `sp-backward-up-sexp`         |                      | [smartparens](https://github.com/Fuco1/smartparens)                |
+| `sp-forward-slurp-sexp`       |                      | [smartparens](https://github.com/Fuco1/smartparens)                |
+| `sp-kill-sexp`                |                      | [smartparens](https://github.com/Fuco1/smartparens)                |
+| `sp-next-sexp`                |                      | [smartparens](https://github.com/Fuco1/smartparens)                |
+| `sp-raise-sexp`               |                      | [smartparens](https://github.com/Fuco1/smartparens)                |
+| `ta-avy-copy-sexp`            |                      | [customized](./src/inside-emacs-6/part-2/utils.el)                 |
+| `ta-avy-goto-end-of-line`     |                      | [customized](./src/inside-emacs-6/part-2/utils.el)                 |
+| `ta-below-new-indent`         |                      | [customized](./src/inside-emacs-6/part-2/utils.el)                 |
+| `ta-kill-whole-line`          |                      | [customized](./src/inside-emacs-6/part-2/utils.el)                 |
+| `ta-mark-inside-dwim`         |                      | [customized](./src/inside-emacs-6/part-2/utils.el)                 |
+| `ta-mark-sexp-at-point`       |                      | [customized](./src/inside-emacs-6/part-2/utils.el)                 |
+
+</details>
+
+Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
+at commit `6982f26e031a6aaa82515274d8572204fffaec56`.
+
 # Great video series
 
 I've learnt a lot of emacs cool stuff from [magnars](https://github.com/magnars) and
