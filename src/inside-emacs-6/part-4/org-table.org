@@ -1,0 +1,67 @@
+* scene 1: Copy and Past Region
+** scene 1-a
+# org-table-copy-region
+# org-table-paste-rectangle
+
+|  ID | Name      | Address            |
+| 102 | Yonezawa  | Naha, Okinawa      |
+| 202 | Nilay     | Sendai, Miyagi     |
+| 104 | Murata    | Kumamoto, Kumamoto |
+| 152 | Matsumoto | Okinawa, Okinawa   |
+
+** scene 1-b
+
+|  ID | Name      | Address            |
+| 102 | Yonezawa  | Naha, Okinawa      |
+| 202 | Nilay     | Sendai, Miyagi     |
+| 104 | Murata    | Kumamoto, Kumamoto |
+| 152 | Matsumoto | Okinawa, Okinawa   |
+
+|  ID | Name      | Address            |
+| 102 | Yonezawa  | Naha, Okinawa      |
+| 202 | Nilay     | Sendai, Miyagi     |
+| 104 | Murata    | Kumamoto, Kumamoto |
+| 152 | Matsumoto | Okinawa, Okinawa   |
+
+|  ID | Name      | Address            |
+| 102 | Yonezawa  | Naha, Okinawa      |
+| 202 | Nilay     | Sendai, Miyagi     |
+| 104 | Murata    | Kumamoto, Kumamoto |
+| 152 | Matsumoto | Okinawa, Okinawa   |
+* scene 2: Insert Horizontal Lines
+# C-c -
+
+| binding | command                  |
+| C-c -   | org-table-insert-hline   |
+| C-c RET | org-table-hline-and-move |
+
+# C-u C-c -
+
+| binding | command                  |
+| C-c -   | org-table-insert-hline   |
+| C-c RET | org-table-hline-and-move |
+
+# C-c RET
+
+| binding | command                  |
+| C-c -   | org-table-insert-hline   |
+| C-c RET | org-table-hline-and-move |
+
+# C-u C-c RET
+
+| binding | command                  |
+| C-c -   | org-table-insert-hline   |
+| C-c RET | org-table-hline-and-move |
+* scene 3: Sort Table Lines
+# org-table-sort-lines
+# C-c ^
+
+| id | word        | date             |
+|----+-------------+------------------|
+|  1 | lorem       | <2020-12-18 Fri> |
+|  2 | ipsum       | <2020-12-19 Sat> |
+|  3 | dolor       | <2020-12-20 Sun> |
+|  4 | sit         | <2020-12-21 Mon> |
+|----+-------------+------------------|
+|  5 | amet        | <2020-12-22 Tue> |
+|  6 | consectetur | <2020-12-23 Wed> |
