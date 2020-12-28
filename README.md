@@ -299,8 +299,6 @@ at commit `fc02ec1c2d2caa52b22410adb465f79c115c7e2a`.
 <details>
   <summary>Commands</summary>
 
-command-remapping
-
 | commands                      | default key bindings | packages                                                           |
 |-------------------------------|----------------------|--------------------------------------------------------------------|
 | `avy-goto-char`               |                      | [avy](https://github.com/abo-abo/avy)                              |
@@ -357,8 +355,6 @@ at commit `6982f26e031a6aaa82515274d8572204fffaec56`.
 <details>
   <summary>Commands</summary>
 
-command-remapping
-
 | commands                    | default key bindings | packages                                                           |
 |-----------------------------|----------------------|--------------------------------------------------------------------|
 | `avy-goto-char`             |                      | [avy](https://github.com/abo-abo/avy)                              |
@@ -388,6 +384,36 @@ command-remapping
 
 Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
 at commit `124a1958e4e222722980ced00724f0ee7c948575`.
+
+## Inside Emacs 6 (part 4)
+
+<details>
+  <summary>Commands</summary>
+
+| commands                    | default key bindings | packages                              |
+|-----------------------------|----------------------|---------------------------------------|
+| `avy-goto-char`             |                      | [avy](https://github.com/abo-abo/avy) |
+| `org-ctrl-c-ctrl-c`         | C-c C-c              | built-in                              |
+| `org-ctrl-c-minus`          | C-c -                | built-in                              |
+| `org-ctrl-c-ret`            | C-c RET              | built-in                              |
+| `org-cycle`                 | TAB                  | built-in                              |
+| `org-forward-sentence`      | M-e                  | built-in                              |
+| `org-return`                | RET                  | built-in                              |
+| `org-shiftmetaright`        | M-S-&lt;right&gt;    | built-in                              |
+| `org-shifttab`              | S-TAB                | built-in                              |
+| `org-sort`                  | C-c ^                | built-in                              |
+| `org-table-copy-region`     |                      | built-in                              |
+| `org-table-hline-and-move`  | C-c RET              | built-in                              |
+| `org-table-insert-hline`    | C-c -                | built-in                              |
+| `org-table-paste-rectangle` |                      | built-in                              |
+| `org-table-sort-lines`      | C-c ^                | built-in                              |
+| `undo`                      | C-x u                | built-in                                                           |
+
+</details>
+
+Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
+at commit `124a1958e4e222722980ced00724f0ee7c948575`.
+
 
 # Great video series
 
