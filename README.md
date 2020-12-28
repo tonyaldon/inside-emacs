@@ -338,6 +338,57 @@ command-remapping
 Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
 at commit `6982f26e031a6aaa82515274d8572204fffaec56`.
 
+## Inside Emacs 6 (part 3)
+
+<details>
+  <summary>Emacs Lisp</summary>
+
+| functions/variables  | docstring                                                                 |
+|----------------------|---------------------------------------------------------------------------|
+| `call-interactively` | Call FUNCTION, providing args according to its interactive calling specs. |
+| `define-key`         | In KEYMAP, define key sequence KEY as DEF.                                |
+| `org-at-table-p`     | Non-nil if the cursor is inside an Org table.                             |
+| `org-in-item-p`      | Return item beginning position when in a plain list, nil otherwise.       |
+| `org-insert-heading` | Insert a new heading or an item with the same depth at point.             |
+| `org-insert-item`    | Insert a new item at the current level.                                   |
+
+</details>
+
+<details>
+  <summary>Commands</summary>
+
+command-remapping
+
+| commands                    | default key bindings | packages                                                           |
+|-----------------------------|----------------------|--------------------------------------------------------------------|
+| `avy-goto-char`             |                      | [avy](https://github.com/abo-abo/avy)                              |
+| `avy-goto-line`             |                      | [avy](https://github.com/abo-abo/avy)                              |
+| `eval-defun`                |                      | built-in                                                           |
+| `join-line`                 |                      | built-in                                                           |
+| `mc/mark-next-like-this`    |                      | [multiple-cursors](https://github.com/magnars/multiple-cursors.el) |
+| `my-org-meta-return`        |                      | [customized](./src/inside-emacs-6/part-3/org-meta-return.el)       |
+| `org-ctrl-c-ctrl-c`         | C-c C-c              | built-in                                                           |
+| `org-meta-return`           | &lt;M-return&gt;     | built-in                                                           |
+| `org-return`                | RET                  | built-in                                                           |
+| `org-table-wrap-region`     |                      | built-in                                                           |
+| `previous-buffer`           | C-x &lt;left&gt;     | built-in                                                           |
+| `repeat`                    | C-x z                | built-in                                                           |
+| `sp-backward-up-sexp`       |                      | [smartparens](https://github.com/Fuco1/smartparens)                |
+| `sp-forward-slurp-sexp`     |                      | [smartparens](https://github.com/Fuco1/smartparens)                |
+| `ta-avy-copy-sexp`          |                      | [customized](./src/inside-emacs-6/part-3/utils.el)                 |
+| `ta-avy-goto-end-of-line`   |                      | [customized](./src/inside-emacs-6/part-3/utils.el)                 |
+| `ta-kill-whole-line`        |                      | [customized](./src/inside-emacs-6/part-3/utils.el)                 |
+| `ta-mark-inside-dwim`       |                      | [customized](./src/inside-emacs-6/part-3/utils.el)                 |
+| `ta-mark-sexp-at-point`     |                      | [customized](./src/inside-emacs-6/part-3/utils.el)                 |
+| `ta-org-table-previous-row` |                      | [customized](./src/inside-emacs-6/part-3/utils.el)                 |
+| `undo`                      | C-x u                | built-in                                                           |
+| `yas-expand`                |                      | [yasnippet](https://github.com/joaotavora/yasnippet)               |
+
+</details>
+
+Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
+at commit `124a1958e4e222722980ced00724f0ee7c948575`.
+
 # Great video series
 
 I've learnt a lot of emacs cool stuff from [magnars](https://github.com/magnars) and
