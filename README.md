@@ -414,6 +414,54 @@ at commit `124a1958e4e222722980ced00724f0ee7c948575`.
 Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
 at commit `124a1958e4e222722980ced00724f0ee7c948575`.
 
+## Inside Emacs 6 (part 5)
+
+<details>
+  <summary>Emacs Lisp</summary>
+
+| functions/variables          | docstring                                                                      |
+|------------------------------|--------------------------------------------------------------------------------|
+| `org-table-auto-blank-field` | Non-nil means automatically blank table field when starting to type into it.   |
+| `org-table-copy-increment`   | Non-nil means increment when copying current field with `org-table-copy-down`. |
+
+</details>
+
+<details>
+  <summary>Commands</summary>
+
+| commands                    | default key bindings | packages                                           |
+|-----------------------------|----------------------|----------------------------------------------------|
+| `avy-goto-char`             |                      | [avy](https://github.com/abo-abo/avy)              |
+| `eval-expression`           | M-:                  | built-in                                           |
+| `org-cycle`                 | TAB                  | built-in                                           |
+| `org-metadown`              | M-<down>             | built-in                                           |
+| `org-metaleft`              | M-<left>             | built-in                                           |
+| `org-metaright`             | M-<right>            | built-in                                           |
+| `org-metaup`                | M-<up>               | built-in                                           |
+| `org-return`                | RET                  | built-in                                           |
+| `org-shiftdown`             | S-<down>             | built-in                                           |
+| `org-shiftdown`             | S-<down>             | built-in                                           |
+| `org-shiftleft`             | S-<left>             | built-in                                           |
+| `org-shiftleft`             | S-<left>             | built-in                                           |
+| `org-shiftmetadown`         | M-S-<down>           | built-in                                           |
+| `org-shiftmetaleft`         | M-S-<left>           | built-in                                           |
+| `org-shiftmetaright`        | M-S-<right>          | built-in                                           |
+| `org-shiftmetaup`           | M-S-<up>             | built-in                                           |
+| `org-shiftright`            | S-<right>            | built-in                                           |
+| `org-shiftright`            | S-<right>            | built-in                                           |
+| `org-shifttab`              | S-TAB                | built-in                                           |
+| `org-shiftup`               | S-<up>               | built-in                                           |
+| `org-shiftup`               | S-<up>               | built-in                                           |
+| `org-table-blank-field`     | C-SPC                | built-in                                           |
+| `org-table-copy-down`       | S-RET                | built-in                                           |
+| `ta-mark-inside-dwim`       |                      | [customized](./src/inside-emacs-6/part-5/utils.el) |
+| `ta-mark-sexp-at-point`     |                      | [customized](./src/inside-emacs-6/part-5/utils.el) |
+| `ta-org-table-previous-row` |                      | [customized](./src/inside-emacs-6/part-5/utils.el) |
+
+</details>
+
+Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
+at commit `852afb87e258c90a8e79a026dae369272b3b5280`.
 
 # Great video series
 
