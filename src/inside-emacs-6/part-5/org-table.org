@@ -1,0 +1,72 @@
+* scene 1: blank field
+# C-c SPC
+
+| 1 | C-c SPC will blank this field |
+| 2 | nothing special               |
+
+# TAB, S-TAB or RET
+
+| TAB          | start typing |
+| .            | RET          |
+| .            | start typing |
+| start typing | S-TAB        |
+
+# (setq org-table-auto-blank-field nil)
+
+| TAB | start typing |
+
+* scene 2: org-table-copy-down
+# S-RET
+# M-x org-table-copy-down
+
+| word | word | number | interval |
+|------+------+--------+----------|
+| same | same |      1 |        0 |
+|      |      |        |        5 |
+|      |      |        |          |
+
+| prefix | suffix | timestamp (by days) |
+| 0-xyz  | xyz-0  | <2020-12-28 Mon>    |
+|        |        |                     |
+
+# org-table-copy-increment
+
+* scene 3: swapping fields
+# S-<left>, S-<right>, S-<up>, S-<down>
+
+| ... | a   | ... |
+| b   | XXX | c   |
+| ... | p   | ... |
+
+* scene 4: operations on columns
+# M-<left> and M-<right>
+
+| A | B | XXX | C | D |
+| A | B | XXX | C | D |
+| A | B | XXX | C | D |
+| A | B | XXX | C | D |
+| A | B | XXX | C | D |
+
+# M-S-<right> and M-S-<left>
+
+| A | B | C | D |
+| A | B | C | D |
+| A | B | C | D |
+| A | B | C | D |
+| A | B | C | D |
+
+* scene 5: operations on lines
+# M-<up> and M-<down>
+
+| A   | A   | A   | A   | A   |
+| B   | B   | B   | B   | B   |
+| XXX | XXX | XXX | XXX | XXX |
+| C   | C   | C   | C   | C   |
+| D   | D   | D   | D   | D   |
+
+# M-S-<down> and M-S-<up>
+
+| A | A | A | A | A |
+| B | B | B | B | B |
+| C | C | C | C | C |
+| D | D | D | D | D |
