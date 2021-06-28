@@ -463,6 +463,43 @@ at commit `124a1958e4e222722980ced00724f0ee7c948575`.
 Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
 at commit `852afb87e258c90a8e79a026dae369272b3b5280`.
 
+## Inside Emacs 6 (part 6)
+
+<details>
+  <summary>Emacs Lisp</summary>
+
+| functions/variables | docstring                                                |
+|---------------------|----------------------------------------------------------|
+| `orgtbl-to-generic` | Convert the orgtbl-mode TABLE to some other format.      |
+| `orgtbl-to-tsv`     | Convert the orgtbl-mode table to TAB separated material. |
+
+</details>
+
+<details>
+  <summary>Commands</summary>
+
+| commands                        | default key bindings | packages                                           |
+|---------------------------------|----------------------|----------------------------------------------------|
+| `avy-goto-char`                 |                      | [avy](https://github.com/abo-abo/avy)              |
+| `avy-goto-line`                 |                      | [avy](https://github.com/abo-abo/avy)              |
+| `counsel-M-x`                   |                      | [swiper](https://github.com/abo-abo/swiper)        |
+| `counsel-find-file`             |                      | [swiper](https://github.com/abo-abo/swiper)        |
+| `handy-expand-region-dwim`      |                      | [customized](./src/inside-emacs-6/part-6/utils.el) |
+| `handy-mark-dwim`               |                      | [customized](./src/inside-emacs-6/part-6/utils.el) |
+| `handy-mark-line`               |                      | [customized](./src/inside-emacs-6/part-6/utils.el) |
+| `insight-scroll-up-half-window` |                      | [customized](./src/inside-emacs-6/part-6/utils.el) |
+| `org-cycle`                     | TAB                  | built-in                                           |
+| `org-set-property`              | C-c C-x p            | built-in                                           |
+| `org-shiftmetaright`            | M-S-<right>          | built-in                                           |
+| `org-table-export`              |                      | built-in                                           |
+| `ta-describe-thing-at-point`    |                      | [customized](./src/inside-emacs-6/part-6/utils.el) |
+| `ta-org-shiftmetadown`          |                      | [customized](./src/inside-emacs-6/part-6/utils.el) |
+
+</details>
+
+Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
+at commit `06ba16e26da4fbedb430090287aec096bf491037`.
+
 # Great video series
 
 I've learnt a lot of emacs cool stuff from [magnars](https://github.com/magnars) and
