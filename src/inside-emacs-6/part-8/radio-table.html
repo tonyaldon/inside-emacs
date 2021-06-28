@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>orgtbl-mode and radio tables</h1>
+
+
+    <!-- BEGIN RECEIVE ORGTBL my-table -->
+    <table style="background:#d8d8d8;">
+
+
+      <colgroup>
+        <col  class="org-left" />
+
+        <col  class="org-left" />
+
+        <col  class="org-left" />
+
+        <col  class="org-left" />
+      </colgroup>
+      <tbody>
+        <tr>
+          <td class="org-left">b1</td>
+          <td class="org-left">I</td>
+          <td class="org-left">love</td>
+          <td class="org-left">Emacs</td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- END RECEIVE ORGTBL my-table -->
+    <!--
+        #+ORGTBL: SEND my-table orgtbl-to-html :splice nil :skip 1 :attributes (:style "background:#d8d8d8;")
+        | a1 |   |      | DO NOT EXPORT THIS LINE |
+        | b1 | I | love | Emacs                   |
+      -->
+
+
+  </body>
+</html>
