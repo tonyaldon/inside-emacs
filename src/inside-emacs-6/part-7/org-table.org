@@ -1,0 +1,18 @@
+* orgtbl-to-html parameters
+:PROPERTIES:
+:TABLE_EXPORT_FILE: table.html
+:TABLE_EXPORT_FORMAT: orgtbl-to-html :html-table-row-open-tag color-even-lines
+:END:
+
+| a1 | a2 | a3 |
+| b1 | b2 | b3 |
+| c1 | c2 | c3 |
+| d1 | d2 | d3 |
+
+#+BEGIN_SRC emacs-lisp
+(defun color-even-lines (number _ _ _ _ _)
+  "Color even lines."
+  (if (zerop (mod number 2))
+      "<tr>"
+    "<tr style=\"background:#d8d8d8;\">"))
+#+END_SRC
