@@ -1,0 +1,68 @@
+* scene 1: org-table-export
+# M-x org-table-export
+# orgtbl-to-tsv
+
+| a1 | a2 |
+| b1 | b2 |
+* scene 2: org-table-export using properties
+:PROPERTIES:
+:TABLE_EXPORT_FILE: table.html
+:TABLE_EXPORT_FORMAT: orgtbl-to-html
+:END:
+# org-set-property (C-c C-x p)
+# M-x org-table-export
+
+| a1 | a2 |
+| b1 | b2 |
+* scene 3: translator functions
+
+orgtbl-to-tsv
+orgtbl-to-csv
+orgtbl-to-latex
+orgtbl-to-html
+orgtbl-to-texinfo
+orgtbl-to-orgtbl
+orgtbl-to-table.el
+orgtbl-to-unicode
+* scene 4: skip lines
+# M-x org-table-export
+# orgtbl-to-tsv :skip 1
+
+| a1 | a2 |
+| b1 | b2 |
+| c1 | c2 |
+
+* scene 5: skip lines and columns using properties
+:PROPERTIES:
+:TABLE_EXPORT_FILE: table.csv
+:TABLE_EXPORT_FORMAT: orgtbl-to-tsv :skip 2 :skipcols (2 4)
+:END:
+
+| a1 | a2 | a3 | a4 |
+| b1 | b2 | b3 | b4 |
+| c1 | c2 | c3 | c4 |
+
+* scene 6: do not export those lines
+:PROPERTIES:
+:TABLE_EXPORT_FILE: table.csv
+:TABLE_EXPORT_FORMAT: orgtbl-to-tsv
+:END:
+
+|   | a1 | a2 | a3 | a4 |
+|---+----+----+----+----|
+| / | b1 | b2 | b3 | b4 |
+|   | c1 | c2 | c3 | c4 |
+| / | d1 | d2 | d3 | d4 |
+
+* scene 7: group columns
+:PROPERTIES:
+:TABLE_EXPORT_FILE: table.html
+:TABLE_EXPORT_FORMAT: orgtbl-to-html
+:END:
+
+| a1 | a2 | a3 | a4 | a5 | a6 |
+|----+----+----+----+----+----|
+| /  | <  |    |    | <  |    |
+| b1 | b2 | b3 | b4 | b5 | b6 |
+| c1 | c2 | c3 | c4 | c5 | c6 |
+| d1 | d2 | d3 | d4 | d5 | d6 |
