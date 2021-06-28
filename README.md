@@ -500,6 +500,51 @@ at commit `852afb87e258c90a8e79a026dae369272b3b5280`.
 Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
 at commit `06ba16e26da4fbedb430090287aec096bf491037`.
 
+## Inside Emacs 6 (part 7)
+
+<details>
+  <summary>Emacs Lisp</summary>
+
+| functions/variables         | docstring                                             |
+|-----------------------------|-------------------------------------------------------|
+| `orgtbl-to-generic`         | Convert the orgtbl-mode TABLE to some other format.   |
+| `orgtbl-to-html`            | Convert the orgtbl-mode TABLE to HTML.                |
+| `org-export-define-backend` | Define a new back-end BACKEND.                        |
+| `org-export-options-alist`  | Alist between export properties and ways to set them. |
+
+</details>
+
+<details>
+  <summary>Commands</summary>
+
+| commands                        | default key bindings     | packages                                             |
+|---------------------------------|--------------------------|------------------------------------------------------|
+| `avy-goto-char`                 |                          | [avy](https://github.com/abo-abo/avy)                |
+| `avy-goto-line`                 |                          | [avy](https://github.com/abo-abo/avy)                |
+| `counsel-M-x`                   |                          | [swiper](https://github.com/abo-abo/swiper)          |
+| `counsel-yank-pop`              |                          | [swiper](https://github.com/abo-abo/swiper)          |
+| `eval-last-sexp`                | C-x C-e                  | built-in                                             |
+| `handy-expand-region-dwim`      |                          | [customized](./src/inside-emacs-6/part-7/utils.el)   |
+| `handy-mark-dwim`               |                          | [customized](./src/inside-emacs-6/part-7/utils.el)   |
+| `handy-mark-inside-dwim`        |                          | [customized](./src/inside-emacs-6/part-7/utils.el)   |
+| `insight-scroll-up-half-window` |                          | [customized](./src/inside-emacs-6/part-7/utils.el)   |
+| `isearch-forward`               | C-s                      | built-in                                             |
+| `isearch-occur`                 | M-s o (isearch-mode-map) | built-in                                             |
+| `narrow-to-region`              | C-x n n                  | built-in                                             |
+| `org-edit-special`              | C-c ' (org-mode-map)     | built-in                                             |
+| `org-edit-src-exit`             | C-c ' (org-mode-map)     | built-in                                             |
+| `org-table-export`              |                          | built-in                                             |
+| `recenter-top-bottom`           | C-l                      | built-in                                             |
+| `sp-next-sexp`                  |                          | [smartparens](https://github.com/Fuco1/smartparens)  |
+| `ta-avy-goto-end-of-line`       |                          | [customized](./src/inside-emacs-6/part-7/utils.el)   |
+| `ta-describe-thing-at-point`    |                          | [customized](./src/inside-emacs-6/part-7/utils.el)   |
+| `yas-expand`                    |                          | [yasnippet](https://github.com/joaotavora/yasnippet) |
+
+</details>
+
+Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
+at commit `06ba16e26da4fbedb430090287aec096bf491037`.
+
 # Great video series
 
 I've learnt a lot of emacs cool stuff from [magnars](https://github.com/magnars) and
