@@ -24,14 +24,23 @@ the general use of these bindings, I just wanted them to fit the
 specific [keyboard-layout](https://github.com/tonyaldon/keyboard-layout)
 I'm using.
 
-I heavily rely on [hydra](https://github.com/abo-abo/hydra). I've
-broke my `hydras` into 4 kinds off actions :
+[hydra](https://github.com/abo-abo/hydra) package offers a flexible
+and convenient way to make a bunch of related commands share a same
+key sequence prefix.
 
-* `hydra-lines`: actions related to lines and short movements,
-* `hydra-sp`: actions perform on `sexp` with
-  [smartparens](https://github.com/Fuco1/smartparens),
-* `hydra-browse`: actions related to browsing code,
-* `hydra-windows`: actions related to window layout.
+I set `hydra-hint-display-type` to `'message` to not have the
+minibuffer changed when I use an `hydra`.  And, all my `hydras` have
+the parameter `:hint` set to `nil`.  I never want to see the keys
+printed.
+
+If I can't remember a key binding, mostly it's because I almost don't
+use the command it maps to.  In that case, I remove it.
+
+I also use [key-chord](https://github.com/emacsorphanage/key-chord)
+package.  From the its documentation: This package implements support
+for mapping a pair of simultaneously pressed keys to a command and for
+mapping the same key being pressed twice in quick succession to a
+command. Such bindings are called "key chords".
 
 For more details, you can browse my
 [emacs configuration](https://github.com/tonyaldon/emacs.d).
