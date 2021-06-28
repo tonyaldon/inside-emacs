@@ -180,7 +180,7 @@ at commit `4cbdb3ce735ae296387069ef7ff309f0cfa812e8`.
 | commands                     | packages                                             |
 |------------------------------|------------------------------------------------------|
 | `avy-goto-word-or-subword-1` | [avy](https://github.com/abo-abo/avy)                |
-| `counsel-M-x`                | [avy](https://github.com/abo-abo/avy)                |
+| `counsel-M-x`                | [counsel](https://github.com/abo-abo/swiper)         |
 | `delete-blank-lines`         | built-in                                             |
 | `describe-variable`          | built-in                                             |
 | `eval-defun`                 | built-in                                             |
@@ -190,7 +190,7 @@ at commit `4cbdb3ce735ae296387069ef7ff309f0cfa812e8`.
 | `previous-buffer`            | built-in                                             |
 | `revert-buffer`              | built-in                                             |
 | `sp-next-sexp`               | [smartparens](https://github.com/Fuco1/smartparens)  |
-| `swiper`                     | [counsel](https://github.com/abo-abo/swiper)         |
+| `swiper`                     | [swiper](https://github.com/abo-abo/swiper)          |
 | `ta-above-new-indent`        | [customized](./src/inside-emacs-4/utils.el)          |
 | `ta-avy-goto-end-of-line`    | [customized](./src/inside-emacs-4/utils.el)          |
 | `ta-below-new-indent`        | [customized](./src/inside-emacs-4/utils.el)          |
