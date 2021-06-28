@@ -545,6 +545,45 @@ at commit `06ba16e26da4fbedb430090287aec096bf491037`.
 Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
 at commit `06ba16e26da4fbedb430090287aec096bf491037`.
 
+## Inside Emacs 6 (part 8)
+
+<details>
+  <summary>Emacs Lisp</summary>
+
+| functions/variables            | docstring                                              |
+|--------------------------------|--------------------------------------------------------|
+| `orgtbl-radio-table-templates` | Templates for radio tables in different major modes.   |
+| `advice-add`                   | Like ‘add-function’ but for the function named SYMBOL. |
+| `inhibit-message`              | Non-nil means calls to ‘message’ are not displayed.    |
+| `indent-region`                | Indent each nonblank line in the region.               |
+|                                |                                                        |
+
+</details>
+
+<details>
+  <summary>Commands</summary>
+
+| commands                             | default key bindings          | packages                                           |
+|--------------------------------------|-------------------------------|----------------------------------------------------|
+| `counsel-M-x`                        |                               | [swiper](https://github.com/abo-abo/swiper)        |
+| `orgtbl-mode`                        |                               | built-in                                           |
+| `orgtbl-hijacker-command-4`          | M-S-<right> (orgtbl-mode-map) | built-in                                           |
+| `orgtbl-hijacker-command-100`        | <return>    (orgtbl-mode-map) | built-in                                           |
+| `orgtbl-hijacker-command-102`        | <tab>       (orgtbl-mode-map) | built-in                                           |
+| `orgtbl-hijacker-command-17`         | S-<return>  (orgtbl-mode-map) | built-in                                           |
+| `orgtbl-hijacker-command-109`        | <backspace> (orgtbl-mode-map) | built-in                                           |
+| `orgtbl-ctrl-c-ctrl-c`               | C-c C-c     (orgtbl-mode-map) | built-in                                           |
+| `org-table-transpose-table-at-point` |                               | built-in                                           |
+| `orgtbl-insert-radio-table`          |                               | built-in                                           |
+| `recenter-top-bottom`                | C-l                           | built-in                                           |
+| `ta-avy-goto-end-of-line`            |                               | [customized](./src/inside-emacs-6/part-8/utils.el) |
+| `counsel-yank-pop`                   |                               | [swiper](https://github.com/abo-abo/swiper)        |
+
+</details>
+
+Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
+at commit `06ba16e26da4fbedb430090287aec096bf491037`.
+
 # Great video series
 
 I've learnt a lot of emacs cool stuff from [magnars](https://github.com/magnars) and
