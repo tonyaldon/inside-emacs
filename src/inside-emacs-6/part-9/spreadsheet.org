@@ -1,0 +1,115 @@
+* scene 1: TBLFM keyword
+# C-c C-c on the line starting by #+TBLFM:
+
+| Using Calc | Using Elisp |
+|------------+-------------|
+|          2 |             |
+#+TBLFM: @2$1=1+1
+
+| Using Calc | Using Elisp |
+|------------+-------------|
+|            |           4 |
+#+TBLFM: @2$2='(+ 2 2)
+
+# use :: to separate assignments
+
+| Using Calc | Using Elisp |
+|------------+-------------|
+|          2 |           4 |
+#+TBLFM: @2$1=1+1::@2$2='(+ 2 2)
+
+* scene 2: left-hand side of an assignment
+# only @ or $
+
+|     |     |     |     |     |
+|     |     |     |     |     |
+|     |     |     |     |     |
+|     |     |     |     |     |
+| XXX | XXX | XXX | XXX | XXX |
+#+TBLFM: @5=XXX
+
+|   |   |   |   | XXX |
+|   |   |   |   | XXX |
+|   |   |   |   | XXX |
+|   |   |   |   | XXX |
+|   |   |   |   | XXX |
+#+TBLFM: $5=XXX
+
+# @< first row
+# @> last row
+# $< first column
+# $> last column
+
+| XXX | XXX | XXX | XXX | XXX |
+|     |     |     |     |     |
+|     |     |     |     |     |
+|     |     |     |     |     |
+| XXX | XXX | XXX | XXX | XXX |
+#+TBLFM: @<=XXX::@>=XXX
+
+| XXX |   |   |   | XXX |
+| XXX |   |   |   | XXX |
+| XXX |   |   |   | XXX |
+| XXX |   |   |   | XXX |
+| XXX |   |   |   | XXX |
+#+TBLFM: $<=XXX::$>=XXX
+
+|   |     |     |     |   |
+|   |     |     |     |   |
+|   | XXX | XXX | XXX |   |
+|   |     |     |     |   |
+|   |     |     |     |   |
+#+TBLFM: @3$2..@3$4=XXX
+
+|   |   |     |   |   |
+|   |   | XXX |   |   |
+|   |   | XXX |   |   |
+|   |   | XXX |   |   |
+|   |   |     |   |   |
+#+TBLFM: @2$3..@4$3=XXX
+
+|   |     |     |     |   |
+|   | XXX | XXX | XXX |   |
+|   | XXX | XXX | XXX |   |
+|   | XXX | XXX | XXX |   |
+|   |     |     |     |   |
+#+TBLFM: @2$2..@4$4=XXX
+
+* scene 3: right-hand side of an assignment
+# @ROW$COLUMN syntax
+
+| 1 | 2 |   |
+|   |   | 3 |
+#+TBLFM: @2$3=@1$1+@1$2
+
+# omit @
+
+| 1 | 2 | 3 |
+|   |   |   |
+#+TBLFM: @1$3=$1+$2
+
+| 1 | 2 | 3 |
+| 1 | 3 | 4 |
+| 1 | 4 | 5 |
+#+TBLFM: $3=$1+$2
+
+# ranges with Calc formulas
+
+| 1 | 2 | 3 | [1, 2, 3] |
+#+TBLFM: @1$4=$1..$3
+
+| 1 | 2 | 3 | 6 |
+#+TBLFM: @1$4=vsum($1..$3)
+
+# ranges with Emacs Lisp form formulas
+
+| 1 | 2 | 3 | 123 |
+#+TBLFM: @1$4='(concat $1..$3)
+
+# @1 is not a range
+
+| 1 | 2 | 3 |
+|   |   | 3 |
+|   |   | 6 |
+#+TBLFM: @2$3=@1
+#+TBLFM: @3$3=vsum(@1$1..@1$3)
