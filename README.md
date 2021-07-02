@@ -593,6 +593,25 @@ at commit `06ba16e26da4fbedb430090287aec096bf491037`.
 Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
 at commit `06ba16e26da4fbedb430090287aec096bf491037`.
 
+## Inside Emacs 6 (part 9)
+
+[Watch on youtube](https://youtu.be/wrEYankhAIs)
+
+<details>
+  <summary>Commands</summary>
+
+| commands                  | default key bindings       | packages                                           |
+|---------------------------|----------------------------|----------------------------------------------------|
+| `handy-mark-line`         |                            | [customized](./src/inside-emacs-6/part-9/utils.el) |
+| `org-ctrl-c-ctrl-c`       | C-c C-c  (orgtbl-mode-map) | built-in                                           |
+| `org-yank`                | C-y      (orgtbl-mode-map) | built-in                                           |
+| `ta-avy-goto-end-of-line` |                            | [customized](./src/inside-emacs-6/part-9/utils.el) |
+
+</details>
+
+Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d)
+at commit `15379cdd5e548f1540d677d4386bb5da7d5bc5b0`.
+
 # Great video series
 
 I've learnt a lot of emacs cool stuff from [magnars](https://github.com/magnars) and
