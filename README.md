@@ -61,6 +61,8 @@ I hope these videos can help you in your `emacs` trip.
 
 # Inside Emacs 1
 
+[Watch on youtube](https://youtu.be/F1IXixEhQwk)
+
 <details>
   <summary>Commands</summary>
 
@@ -92,6 +94,8 @@ Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d
 at commit `f760601bfc92bac7570f74396dbe1e4910af86af`.
 
 # Inside Emacs 2
+
+[Watch on youtube](https://youtu.be/Tc4-sLf8HBc)
 
 <details>
   <summary>Commands</summary>
@@ -129,6 +133,8 @@ at commit `f760601bfc92bac7570f74396dbe1e4910af86af`.
 
 # Inside Emacs 3
 
+[Watch on youtube](https://youtu.be/RFhay0n7JJo)
+
 <details>
   <summary>Commands</summary>
 
@@ -156,6 +162,8 @@ The github repository of [company](https://github.com/company-mode/company-mode)
 
 ## Inside Emacs 4 (part 1)
 
+[Watch on youtube](https://youtu.be/96jn5A73-oQ)
+
 <details>
   <summary>Commands</summary>
 
@@ -182,6 +190,8 @@ Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d
 at commit `4cbdb3ce735ae296387069ef7ff309f0cfa812e8`.
 
 ## Inside Emacs 4 (part 2)
+
+[Watch on youtube](https://youtu.be/zSPraaX2524)
 
 <details>
   <summary>Commands</summary>
@@ -218,6 +228,8 @@ at commit `4cbdb3ce735ae296387069ef7ff309f0cfa812e8`.
 
 ## Inside Emacs 5 (part 1)
 
+[Watch on youtube](https://youtu.be/kw4h2hYYq-o)
+
 <details>
 <summary>Command lines</summary>
 
@@ -237,6 +249,8 @@ Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d
 at commit `33c04510f94e5eb96ed7b072dfba410cbc70a9d0`.
 
 ## Inside Emacs 5 (part 2)
+
+[Watch on youtube](https://youtu.be/fg_jTo9SK9I)
 
 <details>
 <summary>Command lines</summary>
@@ -260,6 +274,8 @@ at commit `33c04510f94e5eb96ed7b072dfba410cbc70a9d0`.
 # Inside Emacs 6
 
 ## Inside Emacs 6 (part 1)
+
+[Watch on youtube](https://youtu.be/pRXRwQ1GGr4)
 
 Some modes used in the video: `org-mode`, `whitespace-mode`,
 `tsv-mode` and `csv-mode`.
@@ -288,6 +304,8 @@ Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d
 at commit `fc02ec1c2d2caa52b22410adb465f79c115c7e2a`.
 
 ## Inside Emacs 6 (part 2)
+
+[Watch on youtube](https://youtu.be/RhwCClMdaps)
 
 <details>
   <summary>Emacs Lisp</summary>
@@ -347,6 +365,8 @@ at commit `6982f26e031a6aaa82515274d8572204fffaec56`.
 
 ## Inside Emacs 6 (part 3)
 
+[Watch on youtube](https://youtu.be/KxOwKK5sXRA)
+
 <details>
   <summary>Emacs Lisp</summary>
 
@@ -396,6 +416,8 @@ at commit `124a1958e4e222722980ced00724f0ee7c948575`.
 
 ## Inside Emacs 6 (part 4)
 
+[Watch on youtube](https://youtu.be/0fbrVArRxUo)
+
 <details>
   <summary>Commands</summary>
 
@@ -424,6 +446,8 @@ Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d
 at commit `124a1958e4e222722980ced00724f0ee7c948575`.
 
 ## Inside Emacs 6 (part 5)
+
+[Watch on youtube](https://youtu.be/w4wxGOijyZs)
 
 <details>
   <summary>Emacs Lisp</summary>
@@ -474,6 +498,8 @@ at commit `852afb87e258c90a8e79a026dae369272b3b5280`.
 
 ## Inside Emacs 6 (part 6)
 
+[Watch on youtube](https://www.youtube.com/watch?v=loa1g9wwNlI)
+
 <details>
   <summary>Emacs Lisp</summary>
 
@@ -510,6 +536,8 @@ Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d
 at commit `06ba16e26da4fbedb430090287aec096bf491037`.
 
 ## Inside Emacs 6 (part 7)
+
+[Watch on youtube](https://www.youtube.com/watch?v=LogbcVWb3mQ)
 
 <details>
   <summary>Emacs Lisp</summary>
@@ -555,6 +583,8 @@ Video grabbed with my [emacs configuration](https://github.com/tonyaldon/emacs.d
 at commit `06ba16e26da4fbedb430090287aec096bf491037`.
 
 ## Inside Emacs 6 (part 8)
+
+[Watch on youtube](https://www.youtube.com/watch?v=JyG54FFWu-o)
 
 <details>
   <summary>Emacs Lisp</summary>
