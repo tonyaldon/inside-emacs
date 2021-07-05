@@ -17,7 +17,7 @@ emacs** videos, here you'll find:
 3. When it's possible, the files I use to make the videos (see the
    [src](./src/) directory).
 
-# Emacs "keybinding" paradigm
+# Current Emacs key bindings paradigm
 
 I've rebound mostly every standard keybindings. I've not thought about
 the general use of these bindings, I just wanted them to fit the
