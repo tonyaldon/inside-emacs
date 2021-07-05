@@ -1,5 +1,5 @@
 # About
-`inside-emacs` is a top-up for the video series **inside emacs**.
+`inside-emacs` is a **complementary material** for the video series **inside emacs**.
 
 Watch [here](https://youtu.be/F1IXixEhQwk).
 
