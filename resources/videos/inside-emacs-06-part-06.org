@@ -1,0 +1,395 @@
+#+TITLE: FIXME: Inside Emacs 6 part 6
+#+AUTHOR: Tony Aldon
+#+DATE: <2021-08-05 Thu>
+#+PROPERTY: YOUTUBE_LINK  https://youtu.be/loa1g9wwNlI
+#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
+#+PROPERTY: CONFIG_COMMIT 06ba16e26da4fbedb430090287aec096bf491037
+#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-06/
+#+TAGS: FIXME
+
+* Description
+
+* Commands
+** built-in
+*** org-mode-map
+
+~org-cycle~ (~TAB~): TAB-action and visibility cycling for Org mode.
+
+~org-set-property~ (~C-c C-x p~): In the current entry, set a property
+read in the minibuffer with a value read in the minibuffer.
+
+~org-shiftmetaright~ (~M-S-<right>~): Demote subtree or insert table
+column.
+
+*** org-mode
+
+~org-table-export~: Export table to a file, with configurable format.
+
+** external
+
+~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read in
+the minibuffer).
+
+~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
+
+~counsel-M-x~ (from [[https://github.com/abo-abo/swiper][counsel]]): Ivy version of ~execute-extended-command~.
+
+~counsel-find-file~ (from [[https://github.com/abo-abo/swiper][swiper]]): Forward to ~find-file~.
+
+** customized
+*** handy-expand-region-dwim
+~handy-expand-region-dwim~: If region is active, call
+~er/expand-region~.  If not call ~er/mark-word~.
+
+#+BEGIN_SRC emacs-lisp
+(require 'expand-region)
+
+(defun handy-expand-region-dwim (arg)
+  "If region is active, call `er/expand-region'.  If not call `er/mark-word'."
+  (interactive "p")
+  (if (or (region-active-p) (equal last-command this-command))
+      (er/expand-region arg)
+    (er/mark-word)
+    (if (equal arg 4) (exchange-point-and-mark))))
+#+END_SRC
+
+*** handy-mark-dwim
+~handy-mark-dwim~: Mark the url, sexp or sentence at point.
+
+#+BEGIN_SRC emacs-lisp
+(require 'smartparens)
+(require 'expand-region)
+
+(defun handy-point-in-url-p ()
+  "Return the url at `point' if `point' is in an url."
+  (thing-at-point 'url))
+
+(defun handy-point-at-beginning-of-sexp-delimited-by-pairs-p ()
+  "Return t if point is at beginning of sexp delimited by pairs."
+  (let ((sexp (sp-get-thing)))
+    (and (eq (point) (sp-get sexp :beg))
+         (not (string-empty-p (sp-get sexp :op))))))
+
+(defun handy-mark-sexp-at-point ()
+  "Mark the `sexp' at point."
+  (let ((sexp-beg (beginning-of-thing 'sexp))
+        (sexp-end (end-of-thing 'sexp)))
+    (goto-char sexp-end)
+    ;; HACK: Have to use both `push-mark' and `set-mark' in this order to
+    ;;       expected result.
+    (push-mark sexp-end)
+    (set-mark sexp-end)
+    (goto-char sexp-beg)))
+
+(defun handy-mark-dwim (arg)
+  "Mark the url, sexp or sentence at point.
+
+If point is in a url, call `er/mark-url'.  If not mark sexp at point.
+If call 2 times consecutively, call `er/mark-sentence'."
+  (interactive "p")
+  (cond
+   ((equal last-command this-command)
+    (er/mark-sentence))
+   ((handy-point-in-url-p)
+    (er/mark-url))
+   ((or (handy-point-at-beginning-of-sexp-delimited-by-pairs-p)
+        (eq (following-char) ?<))
+    (sp-mark-sexp))
+   ((eq (preceding-char) ?\")
+    (sp-backward-sexp)
+    (sp-mark-sexp))
+   ((and (memq (following-char) '(32 ?\) ?\] ?\} ?>))
+         (looking-back "[[:alnum:]]" 1))
+    (backward-char 1)
+    (handy-mark-sexp-at-point))
+   (t (handy-mark-sexp-at-point)))
+  (if (equal arg 4) (exchange-point-and-mark)))
+#+END_SRC
+
+*** handy-mark-line
+~handy-mark-line~:
+
+#+BEGIN_SRC emacs-lisp
+(defun handy-mark-line (arg)
+  "Mark the current line.
+
+If call with `universal-argument', copy the line."
+  (interactive "p")
+  (if (equal arg 4)
+      (handy-line-copy)
+    ;; HACK: Have to use both `push-mark' and `set-mark' in this order
+    ;;       to get expected result.
+    (end-of-line)
+    (push-mark (point))
+    (set-mark (point))
+    (beginning-of-line)))
+#+END_SRC
+
+*** insight-scroll-up-half-window
+~insight-scroll-up-half-window~: Scroll up of half window height.
+
+#+BEGIN_SRC emacs-lisp
+(defun insight--half-window-height ()
+  "Compute half window height."
+  (/ (window-body-height) 2))
+
+(defun insight-scroll-up-half-window ()
+  "Scroll up of half window height."
+  (interactive)
+  (scroll-up (insight--half-window-height)))
+#+END_SRC
+
+*** ta-describe-thing-at-point
+~ta-describe-thing-at-point~: Display the full documentation of the
+~thing-at-point~.
+
+#+BEGIN_SRC emacs-lisp
+(defun ta-describe-thing-at-point ()
+  "Display the full documentation of the `thing-at-point'.
+
+Return nil if the symbol of the `thing-at-point' is neither a function
+nor a variable."
+  (interactive)
+  (when-let* ((symbol (symbol-at-point))
+              (symbol-n (symbol-name symbol)))
+    (when (and (eq major-mode 'org-mode)
+               (s-starts-with-p "~" symbol-n)
+               (s-ends-with-p "~" symbol-n))
+      (setq symbol (->> symbol-n
+                        (s-chop-prefix "~")
+                        (s-chop-suffix "~")
+                        (intern))))
+    (describe-symbol symbol)))
+#+END_SRC
+
+*** ta-org-shiftmetadown
+~ta-org-shiftmetadown~: Drag the line at point down.
+
+#+BEGIN_SRC emacs-lisp
+(require 'org)
+
+(defun ta-org-shiftmetadown (&optional _arg)
+  "Drag the line at point down.
+In a table, insert an empty row below the current line (this part
+differs from the original `org-shiftmetadown' command).
+On a clock timestamp, update the value of the timestamp like `S-<down>'
+but also adjust the previous clocked item in the clock history.
+Everywhere else, drag the line at point down."
+  (interactive "P")
+  (cond
+   ((run-hook-with-args-until-success 'org-shiftmetadown-hook))
+   ((org-at-table-p) (org-table-insert-row 'below))
+   ((org-at-clock-log-p) (let ((org-clock-adjust-closest t))
+                           (call-interactively 'org-timestamp-down)))
+   (t (call-interactively 'org-drag-line-forward))))
+#+END_SRC
+
+* Emacs Lisp
+** orgtbl-to-generic
+~orgtbl-to-generic~: Convert the orgtbl-mode TABLE to some other
+format.
+
+#+BEGIN_SRC emacs-lisp
+(defun orgtbl-to-generic (table params)
+  "Convert the orgtbl-mode TABLE to some other format.
+
+This generic routine can be used for many standard cases.
+
+TABLE is a list, each entry either the symbol `hline' for
+a horizontal separator line, or a list of fields for that
+line.  PARAMS is a property list of parameters that can
+influence the conversion.
+
+Valid parameters are:
+
+:backend, :raw
+
+  Export back-end used as a basis to transcode elements of the
+  table, when no specific parameter applies to it.  It is also
+  used to translate cells contents.  You can prevent this by
+  setting :raw property to a non-nil value.
+
+:splice
+
+  When non-nil, only convert rows, not the table itself.  This is
+  equivalent to setting to the empty string both :tstart
+  and :tend, which see.
+
+:skip
+
+  When set to an integer N, skip the first N lines of the table.
+  Horizontal separation lines do count for this parameter!
+
+:skipcols
+
+  List of columns that should be skipped.  If the table has
+  a column with calculation marks, that column is automatically
+  discarded beforehand.
+
+:hline
+
+  String to be inserted on horizontal separation lines.  May be
+  nil to ignore these lines altogether.
+
+:sep
+
+  Separator between two fields, as a string.
+
+Each in the following group may be either a string or a function
+of no arguments returning a string:
+
+:tstart, :tend
+
+  Strings to start and end the table.  Ignored when :splice is t.
+
+:lstart, :lend
+
+  Strings to start and end a new table line.
+
+:llstart, :llend
+
+  Strings to start and end the last table line.  Default,
+  respectively, to :lstart and :lend.
+
+Each in the following group may be a string or a function of one
+argument (either the cells in the current row, as a list of
+strings, or the current cell) returning a string:
+
+:lfmt
+
+  Format string for an entire row, with enough %s to capture all
+  fields.  When non-nil, :lstart, :lend, and :sep are ignored.
+
+:llfmt
+
+  Format for the entire last line, defaults to :lfmt.
+
+:fmt
+
+  A format to be used to wrap the field, should contain %s for
+  the original field value.  For example, to wrap everything in
+  dollars, you could use :fmt \"$%s$\".  This may also be
+  a property list with column numbers and format strings, or
+  functions, e.g.,
+
+    (:fmt (2 \"$%s$\" 4 (lambda (c) (format \"$%s$\" c))))
+
+:hlstart :hllstart :hlend :hllend :hsep :hlfmt :hllfmt :hfmt
+
+ Same as above, specific for the header lines in the table.
+ All lines before the first hline are treated as header.  If
+ any of these is not present, the data line value is used.
+
+This may be either a string or a function of two arguments:
+
+:efmt
+
+  Use this format to print numbers with exponential.  The format
+  should have %s twice for inserting mantissa and exponent, for
+  example \"%s\\\\times10^{%s}\".  This may also be a property
+  list with column numbers and format strings or functions.
+  :fmt will still be applied after :efmt."
+  ;; Make sure `org-export-create-backend' is available.
+  (require 'ox)
+  (let* ((backend (plist-get params :backend))
+         (custom-backend
+          ;; Build a custom back-end according to PARAMS.  Before
+          ;; defining a translator, check if there is anything to do.
+          ;; When there isn't, let BACKEND handle the element.
+          (org-export-create-backend
+           :parent (or backend 'org)
+           :transcoders
+           `((table . ,(org-table--to-generic-table params))
+             (table-row . ,(org-table--to-generic-row params))
+             (table-cell . ,(org-table--to-generic-cell params))
+             ;; Macros are not going to be expanded.  However, no
+             ;; regular back-end has a transcoder for them.  We
+             ;; provide one so they are not ignored, but displayed
+             ;; as-is instead.
+             (macro . (lambda (m c i) (org-element-macro-interpreter m nil))))))
+         data info)
+    ;; Store TABLE as Org syntax in DATA.  Tolerate non-string cells.
+    ;; Initialize communication channel in INFO.
+    (with-temp-buffer
+      (let ((org-inhibit-startup t)) (org-mode))
+      (let ((standard-output (current-buffer))
+            (org-element-use-cache nil))
+        (dolist (e table)
+          (cond ((eq e 'hline) (princ "|--\n"))
+                ((consp e)
+                 (princ "| ") (dolist (c e) (princ c) (princ " |"))
+                 (princ "\n")))))
+      ;; Add back-end specific filters, but not user-defined ones.  In
+      ;; particular, make sure to call parse-tree filters on the
+      ;; table.
+      (setq info
+            (let ((org-export-filters-alist nil))
+              (org-export-install-filters
+               (org-combine-plists
+                (org-export-get-environment backend nil params)
+                `(:back-end ,(org-export-get-backend backend))))))
+      (setq data
+            (org-export-filter-apply-functions
+             (plist-get info :filter-parse-tree)
+             (org-element-map (org-element-parse-buffer) 'table
+               #'identity nil t)
+             info)))
+    (when (and backend (symbolp backend) (not (org-export-get-backend backend)))
+      (user-error "Unknown :backend value"))
+    (when (or (not backend) (plist-get info :raw)) (require 'ox-org))
+    ;; Handle :skip parameter.
+    (let ((skip (plist-get info :skip)))
+      (when skip
+        (unless (wholenump skip) (user-error "Wrong :skip value"))
+        (let ((n 0))
+          (org-element-map data 'table-row
+            (lambda (row)
+              (if (>= n skip) t
+                (org-element-extract-element row)
+                (cl-incf n)
+                nil))
+            nil t))))
+    ;; Handle :skipcols parameter.
+    (let ((skipcols (plist-get info :skipcols)))
+      (when skipcols
+        (unless (consp skipcols) (user-error "Wrong :skipcols value"))
+        (org-element-map data 'table
+          (lambda (table)
+            (let ((specialp (org-export-table-has-special-column-p table)))
+              (dolist (row (org-element-contents table))
+                (when (eq (org-element-property :type row) 'standard)
+                  (let ((c 1))
+                    (dolist (cell (nthcdr (if specialp 1 0)
+                                          (org-element-contents row)))
+                      (when (memq c skipcols)
+                        (org-element-extract-element cell))
+                      (cl-incf c))))))))))
+    ;; Since we are going to export using a low-level mechanism,
+    ;; ignore special column and special rows manually.
+    (let ((special? (org-export-table-has-special-column-p data))
+          ignore)
+      (org-element-map data (if special? '(table-cell table-row) 'table-row)
+        (lambda (datum)
+          (when (if (eq (org-element-type datum) 'table-row)
+                    (org-export-table-row-is-special-p datum nil)
+                  (org-export-first-sibling-p datum nil))
+            (push datum ignore))))
+      (setq info (plist-put info :ignore-list ignore)))
+    ;; We use a low-level mechanism to export DATA so as to skip all
+    ;; usual pre-processing and post-processing, i.e., hooks, Babel
+    ;; code evaluation, include keywords and macro expansion.  Only
+    ;; back-end specific filters are retained.
+    (let ((output (org-export-data-with-backend data custom-backend info)))
+      ;; Remove final newline.
+      (if (org-string-nw-p output) (substring-no-properties output 0 -1) ""))))
+#+END_SRC
+
+** orgtbl-to-tsv
+~orgtbl-to-tsv~: Convert the orgtbl-mode table to TAB separated
+material.
+
+#+BEGIN_SRC emacs-lisp
+(defun orgtbl-to-tsv (table params)
+  "Convert the orgtbl-mode table to TAB separated material."
+  (orgtbl-to-generic table (org-combine-plists '(:sep "\t") params)))
+#+END_SRC

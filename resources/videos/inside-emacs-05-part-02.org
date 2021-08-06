@@ -1,0 +1,30 @@
+#+TITLE: FIXME: Inside Emacs 5 part 2
+#+AUTHOR: Tony Aldon
+#+DATE: <2021-08-05 Thu>
+#+PROPERTY: YOUTUBE_LINK  https://youtu.be/fg_jTo9SK9I
+#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
+#+PROPERTY: CONFIG_COMMIT 33c04510f94e5eb96ed7b072dfba410cbc70a9d0
+#+PROPERTY: VIDEO_SCR_DIR
+#+TAGS: FIXME
+
+* Description
+
+#+BEGIN_EXAMPLE
+cd ~/.config/systemd/user
+locate emacs.service
+cp /usr/share/emacs/28.0.50/etc/emacs.service .
+emacsclient -nw
+emacsclient --eval "(kill-emacs)"
+ps -ax | grep emacs
+systemctl enable emacs --user
+systemctl status emacs --user
+systemctl start emacs --user
+emacsclient -nc
+#+END_EXAMPLE
+
+* Commands
+** built-in
+
+** external
+
+** customized

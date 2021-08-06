@@ -1,0 +1,370 @@
+#+TITLE: FIXME: Inside Emacs 6 part 10
+#+AUTHOR: Tony Aldon
+#+DATE: <2021-08-05 Thu>
+#+PROPERTY: YOUTUBE_LINK  https://youtu.be/w3V8-_qjYgI
+#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
+#+PROPERTY: CONFIG_COMMIT 15379cdd5e548f1540d677d4386bb5da7d5bc5b0
+#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-10/
+#+TAGS: FIXME
+
+* Description
+
+* Commands
+** built-in
+*** without default key binding
+
+~eval-defun~: Evaluate the top-level form containing point, or after
+point.
+
+*** global-map
+
+~delete-other-windows~ (~C-x 1~): Make selected window fill its frame.
+
+~eval-last-sexp~ (~C-x C-e~): Evaluate sexp before point; print value in
+the echo area.
+
+~isearch-forward~ (~C-s~): Do incremental search forward.
+
+~previous-buffer~ (~C-x <left>~): In selected window switch to previous buffer.
+
+*** isearch-mode-map
+
+~isearch-query-replace-regexp~ (~C-M-%~): Start ~query-replace-regexp~ with
+string to replace from last search string.
+
+*** org-mode-map
+
+~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update according
+
+~org-table-toggle-formula-debugger~ (~C-c {~): Toggle the formula debugger
+in tables.
+
+** external
+
+~counsel-find-file~ (from [[https://github.com/abo-abo/swiper][swiper]]): Forward to ~find-file~.
+
+~sp-backward-up-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move backward out of one level
+of parentheses.
+
+** customized
+*** handy-add-space
+~handy-add-space~: Add space at point without moving.
+
+#+BEGIN_SRC emacs-lisp
+(defun handy-add-space ()
+  "Add space at point without moving."
+  (interactive)
+  (insert " ")
+  (goto-char (- (point) 1)))
+#+END_SRC
+
+*** handy-avy-copy-past-sexp
+~handy-avy-copy-past-sexp~: Past sexp copied using ~avy~ at current
+cursor position.
+
+#+BEGIN_SRC emacs-lisp
+(require 'avy)
+(require 'smartparens)
+
+(defun handy-avy-copy-past-sexp ()
+  "Past sexp copied using `avy' at current cursor position."
+  (interactive)
+  (let ((initial-window (selected-window)))
+    (save-excursion
+      (call-interactively 'avy-goto-word-or-subword-1)
+      (sp-copy-sexp))
+    (select-window initial-window)
+    (yank)))
+#+END_SRC
+
+*** ta-eval-expression
+~ta-eval-expression~: Call ~eval-expression~.  If called with universal
+argument, call ~pp-eval-expression~.
+
+#+BEGIN_SRC emacs-lisp
+(defun ta-eval-expression (&optional arg)
+  "Call `eval-expression'.
+If called with universal argument, call `pp-eval-expression'."
+  (interactive "P")
+  (if arg
+      (call-interactively 'pp-eval-expression)
+    (call-interactively 'eval-expression)))
+#+END_SRC
+
+*** handy-mark-line
+~handy-mark-line~:
+
+#+BEGIN_SRC emacs-lisp
+(defun handy-mark-line (arg)
+  "Mark the current line.
+
+If call with `universal-argument', copy the line."
+  (interactive "p")
+  (if (equal arg 4)
+      (handy-line-copy)
+    ;; HACK: Have to use both `push-mark' and `set-mark' in this order
+    ;;       to get expected result.
+    (end-of-line)
+    (push-mark (point))
+    (set-mark (point))
+    (beginning-of-line)))
+#+END_SRC
+* Emacs Lisp
+** +
+~+~: Return sum of any number of arguments, which are numbers or markers.
+
+#+BEGIN_SRC C
+DEFUN ("+", Fplus, Splus, 0, MANY, 0,
+       doc: /* Return sum of any number of arguments, which are numbers or markers.
+usage: (+ &rest NUMBERS-OR-MARKERS)  */)
+  (ptrdiff_t nargs, Lisp_Object *args)
+{
+  if (nargs == 0)
+    return make_fixnum (0);
+  Lisp_Object a = check_number_coerce_marker (args[0]);
+  return nargs == 1 ? a : arith_driver (Aadd, nargs, args, a);
+}
+#+END_SRC
+** string-to-number
+~string-to-number~: Parse STRING as a decimal number and return the
+number.
+
+#+BEGIN_SRC C
+DEFUN ("string-to-number", Fstring_to_number, Sstring_to_number, 1, 2, 0,
+       doc: /* Parse STRING as a decimal number and return the number.
+Ignore leading spaces and tabs, and all trailing chars.  Return 0 if
+STRING cannot be parsed as an integer or floating point number.
+
+If BASE, interpret STRING as a number in that base.  If BASE isn't
+present, base 10 is used.  BASE must be between 2 and 16 (inclusive).
+If the base used is not 10, STRING is always parsed as an integer.  */)
+  (register Lisp_Object string, Lisp_Object base)
+{
+  int b;
+
+  CHECK_STRING (string);
+
+  if (NILP (base))
+    b = 10;
+  else
+    {
+      CHECK_FIXNUM (base);
+      if (! (XFIXNUM (base) >= 2 && XFIXNUM (base) <= 16))
+        xsignal1 (Qargs_out_of_range, base);
+      b = XFIXNUM (base);
+    }
+
+  char *p = SSDATA (string);
+  while (*p == ' ' || *p == '\t')
+    p++;
+
+  Lisp_Object val = string_to_number (p, b, 0);
+  return NILP (val) ? make_fixnum (0) : val;
+}
+#+END_SRC
+** upcase
+~upcase~: Convert argument to upper case and return that.
+
+#+BEGIN_SRC C
+DEFUN ("upcase", Fupcase, Supcase, 1, 1, 0,
+       doc: /* Convert argument to upper case and return that.
+The argument may be a character or string.  The result has the same type.
+The argument object is not altered--the value is a copy.  If argument
+is a character, characters which map to multiple code points when
+cased, e.g. ﬁ, are returned unchanged.
+See also `capitalize', `downcase' and `upcase-initials'.  */)
+  (Lisp_Object obj)
+{
+  return casify_object (CASE_UP, obj);
+}
+#+END_SRC
+** intern
+~intern~: Return the canonical symbol whose name is STRING.
+
+#+BEGIN_SRC C
+DEFUN ("intern", Fintern, Sintern, 1, 2, 0,
+       doc: /* Return the canonical symbol whose name is STRING.
+If there is none, one is created by this function and returned.
+A second optional argument specifies the obarray to use;
+it defaults to the value of `obarray'.  */)
+  (Lisp_Object string, Lisp_Object obarray)
+{
+  Lisp_Object tem;
+
+  obarray = check_obarray (NILP (obarray) ? Vobarray : obarray);
+  CHECK_STRING (string);
+
+  tem = oblookup (obarray, SSDATA (string), SCHARS (string), SBYTES (string));
+  if (!SYMBOLP (tem))
+    tem = intern_driver (NILP (Vpurify_flag) ? string : Fpurecopy (string),
+                         obarray, tem);
+  return tem;
+}
+#+END_SRC
+** type-of
+~type-of~: Return a symbol representing the type of OBJECT.
+
+#+BEGIN_SRC C
+DEFUN ("type-of", Ftype_of, Stype_of, 1, 1, 0,
+       doc: /* Return a symbol representing the type of OBJECT.
+The symbol returned names the object's basic type;
+for example, (type-of 1) returns `integer'.  */)
+  (Lisp_Object object)
+{
+  switch (XTYPE (object))
+    {
+    case_Lisp_Int:
+      return Qinteger;
+
+    case Lisp_Symbol:
+      return Qsymbol;
+
+    case Lisp_String:
+      return Qstring;
+
+    case Lisp_Cons:
+      return Qcons;
+
+    case Lisp_Vectorlike:
+      switch (PSEUDOVECTOR_TYPE (XVECTOR (object)))
+        {
+        case PVEC_NORMAL_VECTOR: return Qvector;
+        case PVEC_BIGNUM: return Qinteger;
+        case PVEC_MARKER: return Qmarker;
+        case PVEC_OVERLAY: return Qoverlay;
+        case PVEC_FINALIZER: return Qfinalizer;
+        case PVEC_USER_PTR: return Quser_ptr;
+        case PVEC_WINDOW_CONFIGURATION: return Qwindow_configuration;
+        case PVEC_PROCESS: return Qprocess;
+        case PVEC_WINDOW: return Qwindow;
+        case PVEC_SUBR: return Qsubr;
+        case PVEC_COMPILED: return Qcompiled_function;
+        case PVEC_BUFFER: return Qbuffer;
+        case PVEC_CHAR_TABLE: return Qchar_table;
+        case PVEC_BOOL_VECTOR: return Qbool_vector;
+        case PVEC_FRAME: return Qframe;
+        case PVEC_HASH_TABLE: return Qhash_table;
+        case PVEC_FONT:
+          if (FONT_SPEC_P (object))
+            return Qfont_spec;
+          if (FONT_ENTITY_P (object))
+            return Qfont_entity;
+          if (FONT_OBJECT_P (object))
+            return Qfont_object;
+          else
+            emacs_abort (); /* return Qfont?  */
+        case PVEC_THREAD: return Qthread;
+        case PVEC_MUTEX: return Qmutex;
+        case PVEC_CONDVAR: return Qcondition_variable;
+        case PVEC_TERMINAL: return Qterminal;
+        case PVEC_RECORD:
+          {
+            Lisp_Object t = AREF (object, 0);
+            if (RECORDP (t) && 1 < PVSIZE (t))
+              /* Return the type name field of the class!  */
+              return AREF (t, 1);
+            else
+              return t;
+          }
+        case PVEC_MODULE_FUNCTION:
+          return Qmodule_function;
+        case PVEC_NATIVE_COMP_UNIT:
+          return Qnative_comp_unit;
+        case PVEC_XWIDGET:
+          return Qxwidget;
+        case PVEC_XWIDGET_VIEW:
+          return Qxwidget_view;
+        /* "Impossible" cases.  */
+        case PVEC_MISC_PTR:
+        case PVEC_OTHER:
+        case PVEC_SUB_CHAR_TABLE:
+        case PVEC_FREE: ;
+        }
+      emacs_abort ();
+
+    case Lisp_Float:
+      return Qfloat;
+
+    default:
+      emacs_abort ();
+    }
+}
+#+END_SRC
+** funcall
+~funcall~: Call first argument as a function, passing remaining
+arguments to it.
+
+#+BEGIN_SRC C
+DEFUN ("funcall", Ffuncall, Sfuncall, 1, MANY, 0,
+       doc: /* Call first argument as a function, passing remaining arguments to it.
+Return the value that function returns.
+Thus, (funcall \\='cons \\='x \\='y) returns (x . y).
+usage: (funcall FUNCTION &rest ARGUMENTS)  */)
+  (ptrdiff_t nargs, Lisp_Object *args)
+{
+  Lisp_Object fun, original_fun;
+  Lisp_Object funcar;
+  ptrdiff_t numargs = nargs - 1;
+  Lisp_Object val;
+  ptrdiff_t count;
+
+  maybe_quit ();
+
+  if (++lisp_eval_depth > max_lisp_eval_depth)
+    {
+      if (max_lisp_eval_depth < 100)
+        max_lisp_eval_depth = 100;
+      if (lisp_eval_depth > max_lisp_eval_depth)
+        error ("Lisp nesting exceeds `max-lisp-eval-depth'");
+    }
+
+  count = record_in_backtrace (args[0], &args[1], nargs - 1);
+
+  maybe_gc ();
+
+  if (debug_on_next_call)
+    do_debug_on_call (Qlambda, count);
+
+  original_fun = args[0];
+
+ retry:
+
+  /* Optimize for no indirection.  */
+  fun = original_fun;
+  if (SYMBOLP (fun) && !NILP (fun)
+      && (fun = XSYMBOL (fun)->u.s.function, SYMBOLP (fun)))
+    fun = indirect_function (fun);
+
+  if (SUBRP (fun) && !SUBR_NATIVE_COMPILED_DYNP (fun))
+    val = funcall_subr (XSUBR (fun), numargs, args + 1);
+  else if (COMPILEDP (fun)
+           || SUBR_NATIVE_COMPILED_DYNP (fun)
+           || MODULE_FUNCTIONP (fun))
+    val = funcall_lambda (fun, numargs, args + 1);
+  else
+    {
+      if (NILP (fun))
+        xsignal1 (Qvoid_function, original_fun);
+      if (!CONSP (fun))
+        xsignal1 (Qinvalid_function, original_fun);
+      funcar = XCAR (fun);
+      if (!SYMBOLP (funcar))
+        xsignal1 (Qinvalid_function, original_fun);
+      if (EQ (funcar, Qlambda)
+          || EQ (funcar, Qclosure))
+        val = funcall_lambda (fun, numargs, args + 1);
+      else if (EQ (funcar, Qautoload))
+        {
+          Fautoload_do_load (fun, original_fun, Qnil);
+          goto retry;
+        }
+      else
+        xsignal1 (Qinvalid_function, original_fun);
+    }
+  lisp_eval_depth--;
+  if (backtrace_debug_on_exit (specpdl + count))
+    val = call_debugger (list2 (Qexit, val));
+  specpdl_ptr--;
+  return val;
+}
+#+END_SRC

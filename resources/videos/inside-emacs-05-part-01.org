@@ -1,0 +1,29 @@
+#+TITLE: FIXME: Inside Emacs 5 part 1
+#+AUTHOR: Tony Aldon
+#+DATE: <2021-08-05 Thu>
+#+PROPERTY: YOUTUBE_LINK  https://youtu.be/kw4h2hYYq-o
+#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
+#+PROPERTY: CONFIG_COMMIT 33c04510f94e5eb96ed7b072dfba410cbc70a9d0
+#+PROPERTY: VIDEO_SCR_DIR
+#+TAGS: FIXME
+
+* Description
+
+#+BEGIN_EXAMPLE
+emacsclient -h
+emacsclient -nw
+emacs --daemon
+ps -aux | grep emacs
+emacsclient --eval "(kill-emacs)"
+man pidof
+pidof emacs
+ps -ax | grep emacs
+emacs -nw
+#+END_EXAMPLE
+
+* Commands
+** built-in
+
+** external
+
+** customized

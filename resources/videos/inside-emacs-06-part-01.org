@@ -1,0 +1,54 @@
+#+TITLE: FIXME: Inside Emacs 6 part 1
+#+AUTHOR: Tony Aldon
+#+DATE: <2021-08-05 Thu>
+#+PROPERTY: YOUTUBE_LINK  https://youtu.be/pRXRwQ1GGr4
+#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
+#+PROPERTY: CONFIG_COMMIT fc02ec1c2d2caa52b22410adb465f79c115c7e2a
+#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-01/
+#+TAGS: FIXME
+
+* Description
+Some modes used in the video: ~org-mode~, ~whitespace-mode~, ~tsv-mode~
+and ~csv-mode~.
+* Commands
+** built-in
+*** without default key binding
+
+~whitespace-mode~: Toggle whitespace visualization (Whitespace mode).
+
+*** global-map
+
+~previous-buffer~ (~C-x <left>~): In selected window switch to previous buffer.
+
+~universal-argument~ (~C-u~): Begin a numeric argument for the following
+command.
+
+*** org-mode-map
+
+~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update according
+to changed information at point.
+
+~org-cycle~ (~TAB~): TAB-action and visibility cycling for Org mode.
+
+~org-return~ (~RET~): Goto next table row or insert a newline.
+
+~org-table-create-or-convert-from-region~ (~C-|~): Convert region to
+table, or create an empty table.
+
+** external
+
+~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
+
+~csv-align-fields~ (from [[https://elpa.gnu.org/packages/csv-mode.html][csv-mode]]): Align all the fields in the region
+to form columns.
+
+~er/expand-region~ (from [[https://github.com/magnars/expand-region.el][expand-region]]): Increase selected region by
+semantic units.
+
+~er/expand-region~ (from [[https://github.com/magnars/expand-region.el][expand-region]]): Increase selected region by
+semantic units.
+
+~tsv-mode~ (from [[https://elpa.gnu.org/packages/csv-mode.html][csv-mode]]): Major mode for editing files of
+tab-separated value type.
+
+** customized

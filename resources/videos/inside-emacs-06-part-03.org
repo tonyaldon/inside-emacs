@@ -1,0 +1,1141 @@
+#+TITLE: FIXME: Inside Emacs 6 part 3
+#+AUTHOR: Tony Aldon
+#+DATE: <2021-08-05 Thu>
+#+PROPERTY: YOUTUBE_LINK  https://youtu.be/KxOwKK5sXRA
+#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
+#+PROPERTY: CONFIG_COMMIT 124a1958e4e222722980ced00724f0ee7c948575
+#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-03/
+#+TAGS: FIXME
+
+* Description
+
+* Commands
+** built-in
+*** without default key binding
+
+~eval-defun~: Evaluate the top-level form containing point, or after
+point.
+
+~join-line~: Join this line to previous and fix up whitespace at join.
+
+*** global-map
+
+~previous-buffer~ (~C-x <left>~): In selected window switch to previous
+buffer.
+
+~repeat~ (~C-x z~): Repeat most recently executed command.
+
+~undo~ (~C-x u~): Undo some previous changes.
+
+*** org-mode-map
+
+~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update according
+to changed information at point.
+
+~org-meta-return~ (~<M-return>~): Insert a new heading or wrap a region in
+a table.
+
+~org-return~ (~RET~): Goto next table row or insert a newline.
+
+*** org-mode
+
+~org-table-wrap-region~: Wrap several fields in a column like a
+paragraph.
+
+** external
+
+~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read in
+the minibuffer).
+
+~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
+
+~mc/mark-next-like-this~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark the next
+part of the buffer matching the currently active region.
+
+~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point.
+
+~sp-backward-up-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move backward out of one level
+of parentheses.
+
+~sp-forward-slurp-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Add sexp following the
+current list in it by moving the closing delimiter.
+
+** customized
+*** my-org-meta-return
+~my-org-meta-return~: Insert a new heading or wrap a region in a table.
+
+#+BEGIN_SRC emacs-lisp
+(defun my-org-meta-return (&optional arg)
+  "Insert a new heading or wrap a region in a table.
+Calls `org-insert-heading', `org-insert-item' or
+`org-table-wrap-region', depending on context."
+  (interactive "P")
+  (org-check-before-invisible-edit 'insert)
+  (or (run-hook-with-args-until-success 'org-metareturn-hook)
+      (if (org-at-table-p)
+          (org-table-wrap-region arg)
+        (call-interactively
+         (cond (arg #'org-insert-heading)
+               ((org-in-item-p) #'org-insert-item)
+               (t #'org-insert-heading))))))
+#+END_SRC
+
+*** ta-avy-copy-sexp
+~ta-avy-copy-sexp~: Copy ta point a visible sexp selected with ~avy~.
+
+#+BEGIN_SRC emacs-lisp
+(require 'avy)
+(require 'smartparens)
+
+(defun ta-avy-copy-sexp ()
+  "Copy at point a visible sexp selected with `avy'."
+  (interactive)
+  (let ((initial-window (selected-window)))
+    (save-excursion
+      (call-interactively 'avy-goto-word-or-subword-1)
+      (sp-copy-sexp))
+    (select-window initial-window)
+    (yank)))
+#+END_SRC
+
+*** ta-avy-goto-end-of-line
+~ta-avy-goto-end-of-line~: Jump to the visible end of line.
+
+#+BEGIN_SRC emacs-lisp
+(require 'avy)
+
+(defun ta-avy-goto-end-of-line ()
+  "Jump to the visible end of line.
+Call `avy-goto-char' with \"\n\" as argument."
+  (interactive)
+  (avy-goto-char ?\n))
+#+END_SRC
+
+*** ta-kill-whole-line
+~ta-kill-whole-line~: Kill the whole current line.
+
+#+BEGIN_SRC emacs-lisp
+(defun ta-kill-whole-line ()
+  "Kill the whole current line.
+Preserve the column position of the cursor."
+  (interactive)
+  (let ((column-position (current-column)))
+    (kill-whole-line)
+    (move-to-column column-position)))
+#+END_SRC
+
+*** ta-mark-inside-dwim
+~ta-mark-inside-dwim~: Mark things inside quotes if point is inside a
+string.
+
+#+BEGIN_SRC emacs-lisp
+(require 'expand-region)
+(require 'smartparens)
+
+(defun ta-mark-inside-org-table ()
+  "Mark current field inside org-table."
+  (interactive)
+  (when (org-at-table-p)
+    (push-mark (point))
+    (re-search-forward "|")
+    (backward-char)
+    (skip-chars-backward " ")
+    (push-mark (point))
+    (set-mark (point))
+    (org-table-beginning-of-field 1)))
+
+(defun ta-mark-inside-pairs ()
+  "An other way to do `er/mark-inside-pairs' but work for sgml-tag too."
+  (interactive)
+  (ta-goto-begining-of-string (point))
+  (sp-backward-up-sexp)
+  (sp-mark-sexp)
+  (sp-down-sexp)
+  (exchange-point-and-mark)
+  (sp-backward-down-sexp)
+  (exchange-point-and-mark))
+
+(defun ta-mark-inside-dwim (&optional arg)
+  "Mark things inside quotes if point is inside a string.
+
+If not inside string, mark inside table field in `org-mode'.
+In other modes, mark things inside pairs.
+If call two times consecutively mark inside pairs."
+  (interactive)
+  (cond ((equal last-command 'ta-mark-inside-dwim)
+         (call-interactively 'ta-mark-inside-pairs))
+        ((er--point-inside-string-p)
+         (call-interactively 'er/mark-inside-quotes))
+        ((and (equal major-mode 'org-mode) (org-at-table-p))
+         (ta-mark-inside-org-table))
+        (t (call-interactively 'ta-mark-inside-pairs))))
+
+#+END_SRC
+
+*** ta-mark-sexp-at-point
+~ta-mark-sexp-at-point~
+
+#+BEGIN_SRC emacs-lisp
+(require 'smartparens)
+
+(defun ta--point-at-beginnig-sp-sexp-p ()
+  "Return non-nil if `point' is at the beginning of a sp-sexp
+
+and :op non empty. See `sp-get-thing'."
+  (let ((ok (sp-get-thing)))
+    (when ok
+      (when (and (eq (point) (sp-get ok :beg))
+                 (not (string-empty-p (sp-get ok :op))))
+        (point)))))
+
+(defun ta--mark-sexp-at-point ()
+  "Mark the `sexp' at point."
+  (let ((sexp-beg (beginning-of-thing 'sexp))
+        (sexp-end (end-of-thing 'sexp)))
+    (goto-char sexp-end)
+    (set-mark sexp-end)
+    (goto-char sexp-beg)))
+
+(defun ta-mark-sexp-at-point ()
+  "Mark the `sexp' at point. See `sexp-at-point' and `sp-mark-sexp'
+(smartparens packages)."
+  (interactive)
+  (if (or (ta--point-at-beginnig-sp-sexp-p)
+          (eq (following-char) ?<))
+      (sp-mark-sexp)
+    (if (eq (preceding-char) ?\")
+        (progn
+          (sp-backward-sexp)
+          (sp-mark-sexp))
+      (if (and (memq (following-char) '(32 ?\) ?\] ?\} ?>))
+               (looking-back "[[:alnum:]]" 1))
+          (backward-char 1))
+      (ta--mark-sexp-at-point))))
+#+END_SRC
+
+*** ta-org-table-previous-row
+~ta-org-table-previous-row~
+
+#+BEGIN_SRC emacs-lisp
+(defun ta-org-table-previous-row ()
+  "Go to the previous row (same column) in the current table.
+Before doing so, re-align the table if necessary."
+  (interactive)
+  (unless (org-at-table-hline-p)
+    (org-table-maybe-eval-formula)
+    (org-table-maybe-recalculate-line))
+  (if (and org-table-automatic-realign
+           org-table-may-need-update)
+      (org-table-align))
+  (let ((col (org-table-current-column)))
+    (when (and (org-at-table-p)
+               (not (= (org-table-current-line) 1)))
+      (previous-line)
+      (unless (org-at-table-hline-p)
+        (org-table-goto-column col)))))
+#+END_SRC
+
+* Emacs Lisp
+** call-interactively
+~call-interactively~: Call FUNCTION, providing args according to its
+interactive calling specs.
+
+#+BEGIN_SRC C
+DEFUN ("call-interactively", Fcall_interactively, Scall_interactively, 1, 3, 0,
+       doc: /* Call FUNCTION, providing args according to its interactive calling specs.
+Return the value FUNCTION returns.
+The function contains a specification of how to do the argument reading.
+In the case of user-defined functions, this is specified by placing a call
+to the function `interactive' at the top level of the function body.
+See `interactive'.
+
+Optional second arg RECORD-FLAG non-nil
+means unconditionally put this command in the variable `command-history'.
+Otherwise, this is done only if an arg is read using the minibuffer.
+
+Optional third arg KEYS, if given, specifies the sequence of events to
+supply, as a vector, if FUNCTION inquires which events were used to
+invoke it (via an `interactive' spec that contains, for instance, an
+\"e\" code letter).  If KEYS is omitted or nil, the return value of
+`this-command-keys-vector' is used.  */)
+  (Lisp_Object function, Lisp_Object record_flag, Lisp_Object keys)
+{
+  ptrdiff_t speccount = SPECPDL_INDEX ();
+
+  bool arg_from_tty = false;
+  ptrdiff_t key_count;
+  bool record_then_fail = false;
+
+  Lisp_Object save_this_command = Vthis_command;
+  Lisp_Object save_this_original_command = Vthis_original_command;
+  Lisp_Object save_real_this_command = Vreal_this_command;
+  Lisp_Object save_last_command = KVAR (current_kboard, Vlast_command);
+
+  /* Bound recursively so that code can check the current command from
+     code running from minibuffer hooks (and the like), without being
+     overwritten by subsequent minibuffer calls.  */
+  specbind (Qcurrent_minibuffer_command, Vthis_command);
+
+  if (NILP (keys))
+    keys = this_command_keys, key_count = this_command_key_count;
+  else
+    {
+      CHECK_VECTOR (keys);
+      key_count = ASIZE (keys);
+    }
+
+  /* Save this now, since use of minibuffer will clobber it.  */
+  Lisp_Object prefix_arg = Vcurrent_prefix_arg;
+
+  Lisp_Object enable = (SYMBOLP (function)
+      ? Fget (function, Qenable_recursive_minibuffers)
+      : Qnil);
+
+  /* If k or K discard an up-event, save it here so it can be retrieved with
+     U.  */
+  Lisp_Object up_event = Qnil;
+
+  /* Set SPECS to the interactive form, or barf if not interactive.  */
+  Lisp_Object form = Finteractive_form (function);
+  if (! CONSP (form))
+    wrong_type_argument (Qcommandp, function);
+  Lisp_Object specs = Fcar (XCDR (form));
+
+  /* At this point the value of SPECS could help provide a way to
+     specify how to represent the arguments in command history.
+     The feature is not fully implemented.  */
+
+  /* If SPECS is not a string, invent one.  */
+  if (! STRINGP (specs))
+    {
+      Lisp_Object funval = Findirect_function (function, Qt);
+      uintmax_t events = num_input_events;
+      Lisp_Object input = specs;
+      /* Compute the arg values using the user's expression.  */
+      specs = Feval (specs,
+          CONSP (funval) && EQ (Qclosure, XCAR (funval))
+         ? CAR_SAFE (XCDR (funval)) : Qnil);
+      if (events != num_input_events || !NILP (record_flag))
+  {
+    /* We should record this command on the command history.
+       Make a copy of the list of values, for the command history,
+       and turn them into things we can eval.  */
+    Lisp_Object values = quotify_args (Fcopy_sequence (specs));
+    fix_command (input, values);
+          call4 (intern ("add-to-history"), intern ("command-history"),
+                 Fcons (function, values), Qnil, Qt);
+  }
+
+      Vthis_command = save_this_command;
+      Vthis_original_command = save_this_original_command;
+      Vreal_this_command = save_real_this_command;
+      kset_last_command (current_kboard, save_last_command);
+
+      return unbind_to (speccount, CALLN (Fapply, Qfuncall_interactively,
+            function, specs));
+    }
+
+  /* SPECS is set to a string; use it as an interactive prompt.
+     Copy it so that STRING will be valid even if a GC relocates SPECS.  */
+  USE_SAFE_ALLOCA;
+  ptrdiff_t string_len = SBYTES (specs);
+  char *string = SAFE_ALLOCA (string_len + 1);
+  memcpy (string, SDATA (specs), string_len + 1);
+  char *string_end = string + string_len;
+
+  /* The index of the next element of this_command_keys to examine for
+     the 'e' interactive code.  Initialize it to point to the first
+     event with parameters.  */
+  ptrdiff_t next_event;
+  for (next_event = 0; next_event < key_count; next_event++)
+    if (EVENT_HAS_PARAMETERS (AREF (keys, next_event)))
+      break;
+
+  /* Handle special starting chars `*' and `@'.  Also `-'.  */
+  /* Note that `+' is reserved for user extensions.  */
+  for (;; string++)
+    {
+      if (*string == '+')
+  error ("`+' is not used in `interactive' for ordinary commands");
+      else if (*string == '*')
+  {
+    if (!NILP (BVAR (current_buffer, read_only)))
+      {
+        if (!NILP (record_flag))
+    {
+      for (char *p = string + 1; p < string_end; p++)
+        if (! (*p == 'r' || *p == 'p' || *p == 'P' || *p == '\n'))
+          Fbarf_if_buffer_read_only (Qnil);
+      record_then_fail = true;
+    }
+        else
+    Fbarf_if_buffer_read_only (Qnil);
+      }
+  }
+      /* Ignore this for semi-compatibility with Lucid.  */
+      else if (*string == '-')
+  ;
+      else if (*string == '@')
+  {
+    Lisp_Object w, event = (next_event < key_count
+          ? AREF (keys, next_event)
+          : Qnil);
+    if (EVENT_HAS_PARAMETERS (event)
+        && (w = XCDR (event), CONSP (w))
+        && (w = XCAR (w), CONSP (w))
+        && (w = XCAR (w), WINDOWP (w)))
+      {
+        if (MINI_WINDOW_P (XWINDOW (w))
+      && ! (minibuf_level > 0 && EQ (w, minibuf_window)))
+    error ("Attempt to select inactive minibuffer window");
+
+        /* If the current buffer wants to clean up, let it.  */
+              run_hook (Qmouse_leave_buffer_hook);
+
+        Fselect_window (w, Qnil);
+      }
+  }
+      else if (*string == '^')
+  call0 (Qhandle_shift_selection);
+      else break;
+    }
+
+  /* Count the number of arguments, which is two (the function itself and
+     `funcall-interactively') plus the number of arguments the interactive spec
+     would have us give to the function.  */
+  ptrdiff_t nargs = 2;
+  for (char const *tem = string; tem < string_end; tem++)
+    {
+      /* 'r' specifications ("point and mark as 2 numeric args")
+   produce *two* arguments.  */
+      nargs += 1 + (*tem == 'r');
+      tem = memchr (tem, '\n', string_len - (tem - string));
+      if (!tem)
+  break;
+    }
+
+  if (MOST_POSITIVE_FIXNUM < min (PTRDIFF_MAX, SIZE_MAX) / word_size
+      && MOST_POSITIVE_FIXNUM < nargs)
+    memory_full (SIZE_MAX);
+
+  /* ARGS will contain the array of arguments to pass to the function.
+     VISARGS will contain the same list but in a nicer form, so that if we
+     pass it to Fformat_message it will be understandable to a human.
+     Allocate them all at one go.  This wastes a bit of memory, but
+     it's OK to trade space for speed.  */
+  Lisp_Object *args;
+  SAFE_NALLOCA (args, 3, nargs);
+  Lisp_Object *visargs = args + nargs;
+  /* If varies[I] > 0, the Ith argument shouldn't just have its value
+     in this call quoted in the command history.  It should be
+     recorded as a call to the function named callint_argfuns[varies[I]].  */
+  signed char *varies = (signed char *) (visargs + nargs);
+
+  memclear (args, nargs * (2 * word_size + 1));
+
+  if (!NILP (enable))
+    specbind (Qenable_recursive_minibuffers, Qt);
+
+  char const *tem = string;
+  for (ptrdiff_t i = 2; tem < string_end; i++)
+    {
+      char *pnl = memchr (tem + 1, '\n', string_len - (tem + 1 - string));
+      ptrdiff_t sz = pnl ? pnl - (tem + 1) : string_end - (tem + 1);
+
+      visargs[1] = make_string (tem + 1, sz);
+      callint_message = Fformat_message (i - 1, visargs + 1);
+
+      switch (*tem)
+  {
+  case 'a':    /* Symbol defined as a function.  */
+    visargs[i] = Fcompleting_read (callint_message,
+           Vobarray, Qfboundp, Qt,
+           Qnil, Qnil, Qnil, Qnil);
+    args[i] = Fintern (visargs[i], Qnil);
+    break;
+
+  case 'b':       /* Name of existing buffer.  */
+    args[i] = Fcurrent_buffer ();
+    if (EQ (selected_window, minibuf_window))
+      args[i] = Fother_buffer (args[i], Qnil, Qnil);
+    args[i] = Fread_buffer (callint_message, args[i], Qt, Qnil);
+    break;
+
+  case 'B':    /* Name of buffer, possibly nonexistent.  */
+    args[i] = Fread_buffer (callint_message,
+          Fother_buffer (Fcurrent_buffer (),
+             Qnil, Qnil),
+          Qnil, Qnil);
+    break;
+
+        case 'c':    /* Character.  */
+    /* Prompt in `minibuffer-prompt' face.  */
+    Fput_text_property (make_fixnum (0),
+            make_fixnum (SCHARS (callint_message)),
+            Qface, Qminibuffer_prompt, callint_message);
+    args[i] = Fread_char (callint_message, Qnil, Qnil);
+    message1_nolog (0);
+    /* See bug#8479.  */
+    if (! CHARACTERP (args[i]))
+      error ("Non-character input-event");
+    visargs[i] = Fchar_to_string (args[i]);
+    break;
+
+  case 'C':        /* Command: symbol with interactive function.  */
+    visargs[i] = Fcompleting_read (callint_message,
+           Vobarray, Qcommandp,
+           Qt, Qnil, Qnil, Qnil, Qnil);
+    args[i] = Fintern (visargs[i], Qnil);
+    break;
+
+  case 'd':    /* Value of point.  Does not do I/O.  */
+    set_marker_both (point_marker, Qnil, PT, PT_BYTE);
+    args[i] = point_marker;
+    /* visargs[i] = Qnil; */
+    varies[i] = 1;
+    break;
+
+  case 'D':    /* Directory name.  */
+    args[i] = read_file_name (BVAR (current_buffer, directory), Qlambda,
+            Qnil, Qfile_directory_p);
+    break;
+
+  case 'f':    /* Existing file name.  */
+    args[i] = read_file_name (Qnil, Qlambda, Qnil, Qnil);
+    break;
+
+  case 'F':    /* Possibly nonexistent file name.  */
+    args[i] = read_file_name (Qnil, Qnil, Qnil, Qnil);
+    break;
+
+  case 'G':    /* Possibly nonexistent file name,
+           default to directory alone.  */
+    args[i] = read_file_name (Qnil, Qnil, empty_unibyte_string, Qnil);
+    break;
+
+  case 'i':    /* Ignore an argument -- Does not do I/O.  */
+    varies[i] = -1;
+    break;
+
+  case 'k':    /* Key sequence.  */
+    {
+      ptrdiff_t speccount1 = SPECPDL_INDEX ();
+      specbind (Qcursor_in_echo_area, Qt);
+      /* Prompt in `minibuffer-prompt' face.  */
+      Fput_text_property (make_fixnum (0),
+        make_fixnum (SCHARS (callint_message)),
+        Qface, Qminibuffer_prompt, callint_message);
+      args[i] = Fread_key_sequence (callint_message,
+            Qnil, Qnil, Qnil, Qnil);
+      unbind_to (speccount1, Qnil);
+      visargs[i] = Fkey_description (args[i], Qnil);
+
+      /* If the key sequence ends with a down-event,
+         discard the following up-event.  */
+      Lisp_Object teml
+        = Faref (args[i], make_fixnum (XFIXNUM (Flength (args[i])) - 1));
+      if (CONSP (teml))
+        teml = XCAR (teml);
+      if (SYMBOLP (teml))
+        {
+    teml = Fget (teml, Qevent_symbol_elements);
+    /* Ignore first element, which is the base key.  */
+    Lisp_Object tem2 = Fmemq (Qdown, Fcdr (teml));
+    if (! NILP (tem2))
+      up_event = Fread_event (Qnil, Qnil, Qnil);
+        }
+    }
+    break;
+
+  case 'K':    /* Key sequence to be defined.  */
+    {
+      ptrdiff_t speccount1 = SPECPDL_INDEX ();
+      specbind (Qcursor_in_echo_area, Qt);
+      /* Prompt in `minibuffer-prompt' face.  */
+      Fput_text_property (make_fixnum (0),
+        make_fixnum (SCHARS (callint_message)),
+        Qface, Qminibuffer_prompt, callint_message);
+      args[i] = Fread_key_sequence_vector (callint_message,
+             Qnil, Qt, Qnil, Qnil);
+      visargs[i] = Fkey_description (args[i], Qnil);
+      unbind_to (speccount1, Qnil);
+
+      /* If the key sequence ends with a down-event,
+         discard the following up-event.  */
+      Lisp_Object teml
+        = Faref (args[i], make_fixnum (ASIZE (args[i]) - 1));
+      if (CONSP (teml))
+        teml = XCAR (teml);
+      if (SYMBOLP (teml))
+        {
+    teml = Fget (teml, Qevent_symbol_elements);
+    /* Ignore first element, which is the base key.  */
+    Lisp_Object tem2 = Fmemq (Qdown, Fcdr (teml));
+    if (! NILP (tem2))
+      up_event = Fread_event (Qnil, Qnil, Qnil);
+        }
+    }
+    break;
+
+  case 'U':    /* Up event from last k or K.  */
+    if (!NILP (up_event))
+      {
+        args[i] = make_vector (1, up_event);
+        up_event = Qnil;
+        visargs[i] = Fkey_description (args[i], Qnil);
+      }
+    break;
+
+  case 'e':    /* The invoking event.  */
+    if (next_event >= key_count)
+      error ("%s must be bound to an event with parameters",
+       (SYMBOLP (function)
+        ? SSDATA (SYMBOL_NAME (function))
+        : "command"));
+    args[i] = AREF (keys, next_event);
+    varies[i] = -1;
+
+    /* Find the next parameterized event.  */
+    do
+      next_event++;
+    while (next_event < key_count
+     && ! EVENT_HAS_PARAMETERS (AREF (keys, next_event)));
+
+    break;
+
+  case 'm':    /* Value of mark.  Does not do I/O.  */
+    check_mark (false);
+    /* visargs[i] = Qnil; */
+    args[i] = BVAR (current_buffer, mark);
+    varies[i] = 2;
+    break;
+
+  case 'M':    /* String read via minibuffer with
+           inheriting the current input method.  */
+    args[i] = Fread_string (callint_message,
+          Qnil, Qnil, Qnil, Qt);
+    break;
+
+  case 'N':     /* Prefix arg as number, else number from minibuffer.  */
+    if (!NILP (prefix_arg))
+      goto have_prefix_arg;
+    FALLTHROUGH;
+  case 'n':    /* Read number from minibuffer.  */
+    args[i] = call1 (Qread_number, callint_message);
+    visargs[i] = Fnumber_to_string (args[i]);
+    break;
+
+  case 'P':    /* Prefix arg in raw form.  Does no I/O.  */
+    args[i] = prefix_arg;
+    /* visargs[i] = Qnil; */
+    varies[i] = -1;
+    break;
+
+  case 'p':    /* Prefix arg converted to number.  No I/O.  */
+  have_prefix_arg:
+    args[i] = Fprefix_numeric_value (prefix_arg);
+    /* visargs[i] = Qnil; */
+    varies[i] = -1;
+    break;
+
+  case 'r':    /* Region, point and mark as 2 args.  */
+    {
+      check_mark (true);
+      set_marker_both (point_marker, Qnil, PT, PT_BYTE);
+      ptrdiff_t mark = marker_position (BVAR (current_buffer, mark));
+      /* visargs[i] = visargs[i + 1] = Qnil; */
+      args[i] = PT < mark ? point_marker : BVAR (current_buffer, mark);
+      varies[i] = 3;
+      args[++i] = PT > mark ? point_marker : BVAR (current_buffer, mark);
+      varies[i] = 4;
+    }
+    break;
+
+  case 's':    /* String read via minibuffer without
+           inheriting the current input method.  */
+    args[i] = Fread_string (callint_message,
+          Qnil, Qnil, Qnil, Qnil);
+    break;
+
+  case 'S':    /* Any symbol.  */
+    visargs[i] = Fread_string (callint_message,
+             Qnil, Qnil, Qnil, Qnil);
+    args[i] = Fintern (visargs[i], Qnil);
+    break;
+
+  case 'v':    /* Variable name: symbol that is
+           custom-variable-p.  */
+    args[i] = Fread_variable (callint_message, Qnil);
+    visargs[i] = last_minibuf_string;
+    break;
+
+  case 'x':    /* Lisp expression read but not evaluated.  */
+    args[i] = call1 (intern ("read-minibuffer"), callint_message);
+    visargs[i] = last_minibuf_string;
+    break;
+
+  case 'X':    /* Lisp expression read and evaluated.  */
+    args[i] = call1 (intern ("eval-minibuffer"), callint_message);
+    visargs[i] = last_minibuf_string;
+     break;
+
+  case 'Z':    /* Coding-system symbol, or ignore the
+           argument if no prefix.  */
+    if (NILP (prefix_arg))
+      {
+        /* args[i] = Qnil; */
+        varies[i] = -1;
+      }
+    else
+      {
+        args[i]
+    = Fread_non_nil_coding_system (callint_message);
+        visargs[i] = last_minibuf_string;
+      }
+    break;
+
+  case 'z':    /* Coding-system symbol or nil.  */
+    args[i] = Fread_coding_system (callint_message, Qnil);
+    visargs[i] = last_minibuf_string;
+    break;
+
+    /* We have a case for `+' so we get an error
+       if anyone tries to define one here.  */
+  case '+':
+  default:
+    {
+      /* How many bytes are left unprocessed in the specs string?
+         (Note that this excludes the trailing null byte.)  */
+      ptrdiff_t bytes_left = string_len - (tem - string);
+      unsigned letter;
+
+      /* If we have enough bytes left to treat the sequence as a
+         character, show that character's codepoint; otherwise
+         show only its first byte.  */
+      if (bytes_left >= BYTES_BY_CHAR_HEAD (*((unsigned char *) tem)))
+        letter = STRING_CHAR ((unsigned char *) tem);
+      else
+        letter = *((unsigned char *) tem);
+
+      error (("Invalid control letter `%c' (#o%03o, #x%04x)"
+        " in interactive calling string"),
+       (int) letter, letter, letter);
+    }
+  }
+
+      if (varies[i] == 0)
+  arg_from_tty = true;
+
+      if (NILP (visargs[i]) && STRINGP (args[i]))
+  visargs[i] = args[i];
+
+      tem = memchr (tem, '\n', string_len - (tem - string));
+      if (tem) tem++;
+      else tem = string_end;
+    }
+  unbind_to (speccount, Qnil);
+
+  maybe_quit ();
+
+  args[0] = Qfuncall_interactively;
+  args[1] = function;
+
+  if (arg_from_tty || !NILP (record_flag))
+    {
+      /* We don't need `visargs' any more, so let's recycle it since we need
+   an array of just the same size.  */
+      visargs[1] = function;
+      for (ptrdiff_t i = 2; i < nargs; i++)
+  visargs[i] = (varies[i] > 0
+          ? list1 (intern (callint_argfuns[varies[i]]))
+          : quotify_arg (args[i]));
+      call4 (intern ("add-to-history"), intern ("command-history"),
+             Flist (nargs - 1, visargs + 1), Qnil, Qt);
+    }
+
+  /* If we used a marker to hold point, mark, or an end of the region,
+     temporarily, convert it to an integer now.  */
+  for (ptrdiff_t i = 2; i < nargs; i++)
+    if (varies[i] >= 1 && varies[i] <= 4)
+      XSETINT (args[i], marker_position (args[i]));
+
+  if (record_then_fail)
+    Fbarf_if_buffer_read_only (Qnil);
+
+  Vthis_command = save_this_command;
+  Vthis_original_command = save_this_original_command;
+  Vreal_this_command = save_real_this_command;
+  kset_last_command (current_kboard, save_last_command);
+
+  specbind (Qcommand_debug_status, Qnil);
+
+  Lisp_Object val = Ffuncall (nargs, args);
+  return SAFE_FREE_UNBIND_TO (speccount, val);
+}
+#+END_SRC
+
+** define-key
+~define-key~: In KEYMAP, define key sequence KEY as DEF.
+
+#+BEGIN_SRC C
+/* Simple Keymap mutators and accessors.        */
+
+/* GC is possible in this function if it autoloads a keymap.  */
+
+DEFUN ("define-key", Fdefine_key, Sdefine_key, 3, 3, 0,
+       doc: /* In KEYMAP, define key sequence KEY as DEF.
+KEYMAP is a keymap.
+
+KEY is a string or a vector of symbols and characters, representing a
+sequence of keystrokes and events.  Non-ASCII characters with codes
+above 127 (such as ISO Latin-1) can be represented by vectors.
+Two types of vector have special meanings:
+ [remap COMMAND] remaps any key binding for COMMAND.
+ [t] creates a default definition, which applies to any event with no
+    other definition in KEYMAP.
+
+DEF is anything that can be a key's definition:
+ nil (means key is undefined in this keymap),
+ a command (a Lisp function suitable for interactive calling),
+ a string (treated as a keyboard macro),
+ a keymap (to define a prefix key),
+ a symbol (when the key is looked up, the symbol will stand for its
+    function definition, which should at that time be one of the above,
+    or another symbol whose function definition is used, etc.),
+ a cons (STRING . DEFN), meaning that DEFN is the definition
+    (DEFN should be a valid definition in its own right),
+ or a cons (MAP . CHAR), meaning use definition of CHAR in keymap MAP,
+ or an extended menu item definition.
+ (See info node `(elisp)Extended Menu Items'.)
+
+If KEYMAP is a sparse keymap with a binding for KEY, the existing
+binding is altered.  If there is no binding for KEY, the new pair
+binding KEY to DEF is added at the front of KEYMAP.  */)
+  (Lisp_Object keymap, Lisp_Object key, Lisp_Object def)
+{
+  bool metized = false;
+
+  keymap = get_keymap (keymap, 1, 1);
+
+  ptrdiff_t length = CHECK_VECTOR_OR_STRING (key);
+  if (length == 0)
+    return Qnil;
+
+  int meta_bit = (VECTORP (key) || (STRINGP (key) && STRING_MULTIBYTE (key))
+      ? meta_modifier : 0x80);
+
+  if (VECTORP (def) && ASIZE (def) > 0 && CONSP (AREF (def, 0)))
+    { /* DEF is apparently an XEmacs-style keyboard macro.  */
+      Lisp_Object tmp = make_nil_vector (ASIZE (def));
+      ptrdiff_t i = ASIZE (def);
+      while (--i >= 0)
+  {
+    Lisp_Object defi = AREF (def, i);
+    if (CONSP (defi) && lucid_event_type_list_p (defi))
+      defi = Fevent_convert_list (defi);
+    ASET (tmp, i, defi);
+  }
+      def = tmp;
+    }
+
+  ptrdiff_t idx = 0;
+  while (1)
+    {
+      Lisp_Object c = Faref (key, make_fixnum (idx));
+
+      if (CONSP (c))
+  {
+    /* C may be a Lucid style event type list or a cons (FROM .
+       TO) specifying a range of characters.  */
+    if (lucid_event_type_list_p (c))
+      c = Fevent_convert_list (c);
+    else if (CHARACTERP (XCAR (c)))
+      CHECK_CHARACTER_CDR (c);
+  }
+
+      if (SYMBOLP (c))
+  silly_event_symbol_error (c);
+
+      if (FIXNUMP (c)
+    && (XFIXNUM (c) & meta_bit)
+    && !metized)
+  {
+    c = meta_prefix_char;
+    metized = true;
+  }
+      else
+  {
+    if (FIXNUMP (c))
+      XSETINT (c, XFIXNUM (c) & ~meta_bit);
+
+    metized = false;
+    idx++;
+  }
+
+      if (!FIXNUMP (c) && !SYMBOLP (c)
+    && (!CONSP (c)
+        /* If C is a range, it must be a leaf.  */
+        || (FIXNUMP (XCAR (c)) && idx != length)))
+  message_with_string ("Key sequence contains invalid event %s", c, 1);
+
+      if (idx == length)
+  return store_in_keymap (keymap, c, def);
+
+      Lisp_Object cmd = access_keymap (keymap, c, 0, 1, 1);
+
+      /* If this key is undefined, make it a prefix.  */
+      if (NILP (cmd))
+  cmd = define_as_prefix (keymap, c);
+
+      keymap = get_keymap (cmd, 0, 1);
+      if (!CONSP (keymap))
+  {
+    const char *trailing_esc = ((EQ (c, meta_prefix_char) && metized)
+              ? (idx == 0 ? "ESC" : " ESC")
+              : "");
+
+    /* We must use Fkey_description rather than just passing key to
+       error; key might be a vector, not a string.  */
+    error ("Key sequence %s starts with non-prefix key %s%s",
+     SDATA (Fkey_description (key, Qnil)),
+     SDATA (Fkey_description (Fsubstring (key, make_fixnum (0),
+                  make_fixnum (idx)),
+            Qnil)),
+     trailing_esc);
+  }
+    }
+}
+#+END_SRC
+
+** org-at-table-p
+~org-at-table-p~: Non-nil if the cursor is inside an Org table.
+
+#+BEGIN_SRC emacs-lisp
+(defun org-at-table-p (&optional table-type)
+  "Non-nil if the cursor is inside an Org table.
+If TABLE-TYPE is non-nil, also check for table.el-type tables."
+  (and (org-match-line (if table-type "[ \t]*[|+]" "[ \t]*|"))
+       (or (not (derived-mode-p 'org-mode))
+           (let ((e (org-element-lineage (org-element-at-point) '(table) t)))
+             (and e (or table-type
+                        (eq 'org (org-element-property :type e))))))))
+#+END_SRC
+
+** org-in-item-p
+~org-in-item-p~: Return item beginning position when in a plain list,
+nil otherwise.
+
+#+BEGIN_SRC emacs-lisp
+(defun org-in-item-p ()
+  "Return item beginning position when in a plain list, nil otherwise."
+  (save-excursion
+    (beginning-of-line)
+    (let* ((case-fold-search t)
+           (context (org-list-context))
+           (lim-up (car context))
+           (inlinetask-re (and (featurep 'org-inlinetask)
+                               (org-inlinetask-outline-regexp)))
+           (item-re (org-item-re))
+           ;; Indentation isn't meaningful when point starts at an empty
+           ;; line or an inline task.
+           (ind-ref (if (or (looking-at "^[ \t]*$")
+                            (and inlinetask-re (looking-at inlinetask-re)))
+                        10000
+                      (current-indentation))))
+      (cond
+       ((eq (nth 2 context) 'invalid) nil)
+       ((looking-at item-re) (point))
+       (t
+        ;; Detect if cursor in amidst `org-list-end-re'.  First, count
+        ;; number HL of hard lines it takes, then call `org-in-regexp'
+        ;; to compute its boundaries END-BOUNDS.  When point is
+        ;; in-between, move cursor before regexp beginning.
+        (let ((hl 0) (i -1) end-bounds)
+          (when (and (progn
+                       (while (setq i (string-match
+                                       "[\r\n]" org-list-end-re (1+ i)))
+                         (setq hl (1+ hl)))
+                       (setq end-bounds (org-in-regexp org-list-end-re hl)))
+                     (>= (point) (car end-bounds))
+                     (< (point) (cdr end-bounds)))
+            (goto-char (car end-bounds))
+            (forward-line -1)))
+        ;; Look for an item, less indented that reference line.
+        (catch 'exit
+          (while t
+            (let ((ind (current-indentation)))
+              (cond
+               ;; This is exactly what we want.
+               ((and (looking-at item-re) (< ind ind-ref))
+                (throw 'exit (point)))
+               ;; At upper bound of search or looking at the end of a
+               ;; previous list: search is over.
+               ((<= (point) lim-up) (throw 'exit nil))
+               ((looking-at org-list-end-re) (throw 'exit nil))
+               ;; Skip blocks, drawers, inline-tasks, blank lines
+               ((and (looking-at "^[ \t]*#\\+end_")
+                     (re-search-backward "^[ \t]*#\\+begin_" lim-up t)))
+               ((and (looking-at "^[ \t]*:END:")
+                     (re-search-backward org-drawer-regexp lim-up t))
+                (beginning-of-line))
+               ((and inlinetask-re (looking-at inlinetask-re))
+                (org-inlinetask-goto-beginning)
+                (forward-line -1))
+               ((looking-at "^[ \t]*$") (forward-line -1))
+               ;; Text at column 0 cannot belong to a list: stop.
+               ((zerop ind) (throw 'exit nil))
+               ;; Normal text less indented than reference line, take
+               ;; it as new reference.
+               ((< ind ind-ref)
+                (setq ind-ref ind)
+                (forward-line -1))
+               (t (forward-line -1)))))))))))
+#+END_SRC
+
+** org-insert-heading
+~org-insert-heading~: Insert a new heading or an item with the same
+depth at point.
+
+#+BEGIN_SRC emacs-lisp
+(defun org-insert-heading (&optional arg invisible-ok top)
+  "Insert a new heading or an item with the same depth at point.
+
+If point is at the beginning of a heading, insert a new heading
+or a new headline above the current one.  When at the beginning
+of a regular line of text, turn it into a heading.
+
+If point is in the middle of a line, split it and create a new
+headline with the text in the current line after point (see
+`org-M-RET-may-split-line' on how to modify this behavior).  As
+a special case, on a headline, splitting can only happen on the
+title itself.  E.g., this excludes breaking stars or tags.
+
+With a `\\[universal-argument]' prefix, set \
+`org-insert-heading-respect-content' to
+a non-nil value for the duration of the command.  This forces the
+insertion of a heading after the current subtree, independently
+on the location of point.
+
+With a `\\[universal-argument] \\[universal-argument]' prefix, \
+insert the heading at the end of the tree
+above the current heading.  For example, if point is within a
+2nd-level heading, then it will insert a 2nd-level heading at
+the end of the 1st-level parent subtree.
+
+When INVISIBLE-OK is set, stop at invisible headlines when going
+back.  This is important for non-interactive uses of the
+command.
+
+When optional argument TOP is non-nil, insert a level 1 heading,
+unconditionally."
+  (interactive "P")
+  (let* ((blank? (org--blank-before-heading-p (equal arg '(16))))
+         (level (org-current-level))
+         (stars (make-string (if (and level (not top)) level 1) ?*)))
+    (cond
+     ((or org-insert-heading-respect-content
+          (member arg '((4) (16)))
+          (and (not invisible-ok)
+               (invisible-p (max (1- (point)) (point-min)))))
+      ;; Position point at the location of insertion.  Make sure we
+      ;; end up on a visible headline if INVISIBLE-OK is nil.
+      (org-with-limited-levels
+       (if (not level) (outline-next-heading) ;before first headline
+         (org-back-to-heading invisible-ok)
+         (when (equal arg '(16)) (org-up-heading-safe))
+         (org-end-of-subtree)))
+      (unless (bolp) (insert "\n"))
+      (unless (and blank? (org-previous-line-empty-p))
+        (org-N-empty-lines-before-current (if blank? 1 0)))
+      (insert stars " ")
+      ;; When INVISIBLE-OK is non-nil, ensure newly created headline
+      ;; is visible.
+      (unless invisible-ok
+        (pcase (get-char-property-and-overlay (point) 'invisible)
+          (`(outline . ,o)
+           (move-overlay o (overlay-start o) (line-end-position 0)))
+          (_ nil))))
+     ;; At a headline...
+     ((org-at-heading-p)
+      (cond ((bolp)
+             (when blank? (save-excursion (insert "\n")))
+             (save-excursion (insert stars " \n"))
+             (unless (and blank? (org-previous-line-empty-p))
+               (org-N-empty-lines-before-current (if blank? 1 0)))
+             (end-of-line))
+            ((and (org-get-alist-option org-M-RET-may-split-line 'headline)
+                  (org-match-line org-complex-heading-regexp)
+                  (org-pos-in-match-range (point) 4))
+             ;; Grab the text that should moved to the new headline.
+             ;; Preserve tags.
+             (let ((split (delete-and-extract-region (point) (match-end 4))))
+               (if (looking-at "[ \t]*$") (replace-match "")
+                 (org-align-tags))
+               (end-of-line)
+               (when blank? (insert "\n"))
+               (insert "\n" stars " ")
+               (when (org-string-nw-p split) (insert split))))
+            (t
+             (end-of-line)
+             (when blank? (insert "\n"))
+             (insert "\n" stars " "))))
+     ;; On regular text, turn line into a headline or split, if
+     ;; appropriate.
+     ((bolp)
+      (insert stars " ")
+      (unless (and blank? (org-previous-line-empty-p))
+        (org-N-empty-lines-before-current (if blank? 1 0))))
+     (t
+      (unless (org-get-alist-option org-M-RET-may-split-line 'headline)
+        (end-of-line))
+      (insert "\n" stars " ")
+      (unless (and blank? (org-previous-line-empty-p))
+        (org-N-empty-lines-before-current (if blank? 1 0))))))
+  (run-hooks 'org-insert-heading-hook))
+#+END_SRC
+
+** org-insert-item
+~org-insert-item~: Insert a new item at the current level.
+
+#+BEGIN_SRC emacs-lisp
+(defun org-insert-item (&optional checkbox)
+  "Insert a new item at the current level.
+If cursor is before first character after bullet of the item, the
+new item will be created before the current one.
+
+If CHECKBOX is non-nil, add a checkbox next to the bullet.
+
+Return t when things worked, nil when we are not in an item, or
+item is invisible."
+  (interactive "P")
+  (let ((itemp (org-in-item-p))
+        (pos (point)))
+    ;; If cursor isn't is a list or if list is invisible, return nil.
+    (unless (or (not itemp)
+                (save-excursion
+                  (goto-char itemp)
+                  (org-invisible-p)))
+      (if (save-excursion
+            (goto-char itemp)
+            (org-at-item-timer-p))
+          ;; Timer list: delegate to `org-timer-item'.
+          (progn (org-timer-item) t)
+        (let* ((struct (save-excursion (goto-char itemp)
+                                       (org-list-struct)))
+               (prevs (org-list-prevs-alist struct))
+               ;; If we're in a description list, ask for the new term.
+               (desc (when (eq (org-list-get-list-type itemp struct prevs)
+                               'descriptive)
+                       " :: ")))
+          (setq struct (org-list-insert-item pos struct prevs checkbox desc))
+          (org-list-write-struct struct (org-list-parents-alist struct))
+          (when checkbox (org-update-checkbox-count-maybe))
+          (looking-at org-list-full-item-re)
+          (goto-char (if (and (match-beginning 4)
+                              (save-match-data
+                                (string-match "[.)]" (match-string 1))))
+                         (match-beginning 4)
+                       (match-end 0)))
+          (when desc (backward-char 1))
+          t)))))
+#+END_SRC

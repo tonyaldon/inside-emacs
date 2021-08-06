@@ -1,0 +1,54 @@
+#+TITLE: FIXME: Inside Emacs 6 part 9
+#+AUTHOR: Tony Aldon
+#+DATE: <2021-08-05 Thu>
+#+PROPERTY: YOUTUBE_LINK  https://youtu.be/wrEYankhAIs
+#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
+#+PROPERTY: CONFIG_COMMIT 15379cdd5e548f1540d677d4386bb5da7d5bc5b0
+#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-09/
+#+TAGS: FIXME
+
+* Description
+
+* Commands
+** built-in
+*** org-mode-map
+
+~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update according
+to changed information at point.
+
+~org-yank~ (~C-y~): Yank.  If the kill is a subtree, treat it specially.
+
+** external
+
+** customized
+*** handy-mark-line
+~handy-mark-line~: Mark the current line.
+
+#+BEGIN_SRC emacs-lisp
+(defun handy-mark-line (arg)
+  "Mark the current line.
+
+If call with `universal-argument', copy the line."
+  (interactive "p")
+  (if (equal arg 4)
+      (handy-line-copy)
+    ;; HACK: Have to use both `push-mark' and `set-mark' in this order
+    ;;       to get expected result.
+    (end-of-line)
+    (push-mark (point))
+    (set-mark (point))
+    (beginning-of-line)))
+#+END_SRC
+
+*** ta-avy-goto-end-of-line
+~ta-avy-goto-end-of-line~: Jump to the visible end of line.
+
+#+BEGIN_SRC emacs-lisp
+(require 'avy)
+
+(defun ta-avy-goto-end-of-line ()
+  "Jump to the visible end of line.
+Call `avy-goto-char' with \"\n\" as argument."
+  (interactive)
+  (avy-goto-char ?\n))
+#+END_SRC

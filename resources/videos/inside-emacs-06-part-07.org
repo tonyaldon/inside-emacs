@@ -1,0 +1,672 @@
+#+TITLE: FIXME: Inside Emacs 6 part 7
+#+AUTHOR: Tony Aldon
+#+DATE: <2021-08-05 Thu>
+#+PROPERTY: YOUTUBE_LINK  https://youtu.be/LogbcVWb3mQ
+#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
+#+PROPERTY: CONFIG_COMMIT 06ba16e26da4fbedb430090287aec096bf491037
+#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-07/
+#+TAGS: FIXME
+
+* Description
+
+* Commands
+** built-in
+*** without default key binding
+
+~isearch-occur~: Run ~occur~ using the last search string as the regexp.
+
+*** global-map
+
+~eval-last-sexp~ (~C-x C-e~): Evaluate sexp before point; print value in
+the echo area.
+
+~narrow-to-region~ (~C-x n n~): Restrict editing in this buffer to the
+current region.
+
+~recenter-top-bottom~ (~C-l~): Scroll the window so that current line is
+in the middle of the window.
+
+~isearch-forward~ (~C-s~): Do incremental search forward.
+
+*** org-mode-map
+
+~org-edit-special~ (~C-c '~): Call a special editor for the element at point.
+
+*** org-src-mode-map
+
+~org-edit-src-exit~ (~C-c '~): Kill current sub-editing buffer and return
+to source buffer.
+
+*** org-mode
+
+~org-table-export~: Export table to a file, with configurable format.
+
+** external
+
+~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read in
+the minibuffer).
+
+~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
+
+~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
+
+~counsel-M-x~ (from [[https://github.com/abo-abo/swiper][counsel]]): Ivy version of ~execute-extended-command~.
+
+~counsel-yank-pop~ (from [[https://github.com/abo-abo/swiper][swiper]]): Ivy replacement for ~yank-pop~.
+
+~sp-next-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move forward to the beginning of next
+balanced expression.
+
+~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point.
+
+** customized
+*** handy-expand-region-dwim
+~handy-expand-region-dwim~: If region is active, call
+~er/expand-region~.  If not call ~er/mark-word~.
+
+#+BEGIN_SRC emacs-lisp
+(require 'expand-region)
+
+(defun handy-expand-region-dwim (arg)
+  "If region is active, call `er/expand-region'.  If not call `er/mark-word'."
+  (interactive "p")
+  (if (or (region-active-p) (equal last-command this-command))
+      (er/expand-region arg)
+    (er/mark-word)
+    (if (equal arg 4) (exchange-point-and-mark))))
+#+END_SRC
+
+*** handy-mark-dwim
+~handy-mark-dwim~: Mark the url, sexp or sentence at point.
+
+#+BEGIN_SRC emacs-lisp
+(require 'smartparens)
+(require 'expand-region)
+
+(defun handy-point-in-url-p ()
+  "Return the url at `point' if `point' is in an url."
+  (thing-at-point 'url))
+
+(defun handy-point-at-beginning-of-sexp-delimited-by-pairs-p ()
+  "Return t if point is at beginning of sexp delimited by pairs."
+  (let ((sexp (sp-get-thing)))
+    (and (eq (point) (sp-get sexp :beg))
+         (not (string-empty-p (sp-get sexp :op))))))
+
+(defun handy-mark-sexp-at-point ()
+  "Mark the `sexp' at point."
+  (let ((sexp-beg (beginning-of-thing 'sexp))
+        (sexp-end (end-of-thing 'sexp)))
+    (goto-char sexp-end)
+    ;; HACK: Have to use both `push-mark' and `set-mark' in this order to
+    ;;       expected result.
+    (push-mark sexp-end)
+    (set-mark sexp-end)
+    (goto-char sexp-beg)))
+
+(defun handy-mark-dwim (arg)
+  "Mark the url, sexp or sentence at point.
+
+If point is in a url, call `er/mark-url'.  If not mark sexp at point.
+If call 2 times consecutively, call `er/mark-sentence'."
+  (interactive "p")
+  (cond
+   ((equal last-command this-command)
+    (er/mark-sentence))
+   ((handy-point-in-url-p)
+    (er/mark-url))
+   ((or (handy-point-at-beginning-of-sexp-delimited-by-pairs-p)
+        (eq (following-char) ?<))
+    (sp-mark-sexp))
+   ((eq (preceding-char) ?\")
+    (sp-backward-sexp)
+    (sp-mark-sexp))
+   ((and (memq (following-char) '(32 ?\) ?\] ?\} ?>))
+         (looking-back "[[:alnum:]]" 1))
+    (backward-char 1)
+    (handy-mark-sexp-at-point))
+   (t (handy-mark-sexp-at-point)))
+  (if (equal arg 4) (exchange-point-and-mark)))
+#+END_SRC
+
+*** handy-mark-inside-dwim
+~handy-mark-inside-dwim~
+
+#+BEGIN_SRC emacs-lisp
+(require 'smartparens)
+(require 'expand-region)
+
+(defun handy-mark-inside-field ()
+  "Mark current field inside org-table."
+  (interactive)
+  (when (org-at-table-p)
+    (push-mark (point))
+    (re-search-forward "|")
+    (backward-char)
+    (skip-chars-backward " ")
+    (push-mark (point))
+    (set-mark (point))
+    (org-table-beginning-of-field 1)))
+
+(defun handy-mark-inside-pairs ()
+  "An other way to do `er/mark-inside-pairs' but work for sgml-tag too."
+  (interactive)
+  (handy-mark-goto-beginning-of-string (point))
+  ;; todo: do thing when inside a tag <tag name="tony"> (maybe use the function sgml-begining-of-tag)
+  (sp-backward-up-sexp)
+  (sp-mark-sexp)
+  (sp-down-sexp)
+  (exchange-point-and-mark)
+  (sp-backward-down-sexp)
+  (exchange-point-and-mark))
+
+(defun handy-mark-inside-dwim (&optional arg)
+  "Mark things inside quotes if point is inside a string.
+
+If not inside string, mark inside table field in `org-mode'.
+In other modes, mark things inside pairs.
+If call two times consecutively mark inside pairs."
+  (interactive)
+  (cond ((equal last-command this-command)
+         (call-interactively 'handy-mark-inside-pairs))
+        ((er--point-inside-string-p)
+         (call-interactively 'er/mark-inside-quotes))
+        ((and (equal major-mode 'org-mode) (org-at-table-p))
+         (handy-mark-inside-field))
+        (t (call-interactively 'handy-mark-inside-pairs))))
+#+END_SRC
+
+*** insight-scroll-up-half-window
+~insight-scroll-up-half-window~: Scroll up of half window height.
+
+#+BEGIN_SRC emacs-lisp
+(defun insight--half-window-height ()
+  "Compute half window height."
+  (/ (window-body-height) 2))
+
+(defun insight-scroll-up-half-window ()
+  "Scroll up of half window height."
+  (interactive)
+  (scroll-up (insight--half-window-height)))
+#+END_SRC
+
+*** ta-avy-goto-end-of-line
+~ta-avy-goto-end-of-line~: Jump to the visible end of line.
+
+#+BEGIN_SRC emacs-lisp
+(require 'avy)
+
+(defun ta-avy-goto-end-of-line ()
+  "Jump to the visible end of line.
+Call `avy-goto-char' with \"\n\" as argument."
+  (interactive)
+  (avy-goto-char ?\n))
+#+END_SRC
+
+*** ta-describe-thing-at-point
+~ta-describe-thing-at-point~: Display the full documentation of the
+~thing-at-point~.
+
+#+BEGIN_SRC emacs-lisp
+(defun ta-describe-thing-at-point ()
+  "Display the full documentation of the `thing-at-point'.
+
+Return nil if the symbol of the `thing-at-point' is neither a function
+nor a variable."
+  (interactive)
+  (when-let* ((symbol (symbol-at-point))
+              (symbol-n (symbol-name symbol)))
+    (when (and (eq major-mode 'org-mode)
+               (s-starts-with-p "~" symbol-n)
+               (s-ends-with-p "~" symbol-n))
+      (setq symbol (->> symbol-n
+                        (s-chop-prefix "~")
+                        (s-chop-suffix "~")
+                        (intern))))
+    (describe-symbol symbol)))
+#+END_SRC
+
+* Emacs Lisp
+** orgtbl-to-generic
+~orgtbl-to-generic~: Convert the orgtbl-mode TABLE to some other
+format.
+
+#+BEGIN_SRC emacs-lisp
+(defun orgtbl-to-generic (table params)
+  "Convert the orgtbl-mode TABLE to some other format.
+
+This generic routine can be used for many standard cases.
+
+TABLE is a list, each entry either the symbol `hline' for
+a horizontal separator line, or a list of fields for that
+line.  PARAMS is a property list of parameters that can
+influence the conversion.
+
+Valid parameters are:
+
+:backend, :raw
+
+  Export back-end used as a basis to transcode elements of the
+  table, when no specific parameter applies to it.  It is also
+  used to translate cells contents.  You can prevent this by
+  setting :raw property to a non-nil value.
+
+:splice
+
+  When non-nil, only convert rows, not the table itself.  This is
+  equivalent to setting to the empty string both :tstart
+  and :tend, which see.
+
+:skip
+
+  When set to an integer N, skip the first N lines of the table.
+  Horizontal separation lines do count for this parameter!
+
+:skipcols
+
+  List of columns that should be skipped.  If the table has
+  a column with calculation marks, that column is automatically
+  discarded beforehand.
+
+:hline
+
+  String to be inserted on horizontal separation lines.  May be
+  nil to ignore these lines altogether.
+
+:sep
+
+  Separator between two fields, as a string.
+
+Each in the following group may be either a string or a function
+of no arguments returning a string:
+
+:tstart, :tend
+
+  Strings to start and end the table.  Ignored when :splice is t.
+
+:lstart, :lend
+
+  Strings to start and end a new table line.
+
+:llstart, :llend
+
+  Strings to start and end the last table line.  Default,
+  respectively, to :lstart and :lend.
+
+Each in the following group may be a string or a function of one
+argument (either the cells in the current row, as a list of
+strings, or the current cell) returning a string:
+
+:lfmt
+
+  Format string for an entire row, with enough %s to capture all
+  fields.  When non-nil, :lstart, :lend, and :sep are ignored.
+
+:llfmt
+
+  Format for the entire last line, defaults to :lfmt.
+
+:fmt
+
+  A format to be used to wrap the field, should contain %s for
+  the original field value.  For example, to wrap everything in
+  dollars, you could use :fmt \"$%s$\".  This may also be
+  a property list with column numbers and format strings, or
+  functions, e.g.,
+
+    (:fmt (2 \"$%s$\" 4 (lambda (c) (format \"$%s$\" c))))
+
+:hlstart :hllstart :hlend :hllend :hsep :hlfmt :hllfmt :hfmt
+
+ Same as above, specific for the header lines in the table.
+ All lines before the first hline are treated as header.  If
+ any of these is not present, the data line value is used.
+
+This may be either a string or a function of two arguments:
+
+:efmt
+
+  Use this format to print numbers with exponential.  The format
+  should have %s twice for inserting mantissa and exponent, for
+  example \"%s\\\\times10^{%s}\".  This may also be a property
+  list with column numbers and format strings or functions.
+  :fmt will still be applied after :efmt."
+  ;; Make sure `org-export-create-backend' is available.
+  (require 'ox)
+  (let* ((backend (plist-get params :backend))
+         (custom-backend
+          ;; Build a custom back-end according to PARAMS.  Before
+          ;; defining a translator, check if there is anything to do.
+          ;; When there isn't, let BACKEND handle the element.
+          (org-export-create-backend
+           :parent (or backend 'org)
+           :transcoders
+           `((table . ,(org-table--to-generic-table params))
+             (table-row . ,(org-table--to-generic-row params))
+             (table-cell . ,(org-table--to-generic-cell params))
+             ;; Macros are not going to be expanded.  However, no
+             ;; regular back-end has a transcoder for them.  We
+             ;; provide one so they are not ignored, but displayed
+             ;; as-is instead.
+             (macro . (lambda (m c i) (org-element-macro-interpreter m nil))))))
+         data info)
+    ;; Store TABLE as Org syntax in DATA.  Tolerate non-string cells.
+    ;; Initialize communication channel in INFO.
+    (with-temp-buffer
+      (let ((org-inhibit-startup t)) (org-mode))
+      (let ((standard-output (current-buffer))
+            (org-element-use-cache nil))
+        (dolist (e table)
+          (cond ((eq e 'hline) (princ "|--\n"))
+                ((consp e)
+                 (princ "| ") (dolist (c e) (princ c) (princ " |"))
+                 (princ "\n")))))
+      ;; Add back-end specific filters, but not user-defined ones.  In
+      ;; particular, make sure to call parse-tree filters on the
+      ;; table.
+      (setq info
+            (let ((org-export-filters-alist nil))
+              (org-export-install-filters
+               (org-combine-plists
+                (org-export-get-environment backend nil params)
+                `(:back-end ,(org-export-get-backend backend))))))
+      (setq data
+            (org-export-filter-apply-functions
+             (plist-get info :filter-parse-tree)
+             (org-element-map (org-element-parse-buffer) 'table
+               #'identity nil t)
+             info)))
+    (when (and backend (symbolp backend) (not (org-export-get-backend backend)))
+      (user-error "Unknown :backend value"))
+    (when (or (not backend) (plist-get info :raw)) (require 'ox-org))
+    ;; Handle :skip parameter.
+    (let ((skip (plist-get info :skip)))
+      (when skip
+        (unless (wholenump skip) (user-error "Wrong :skip value"))
+        (let ((n 0))
+          (org-element-map data 'table-row
+            (lambda (row)
+              (if (>= n skip) t
+                (org-element-extract-element row)
+                (cl-incf n)
+                nil))
+            nil t))))
+    ;; Handle :skipcols parameter.
+    (let ((skipcols (plist-get info :skipcols)))
+      (when skipcols
+        (unless (consp skipcols) (user-error "Wrong :skipcols value"))
+        (org-element-map data 'table
+          (lambda (table)
+            (let ((specialp (org-export-table-has-special-column-p table)))
+              (dolist (row (org-element-contents table))
+                (when (eq (org-element-property :type row) 'standard)
+                  (let ((c 1))
+                    (dolist (cell (nthcdr (if specialp 1 0)
+                                          (org-element-contents row)))
+                      (when (memq c skipcols)
+                        (org-element-extract-element cell))
+                      (cl-incf c))))))))))
+    ;; Since we are going to export using a low-level mechanism,
+    ;; ignore special column and special rows manually.
+    (let ((special? (org-export-table-has-special-column-p data))
+          ignore)
+      (org-element-map data (if special? '(table-cell table-row) 'table-row)
+        (lambda (datum)
+          (when (if (eq (org-element-type datum) 'table-row)
+                    (org-export-table-row-is-special-p datum nil)
+                  (org-export-first-sibling-p datum nil))
+            (push datum ignore))))
+      (setq info (plist-put info :ignore-list ignore)))
+    ;; We use a low-level mechanism to export DATA so as to skip all
+    ;; usual pre-processing and post-processing, i.e., hooks, Babel
+    ;; code evaluation, include keywords and macro expansion.  Only
+    ;; back-end specific filters are retained.
+    (let ((output (org-export-data-with-backend data custom-backend info)))
+      ;; Remove final newline.
+      (if (org-string-nw-p output) (substring-no-properties output 0 -1) ""))))
+#+END_SRC
+
+** orgtbl-to-html
+~orgtbl-to-html~: Convert the orgtbl-mode TABLE to HTML.
+
+#+BEGIN_SRC emacs-lisp
+(defun orgtbl-to-html (table params)
+  "Convert the orgtbl-mode TABLE to HTML.
+
+TABLE is a list, each entry either the symbol `hline' for
+a horizontal separator line, or a list of fields for that line.
+PARAMS is a property list of parameters that can influence the
+conversion.  All parameters from `orgtbl-to-generic' are
+supported.  It is also possible to use the following one:
+
+:attributes
+
+  Attributes and values, as a plist, which will be used in
+  <table> tag."
+  (require 'ox-html)
+  (orgtbl-to-generic
+   table
+   (org-combine-plists
+    ;; Provide sane default values.
+    (list :backend 'html
+          :html-table-data-tags '("<td%s>" . "</td>")
+          :html-table-use-header-tags-for-first-column nil
+          :html-table-align-individual-fields t
+          :html-table-row-tags '("<tr>" . "</tr>")
+          :html-table-attributes
+          (if (plist-member params :attributes)
+              (plist-get params :attributes)
+            '(:border "2" :cellspacing "0" :cellpadding "6" :rules "groups"
+              :frame "hsides")))
+    params)))
+#+END_SRC
+
+** org-export-define-backend
+~org-export-define-backend~: Define a new back-end BACKEND.
+
+#+BEGIN_SRC emacs-lisp
+(defun org-export-define-backend (backend transcoders &rest body)
+  "Define a new back-end BACKEND.
+
+TRANSCODERS is an alist between object or element types and
+functions handling them.
+
+These functions should return a string without any trailing
+space, or nil.  They must accept three arguments: the object or
+element itself, its contents or nil when it isn't recursive and
+the property list used as a communication channel.
+
+Contents, when not nil, are stripped from any global indentation
+\(although the relative one is preserved).  They also always end
+with a single newline character.
+
+If, for a given type, no function is found, that element or
+object type will simply be ignored, along with any blank line or
+white space at its end.  The same will happen if the function
+returns the nil value.  If that function returns the empty
+string, the type will be ignored, but the blank lines or white
+spaces will be kept.
+
+In addition to element and object types, one function can be
+associated to the `template' (or `inner-template') symbol and
+another one to the `plain-text' symbol.
+
+The former returns the final transcoded string, and can be used
+to add a preamble and a postamble to document's body.  It must
+accept two arguments: the transcoded string and the property list
+containing export options.  A function associated to `template'
+will not be applied if export has option \"body-only\".
+A function associated to `inner-template' is always applied.
+
+The latter, when defined, is to be called on every text not
+recognized as an element or an object.  It must accept two
+arguments: the text string and the information channel.  It is an
+appropriate place to protect special chars relative to the
+back-end.
+
+BODY can start with pre-defined keyword arguments.  The following
+keywords are understood:
+
+  :filters-alist
+
+    Alist between filters and function, or list of functions,
+    specific to the back-end.  See `org-export-filters-alist' for
+    a list of all allowed filters.  Filters defined here
+    shouldn't make a back-end test, as it may prevent back-ends
+    derived from this one to behave properly.
+
+  :menu-entry
+
+    Menu entry for the export dispatcher.  It should be a list
+    like:
+
+      \\='(KEY DESCRIPTION-OR-ORDINAL ACTION-OR-MENU)
+
+    where :
+
+      KEY is a free character selecting the back-end.
+
+      DESCRIPTION-OR-ORDINAL is either a string or a number.
+
+      If it is a string, is will be used to name the back-end in
+      its menu entry.  If it is a number, the following menu will
+      be displayed as a sub-menu of the back-end with the same
+      KEY.  Also, the number will be used to determine in which
+      order such sub-menus will appear (lowest first).
+
+      ACTION-OR-MENU is either a function or an alist.
+
+      If it is an action, it will be called with four
+      arguments (booleans): ASYNC, SUBTREEP, VISIBLE-ONLY and
+      BODY-ONLY.  See `org-export-as' for further explanations on
+      some of them.
+
+      If it is an alist, associations should follow the
+      pattern:
+
+        \\='(KEY DESCRIPTION ACTION)
+
+      where KEY, DESCRIPTION and ACTION are described above.
+
+    Valid values include:
+
+      \\='(?m \"My Special Back-end\" my-special-export-function)
+
+      or
+
+      \\='(?l \"Export to LaTeX\"
+           (?p \"As PDF file\" org-latex-export-to-pdf)
+           (?o \"As PDF file and open\"
+               (lambda (a s v b)
+                 (if a (org-latex-export-to-pdf t s v b)
+                   (org-open-file
+                    (org-latex-export-to-pdf nil s v b)))))))
+
+      or the following, which will be added to the previous
+      sub-menu,
+
+      \\='(?l 1
+          ((?B \"As TEX buffer (Beamer)\" org-beamer-export-as-latex)
+           (?P \"As PDF file (Beamer)\" org-beamer-export-to-pdf)))
+
+  :options-alist
+
+    Alist between back-end specific properties introduced in
+    communication channel and how their value are acquired.  See
+    `org-export-options-alist' for more information about
+    structure of the values."
+  (declare (indent 1))
+  (let (filters menu-entry options)
+    (while (keywordp (car body))
+      (let ((keyword (pop body)))
+        (pcase keyword
+          (:filters-alist (setq filters (pop body)))
+          (:menu-entry (setq menu-entry (pop body)))
+          (:options-alist (setq options (pop body)))
+          (_ (error "Unknown keyword: %s" keyword)))))
+    (org-export-register-backend
+     (org-export-create-backend :name backend
+                                :transcoders transcoders
+                                :options options
+                                :filters filters
+                                :menu menu-entry))))
+#+END_SRC
+
+** org-export-options-alist
+~org-export-options-alist~: Alist between export properties and ways to
+set them.
+
+#+BEGIN_SRC emacs-lisp
+(defconst org-export-options-alist
+  '((:title "TITLE" nil nil parse)
+    (:date "DATE" nil nil parse)
+    (:author "AUTHOR" nil user-full-name parse)
+    (:email "EMAIL" nil user-mail-address t)
+    (:language "LANGUAGE" nil org-export-default-language t)
+    (:select-tags "SELECT_TAGS" nil org-export-select-tags split)
+    (:exclude-tags "EXCLUDE_TAGS" nil org-export-exclude-tags split)
+    (:creator "CREATOR" nil org-export-creator-string)
+    (:headline-levels nil "H" org-export-headline-levels)
+    (:preserve-breaks nil "\\n" org-export-preserve-breaks)
+    (:section-numbers nil "num" org-export-with-section-numbers)
+    (:time-stamp-file nil "timestamp" org-export-time-stamp-file)
+    (:with-archived-trees nil "arch" org-export-with-archived-trees)
+    (:with-author nil "author" org-export-with-author)
+    (:with-broken-links nil "broken-links" org-export-with-broken-links)
+    (:with-clocks nil "c" org-export-with-clocks)
+    (:with-creator nil "creator" org-export-with-creator)
+    (:with-date nil "date" org-export-with-date)
+    (:with-drawers nil "d" org-export-with-drawers)
+    (:with-email nil "email" org-export-with-email)
+    (:with-emphasize nil "*" org-export-with-emphasize)
+    (:with-entities nil "e" org-export-with-entities)
+    (:with-fixed-width nil ":" org-export-with-fixed-width)
+    (:with-footnotes nil "f" org-export-with-footnotes)
+    (:with-inlinetasks nil "inline" org-export-with-inlinetasks)
+    (:with-latex nil "tex" org-export-with-latex)
+    (:with-planning nil "p" org-export-with-planning)
+    (:with-priority nil "pri" org-export-with-priority)
+    (:with-properties nil "prop" org-export-with-properties)
+    (:with-smart-quotes nil "'" org-export-with-smart-quotes)
+    (:with-special-strings nil "-" org-export-with-special-strings)
+    (:with-statistics-cookies nil "stat" org-export-with-statistics-cookies)
+    (:with-sub-superscript nil "^" org-export-with-sub-superscripts)
+    (:with-toc nil "toc" org-export-with-toc)
+    (:with-tables nil "|" org-export-with-tables)
+    (:with-tags nil "tags" org-export-with-tags)
+    (:with-tasks nil "tasks" org-export-with-tasks)
+    (:with-timestamps nil "<" org-export-with-timestamps)
+    (:with-title nil "title" org-export-with-title)
+    (:with-todo-keywords nil "todo" org-export-with-todo-keywords))
+  "Alist between export properties and ways to set them.
+
+The key of the alist is the property name, and the value is a list
+like (KEYWORD OPTION DEFAULT BEHAVIOR) where:
+
+KEYWORD is a string representing a buffer keyword, or nil.  Each
+  property defined this way can also be set, during subtree
+  export, through a headline property named after the keyword
+  with the \"EXPORT_\" prefix (i.e. DATE keyword and EXPORT_DATE
+  property).
+OPTION is a string that could be found in an #+OPTIONS: line.
+DEFAULT is the default value for the property.
+BEHAVIOR determines how Org should handle multiple keywords for
+  the same property.  It is a symbol among:
+  nil       Keep old value and discard the new one.
+  t         Replace old value with the new one.
+  `space'   Concatenate the values, separating them with a space.
+  `newline' Concatenate the values, separating them with
+      a newline.
+  `split'   Split values at white spaces, and cons them to the
+      previous list.
+  `parse'   Parse value as a list of strings and Org objects,
+            which can then be transcoded with, e.g.,
+            `org-export-data'.  It implies `space' behavior.
+
+Values set through KEYWORD and OPTION have precedence over
+DEFAULT.
+
+All these properties should be back-end agnostic.  Back-end
+specific properties are set through `org-export-define-backend'.
+Properties redefined there have precedence over these.")
+#+END_SRC

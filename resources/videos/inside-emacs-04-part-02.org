@@ -1,0 +1,137 @@
+#+TITLE: FIXME: Inside Emacs 4 part 2
+#+AUTHOR: Tony Aldon
+#+DATE: <2021-08-05 Thu>
+#+PROPERTY: YOUTUBE_LINK  https://youtu.be/zSPraaX2524
+#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
+#+PROPERTY: CONFIG_COMMIT 4cbdb3ce735ae296387069ef7ff309f0cfa812e8
+#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-04-part-02/
+#+TAGS: FIXME
+
+* Description
+
+* Commands
+** built-in
+*** without default key binding
+
+~eval-defun~: Evaluate the top-level form containing point, or after
+point.
+
+~eval-region~: Execute the region as Lisp code.
+
+~windmove-left~: Select the window to the left of the current one.
+
+~windmove-right~: Select the window to the right of the current one.
+
+~window-toggle-side-windows~: Toggle display of side windows on the
+current frame.
+
+*** global-map
+
+~delete-blank-lines~ (~C-x C-o~): On blank line, delete all surrounding
+blank lines, leaving just one.
+
+~describe-variable~ (~C-h v~): Display the full documentation of variable
+read from the minibuffer.
+
+~mark-paragraph~ (~M-h~): Put point at beginning of this paragraph, mark
+at end.
+
+~next-buffer~ (~C-x <right>~): In selected window switch to next buffer.
+
+~previous-buffer~ (~C-x <left>~): In selected window switch to previous
+buffer.
+
+~revert-buffer~ (~C-x x g~): Replace current buffer text with the text of
+the visited file on disk.
+
+** external
+
+~avy-goto-word-or-subword-1~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible
+char (read in the minibuffer) at a subword or word start.
+
+~counsel-M-x~ (from [[https://github.com/abo-abo/swiper][counsel]]): Ivy version of ~execute-extended-command~.
+
+~sp-next-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move forward to the beginning of next
+balanced expression.
+
+~swiper~ (from [[https://github.com/abo-abo/swiper][swiper]]): ~isearch-forward~ with an overview.
+
+~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point.
+
+** customized
+*** ta-above-new-indent
+~ta-above-new-indent~:
+
+#+BEGIN_SRC emacs-lisp
+(defun ta-above-new-indent ()
+  "Add an empty line above and move the cursor to this line."
+  (interactive)
+  (back-to-indentation)
+  (split-line))
+#+END_SRC
+
+*** ta-avy-goto-end-of-line
+~ta-avy-goto-end-of-line~: Jump to the visible end of line.
+
+#+BEGIN_SRC emacs-lisp
+(require 'avy)
+
+(defun ta-avy-goto-end-of-line ()
+  "Jump to the visible end of line.
+Call `avy-goto-char' with \"\n\" as argument."
+  (interactive)
+  (avy-goto-char ?\n))
+#+END_SRC
+
+*** ta-below-new-indent
+~ta-below-new-indent~: Add an empty line below and move the cursor to
+this line.
+
+#+BEGIN_SRC emacs-lisp
+(defun ta-below-new-indent ()
+  "Add an empty line below and move the cursor to this line."
+  (interactive)
+  (end-of-line)
+  (newline-and-indent))
+#+END_SRC
+
+*** ta-mark-sexp-at-point
+~ta-mark-sexp-at-point~: Mark the ~sexp~ at point.
+
+#+BEGIN_SRC emacs-lisp
+(require 'smartparens)
+
+(defun ta--point-at-beginnig-sp-sexp-p ()
+  "Return non-nil if `point' is at the beginning of a sp-sexp
+
+and :op non empty. See `sp-get-thing'."
+  (let ((ok (sp-get-thing)))
+    (when ok
+      (when (and (eq (point) (sp-get ok :beg))
+                 (not (string-empty-p (sp-get ok :op))))
+        (point)))))
+
+(defun ta--mark-sexp-at-point ()
+  "Mark the `sexp' at point."
+  (let ((sexp-beg (beginning-of-thing 'sexp))
+        (sexp-end (end-of-thing 'sexp)))
+    (goto-char sexp-end)
+    (set-mark sexp-end)
+    (goto-char sexp-beg)))
+
+(defun ta-mark-sexp-at-point ()
+  "Mark the `sexp' at point. See `sexp-at-point' and `sp-mark-sexp'
+(smartparens packages)."
+  (interactive)
+  (if (or (ta--point-at-beginnig-sp-sexp-p)
+          (eq (following-char) ?<))
+      (sp-mark-sexp)
+    (if (eq (preceding-char) ?\")
+        (progn
+          (sp-backward-sexp)
+          (sp-mark-sexp))
+      (if (and (memq (following-char) '(32 ?\) ?\] ?\} ?>))
+               (looking-back "[[:alnum:]]" 1))
+          (backward-char 1))
+      (ta--mark-sexp-at-point))))
+#+END_SRC
