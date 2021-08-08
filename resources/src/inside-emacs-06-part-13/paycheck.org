@@ -1,0 +1,83 @@
+* overview
+| sales | bonus |
+|-------+-------|
+|     3 |   500 |
+|     5 |  1000 |
+|     7 |  1500 |
+
+** team A
+# fixed part: 2000
+
+| teammates | sales | paycheck |
+|-----------+-------+----------|
+| Jack      |     3 |     2500 |
+| Maria     |     7 |     3500 |
+| Bob       |     5 |     3000 |
+
+** team B
+# fixed part: 3000
+
+| teammates | sales | paycheck |
+|-----------+-------+----------|
+| Jenny     |     3 |     3500 |
+| Boby      |     7 |     4500 |
+| Sandra    |     5 |     4000 |
+* #+NAME and remote()
+
+#+NAME: bonus
+| sales | bonus |
+|-------+-------|
+|     3 |   500 |
+|     5 |  1000 |
+|     7 |  1500 |
+
+| sales     |
+| [3, 5, 7] |
+#+TBLFM: @1$1=remote(bonus,@1$1)::@2$1=remote(bonus,@2$1..@4$1)
+
+* org-lookup-first
+
+#+NAME: bonus
+| sales | bonus($) |
+|-------+----------|
+|     3 |      500 |
+|     5 |     1000 |
+|     7 |     1500 |
+
+| teammates | sales | paycheck($) |
+|-----------+-------+-------------|
+| Jack      |     3 |        2500 |
+| Maria     |     7 |        3500 |
+| Bob       |     5 |        3000 |
+#+TBLFM: $>='(+ 2000 (org-lookup-first $2 '(remote(bonus,@2$1..@4$1)) '(remote(bonus,@2$2..@4$2))));N
+
+* constants
+#+NAME: bonus
+| sales | bonus($) |
+|-------+----------|
+|     3 |      500 |
+|     5 |     1000 |
+|     7 |     1500 |
+** team A
+:PROPERTIES:
+:FIXED:    2000
+:END:
+
+| teammates | sales | paycheck |
+|-----------+-------+----------|
+| Jack      |     3 |     2500 |
+| Maria     |     7 |     3500 |
+| Bob       |     5 |     3000 |
+#+TBLFM: $>='(+ $PROP_FIXED (org-lookup-first $2 '(remote(bonus,@2$1..@4$1)) '(remote(bonus,@2$2..@4$2))));N
+
+** team B
+:PROPERTIES:
+:FIXED:    3000
+:END:
+
+| teammates | sales | paycheck |
+|-----------+-------+----------|
+| Jenny     |     3 |     3500 |
+| Boby      |     7 |     4500 |
+| Sandra    |     5 |     4000 |
+#+TBLFM: $>='(+ $PROP_FIXED (org-lookup-first $2 '(remote(bonus,@2$1..@4$1)) '(remote(bonus,@2$2..@4$2))));N

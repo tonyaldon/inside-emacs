@@ -1,0 +1,136 @@
+* pass tables to code blocks
+#+NAME: table-1
+| a1 | a2 | a3 |
+| b1 | b2 | b3 |
+| c1 | c2 | c3 |
+
+#+BEGIN_SRC emacs-lisp :var tab=table-1
+(format "%S" tab)
+#+END_SRC
+
+#+RESULTS:
+: 0.7868954904387528
+
+#+NAME: table-2
+| a1 | a2 | a3 |
+| b1 | b2 | b3 |
+| c1 | c2 | c3 |
+
+#+BEGIN_SRC emacs-lisp :var tab=table-2[1]
+(format "%S" tab)
+#+END_SRC
+
+#+RESULTS:
+: ("b1" "b2" "b3")
+
+#+BEGIN_SRC emacs-lisp :var tab=table-2[,1]
+(format "%S" tab)
+#+END_SRC
+
+#+RESULTS:
+: ("a2" "b2" "c2")
+
+#+BEGIN_SRC emacs-lisp :var tab=table-2[0:1,1:2]
+(format "%S" tab)
+#+END_SRC
+
+#+RESULTS:
+: (("a2" "a3") ("b2" "b3"))
+** :colnames nil
+#+NAME: table-3
+| a1 | a2 | a3 |
+|----+----+----|
+| b1 | b2 | b3 |
+| c1 | c2 | c3 |
+
+#+BEGIN_SRC emacs-lisp :var tab=table-3 :colnames nil
+(mapcar (lambda (row) (mapcar 'upcase row)) tab)
+#+END_SRC
+
+#+RESULTS:
+| a1 | a2 | a3 |
+|----+----+----|
+| B1 | B2 | B3 |
+| C1 | C2 | C3 |
+** :colnames no
+#+NAME: table-5
+| a1 | a2 | a3 |
+|----+----+----|
+| b1 | b2 | b3 |
+| c1 | c2 | c3 |
+
+#+BEGIN_SRC emacs-lisp :var tab=table-5 :colnames no
+(mapcar (lambda (row) (mapcar 'upcase row)) tab)
+#+END_SRC
+
+#+RESULTS:
+| A1 | A2 | A3 |
+| B1 | B2 | B3 |
+| C1 | C2 | C3 |
+** :colnames yes
+#+NAME: table-4
+| a1 | a2 | a3 |
+| b1 | b2 | b3 |
+| c1 | c2 | c3 |
+
+#+BEGIN_SRC emacs-lisp :var tab=table-4 :colnames yes
+(mapcar (lambda (row) (mapcar 'upcase row)) tab)
+#+END_SRC
+
+#+RESULTS:
+| a1 | a2 | a3 |
+|----+----+----|
+| B1 | B2 | B3 |
+| C1 | C2 | C3 |
+* produce tables from code blocks
+
+#+BEGIN_SRC bash :results output
+printf "line 1\nline 2\nline 3\n"
+#+END_SRC
+
+#+RESULTS:
+: line 1
+: line 2
+: line 3
+
+#+BEGIN_SRC bash :results value
+printf "line 1\nline 2\nline 3\n"
+#+END_SRC
+
+#+RESULTS:
+: 0
+
+#+NAME: my-table
+#+BEGIN_SRC bash :results output table
+printf "line 1\nline 2\nline 3\n"
+#+END_SRC
+
+#+RESULTS: my-table
+| line | 1 |
+| line | 2 |
+| line | 3 |
+
+#+BEGIN_SRC emacs-lisp :var tab=my-table
+(mapcar (lambda (row) (mapcar 'upcase row)) tab)
+#+END_SRC
+
+#+RESULTS:
+| LINE | 1 |
+| LINE | 2 |
+| LINE | 3 |
+
+* org-sbe macro
+
+#+NAME: random-sum
+#+BEGIN_SRC python :results value :var x=0
+from random import random
+return(x + random())
+#+END_SRC
+
+#+RESULTS: random-sum
+: 0.3223412668894684
+
+| value | random sum with python |
+|-------+------------------------|
+|     3 |                   3.11 |
+#+TBLFM: $2='(org-sbe random-sum (x $1));%.2f

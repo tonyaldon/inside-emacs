@@ -1,0 +1,64 @@
+* Formula debugger
+# C-c C-c (org-ctrl-c-ctrl-c)
+# C-c {   (org-table-toggle-formula-debugger)
+
+| value 1 | value 2 | sum    |
+|---------+---------+--------|
+|       1 |       1 | #ERROR |
+#+TBLFM: $3='(+ $1 $2)
+
+| value 1 | value 2 | sum |
+|---------+---------+-----|
+|       1 |       1 |   2 |
+#+TBLFM: $3='(+ (string-to-number $1) (string-to-number $2))
+
+* N and L formula flags
+# N flag
+
+| value 1 | value 2 | sum |
+|---------+---------+-----|
+|       1 |       1 |   2 |
+#+TBLFM: $3='(+ $1 $2);N
+
+# N flag
+
+| value 1 | value 2  | sum |
+|---------+----------+-----|
+|       1 | a string |   1 |
+#+TBLFM: $3='(+ $1 $2);N
+
+# L flag
+
+| value 1 | value 2 | sum |
+|---------+---------+-----|
+|       1 |       1 |   2 |
+#+TBLFM: $3='(+ $1 $2);L
+
+# L flag
+
+| function | string       | case modified |
+|----------+--------------+---------------|
+| upcase   | inside emacs | #ERROR        |
+#+TBLFM: $3='($1 $2);L
+
+| function | string       | case modified |
+|----------+--------------+---------------|
+| upcase   | inside emacs | INSIDE EMACS  |
+#+TBLFM: $3='($1 "$2");L
+
+* Limites of Formula debugger
+
+| function | string       | case modified |
+|----------+--------------+---------------|
+| upcase   | inside emacs | INSIDE EMACS  |
+#+TBLFM: $3='($1 "$2");L
+
+| function | string       | case modified |
+|----------+--------------+---------------|
+| upcase   | inside emacs | #ERROR        |
+#+TBLFM: $3='((intern $1) $2)
+
+| function | string       | case modified |
+|----------+--------------+---------------|
+| upcase   | inside emacs | INSIDE EMACS  |
+#+TBLFM: $3='(funcall (intern $1) $2)
