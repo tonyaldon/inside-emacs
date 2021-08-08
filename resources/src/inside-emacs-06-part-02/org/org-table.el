@@ -10,13 +10,13 @@ Before doing so, re-align the table if necessary."
   (org-table-maybe-eval-formula)
   (org-table-maybe-recalculate-line)
   (if (and org-table-automatic-realign
-					 org-table-may-need-update)
+           org-table-may-need-update)
       (org-table-align))
   (let ((col (org-table-current-column)))
     (beginning-of-line 2)
-    (unless (bolp) (insert "\n"))	;missing newline at eob
+    (unless (bolp) (insert "\n"))  ;missing newline at eob
     (when (or (not (org-at-table-p))
-							(org-at-table-hline-p))
+              (org-at-table-hline-p))
       (beginning-of-line 0)
       (org-table-insert-row 'below))
     (org-table-goto-column col)
@@ -30,10 +30,10 @@ Before doing so, re-align the table if necessary."
     (let ((pos (point)))
       (beginning-of-line)
       (if (not (search-forward "|" pos t)) 0
-				(let ((column 1)
-							(separator (if (org-at-table-hline-p) "[+|]" "|")))
-					(while (re-search-forward separator pos t) (cl-incf column))
-					column)))))
+        (let ((column 1)
+              (separator (if (org-at-table-hline-p) "[+|]" "|")))
+          (while (re-search-forward separator pos t) (cl-incf column))
+          column)))))
 
 (defun org-table-goto-column (n &optional on-delim force)
   "Move the cursor to the Nth column in the current table line.
@@ -45,14 +45,14 @@ However, when FORCE is non-nil, create new columns if necessary."
   (beginning-of-line 1)
   (when (> n 0)
     (while (and (> (setq n (1- n)) -1)
-								(or (search-forward "|" (point-at-eol) t)
-										(and force
-												 (progn (end-of-line 1)
-																(skip-chars-backward "^|")
-																(insert " | ")
-																t)))))
+                (or (search-forward "|" (point-at-eol) t)
+                    (and force
+                         (progn (end-of-line 1)
+                                (skip-chars-backward "^|")
+                                (insert " | ")
+                                t)))))
     (when (and force (not (looking-at ".*|")))
       (save-excursion (end-of-line 1) (insert " | ")))
     (if on-delim
-				(backward-char 1)
+        (backward-char 1)
       (if (looking-at " ") (forward-char 1)))))

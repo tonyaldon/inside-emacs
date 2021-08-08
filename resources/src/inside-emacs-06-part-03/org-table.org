@@ -1,4 +1,4 @@
-* scene 1: Wrap Text
+* Wrap Text
 # M-x org-table-wrap-region
 
 | 1 | lorem ipsum dolor sit |
@@ -13,7 +13,7 @@
 | 3 | dolor |
 | 4 | sit   |
 
-* scene 2: Wrap Expanded Text
+* Wrap Expanded Text
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
 do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -34,7 +34,7 @@ do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 | do eiusmod tempor incididunt ut  |
 | labore et dolore magna aliqua.   |
 
-* scene 3: Edge Cases
+* Edge Cases
 # C-u 3 M-x org-table-wrap-region
 
 | 1 | lorem ipsum dolor sit |
@@ -57,7 +57,7 @@ do eiusmod tempor incididunt ut labore et dolore magna aliqua.
 | 3 | amet                  |
 | 4 |                       |
 
-* scene 4: org-meta-return command
+* org-meta-return command
 # <M-return>
 # M-x org-meta-return
 

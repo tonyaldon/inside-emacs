@@ -1,4 +1,4 @@
-* scene 1: TBLFM keyword
+* TBLFM keyword
 # C-c C-c on the line starting by #+TBLFM:
 
 | Using Calc | Using Elisp |
@@ -18,7 +18,7 @@
 |          2 |           4 |
 #+TBLFM: @2$1=1+1::@2$2='(+ 2 2)
 
-* scene 2: left-hand side of an assignment
+* left-hand side of an assignment
 # only @ or $
 
 |     |     |     |     |     |
@@ -75,7 +75,7 @@
 |   |     |     |     |   |
 #+TBLFM: @2$2..@4$4=XXX
 
-* scene 3: right-hand side of an assignment
+* right-hand side of an assignment
 # @ROW$COLUMN syntax
 
 | 1 | 2 |   |

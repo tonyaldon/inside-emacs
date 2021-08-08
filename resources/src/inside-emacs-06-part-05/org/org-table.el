@@ -26,38 +26,38 @@ However, when N is 0, do not increment the field at all."
   (interactive "p")
   (org-table-check-inside-data-field)
   (let* ((beg (org-table-begin))
-				 (column (org-table-current-column))
-				 (initial-field (save-excursion
-													(let ((f (org-string-nw-p (org-table-get-field))))
-														(and f (org-trim f)))))
-				 field field-above next-field)
+         (column (org-table-current-column))
+         (initial-field (save-excursion
+                          (let ((f (org-string-nw-p (org-table-get-field))))
+                            (and f (org-trim f)))))
+         field field-above next-field)
     (save-excursion
       ;; Get reference field.
       (if initial-field (setq field initial-field)
-				(beginning-of-line)
-				(setq field
-							(catch :exit
-								(while (re-search-backward org-table-dataline-regexp beg t)
-									(let ((f (org-string-nw-p (org-table-get-field column))))
-										(cond ((and (> n 1) f) (cl-decf n))
-													(f (throw :exit (org-trim f)))
-													(t nil))
-										(beginning-of-line)))
-								(user-error "No non-empty field found"))))
+        (beginning-of-line)
+        (setq field
+              (catch :exit
+                (while (re-search-backward org-table-dataline-regexp beg t)
+                  (let ((f (org-string-nw-p (org-table-get-field column))))
+                    (cond ((and (> n 1) f) (cl-decf n))
+                          (f (throw :exit (org-trim f)))
+                          (t nil))
+                    (beginning-of-line)))
+                (user-error "No non-empty field found"))))
       ;; Check if increment is appropriate, and how it should be done.
       (when (and org-table-copy-increment (/= n 0))
-				;; If increment step is not explicit, get non-empty field just
-				;; above the field being incremented to guess it.
-				(unless (numberp org-table-copy-increment)
-					(setq field-above
-								(let ((f (unless (= beg (line-beginning-position))
-													 (forward-line -1)
-													 (not (org-at-table-hline-p))
-													 (org-table-get-field column))))
-									(and (org-string-nw-p f)
-											 (org-trim f)))))
-				;; Compute next field.
-				(setq next-field (org-table--increment-field field field-above))))
+        ;; If increment step is not explicit, get non-empty field just
+        ;; above the field being incremented to guess it.
+        (unless (numberp org-table-copy-increment)
+          (setq field-above
+                (let ((f (unless (= beg (line-beginning-position))
+                           (forward-line -1)
+                           (not (org-at-table-hline-p))
+                           (org-table-get-field column))))
+                  (and (org-string-nw-p f)
+                       (org-trim f)))))
+        ;; Compute next field.
+        (setq next-field (org-table--increment-field field field-above))))
     ;; Since initial field in not empty, we modify row below instead.
     ;; Skip alignment since we do it at the end of the process anyway.
     (when initial-field
@@ -76,13 +76,13 @@ However, when N is 0, do not increment the field at all."
   (org-table-check-inside-data-field)
   (if (and (called-interactively-p 'any) (org-region-active-p))
       (let (org-table-clip)
-				(org-table-cut-region (region-beginning) (region-end)))
+        (org-table-cut-region (region-beginning) (region-end)))
     (skip-chars-backward "^|")
     (backward-char 1)
     (if (looking-at "|[^|\n]+")
-				(let* ((pos (match-beginning 0))
-							 (match (match-string 0))
-							 (len (org-string-width match)))
-					(replace-match (concat "|" (make-string (1- len) ?\ )))
-					(goto-char (+ 2 pos))
-					(substring match 1)))))
+        (let* ((pos (match-beginning 0))
+               (match (match-string 0))
+               (len (org-string-width match)))
+          (replace-match (concat "|" (make-string (1- len) ?\ )))
+          (goto-char (+ 2 pos))
+          (substring match 1)))))

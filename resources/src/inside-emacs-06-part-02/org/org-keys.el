@@ -249,12 +249,12 @@ loading Org."
   :safe #'booleanp)
 
 (defcustom org-disputed-keys
-  '(([(shift up)]		. [(meta p)])
-    ([(shift down)]		. [(meta n)])
-    ([(shift left)]		. [(meta -)])
-    ([(shift right)]		. [(meta +)])
+  '(([(shift up)]    . [(meta p)])
+    ([(shift down)]    . [(meta n)])
+    ([(shift left)]    . [(meta -)])
+    ([(shift right)]    . [(meta +)])
     ([(control shift right)]    . [(meta shift +)])
-    ([(control shift left)]	. [(meta shift -)]))
+    ([(control shift left)]  . [(meta shift -)]))
   "Keys for which Org mode and other modes compete.
 This is an alist, cars are the default keys, second element specifies
 the alternative to use when `org-replace-disputed-keys' is t.
@@ -274,9 +274,9 @@ before org.el is loaded."
   :version "26.1"
   :package-version '(Org . "8.3")
   :type '(choice
-	  (const :tag "A double click follows the link" double)
-	  (const :tag "Unconditionally follow the link with mouse-1" t)
-	  (integer :tag "mouse-1 click does not follow the link if longer than N ms" 450))
+    (const :tag "A double click follows the link" double)
+    (const :tag "Unconditionally follow the link with mouse-1" t)
+    (integer :tag "mouse-1 click does not follow the link if longer than N ms" 450))
   :safe t)
 
 (defcustom org-tab-follows-link nil
@@ -308,8 +308,8 @@ In tables, the special behavior of RET has precedence."
 Or return the original if not disputed."
   (when org-replace-disputed-keys
     (let* ((nkey (key-description key))
-	   (x (cl-find-if (lambda (x) (equal (key-description (car x)) nkey))
-			  org-disputed-keys)))
+     (x (cl-find-if (lambda (x) (equal (key-description (car x)) nkey))
+        org-disputed-keys)))
       (setq key (if x (cdr x) key))))
   key)
 
@@ -347,15 +347,15 @@ COMMANDS is a list of alternating OLDDEF NEWDEF command names."
     (set-keymap-parent map minibuffer-local-map)
     (org-defkey map (kbd ".")
                 (lambda () (interactive)
-		  ;; Are we at the beginning of the prompt?
-		  (if (looking-back "^[^:]+: "
-				    (let ((inhibit-field-text-motion t))
-				      (line-beginning-position)))
-		      (org-eval-in-calendar '(calendar-goto-today))
-		    (insert "."))))
+      ;; Are we at the beginning of the prompt?
+      (if (looking-back "^[^:]+: "
+            (let ((inhibit-field-text-motion t))
+              (line-beginning-position)))
+          (org-eval-in-calendar '(calendar-goto-today))
+        (insert "."))))
     (org-defkey map (kbd "C-.")
                 (lambda () (interactive)
-		  (org-eval-in-calendar '(calendar-goto-today))))
+      (org-eval-in-calendar '(calendar-goto-today))))
     (org-defkey map (kbd "M-S-<left>")
                 (lambda () (interactive)
                   (org-eval-in-calendar '(calendar-backward-month 1))))
@@ -534,22 +534,22 @@ COMMANDS is a list of alternating OLDDEF NEWDEF command names."
 
 ;;;; Remap usual Emacs bindings
 (org-remap org-mode-map
-	   'self-insert-command    'org-self-insert-command
-	   'delete-char            'org-delete-char
-	   'delete-backward-char   'org-delete-backward-char
-	   'kill-line              'org-kill-line
-	   'open-line              'org-open-line
-	   'yank                   'org-yank
-	   'comment-dwim           'org-comment-dwim
-	   'move-beginning-of-line 'org-beginning-of-line
-	   'move-end-of-line       'org-end-of-line
-	   'forward-paragraph      'org-forward-paragraph
-	   'backward-paragraph     'org-backward-paragraph
-	   'backward-sentence      'org-backward-sentence
-	   'forward-sentence       'org-forward-sentence
-	   'fill-paragraph         'org-fill-paragraph
-	   'delete-indentation     'org-delete-indentation
-	   'transpose-words        'org-transpose-words)
+     'self-insert-command    'org-self-insert-command
+     'delete-char            'org-delete-char
+     'delete-backward-char   'org-delete-backward-char
+     'kill-line              'org-kill-line
+     'open-line              'org-open-line
+     'yank                   'org-yank
+     'comment-dwim           'org-comment-dwim
+     'move-beginning-of-line 'org-beginning-of-line
+     'move-end-of-line       'org-end-of-line
+     'forward-paragraph      'org-forward-paragraph
+     'backward-paragraph     'org-backward-paragraph
+     'backward-sentence      'org-backward-sentence
+     'forward-sentence       'org-forward-sentence
+     'fill-paragraph         'org-fill-paragraph
+     'delete-indentation     'org-delete-indentation
+     'transpose-words        'org-transpose-words)
 
 ;;;; All the other keys
 (org-defkey org-mode-map (kbd "|") #'org-force-self-insert)
@@ -692,9 +692,9 @@ star at the beginning of the headline, you can do this:
       (lambda () (and (looking-at org-outline-regexp) (looking-back \"^\\**\"))))"
   :group 'org-structure
   :type '(choice
-	  (const :tag "Never" nil)
-	  (const :tag "At beginning of headline stars" t)
-	  (function)))
+    (const :tag "Never" nil)
+    (const :tag "At beginning of headline stars" t)
+    (function)))
 
 (defcustom org-speed-commands-user nil
   "Alist of additional speed commands.
@@ -710,13 +710,13 @@ as a descriptive headline that will be added when listing the speed
 commands in the Help buffer using the `?' speed command."
   :group 'org-structure
   :type '(repeat :value ("k" . ignore)
-		 (choice :value ("k" . ignore)
-			 (list :tag "Descriptive Headline" (string :tag "Headline"))
-			 (cons :tag "Letter and Command"
-			       (string :tag "Command letter")
-			       (choice
-				(function)
-				(sexp))))))
+     (choice :value ("k" . ignore)
+       (list :tag "Descriptive Headline" (string :tag "Headline"))
+       (cons :tag "Letter and Command"
+             (string :tag "Command letter")
+             (choice
+        (function)
+        (sexp))))))
 
 (defcustom org-speed-command-hook
   '(org-speed-command-activate org-babel-speed-command-activate)
@@ -763,7 +763,7 @@ hook.  The default setting is `org-speed-command-activate'."
     ("R" . org-shiftmetaright)
     ("L" . org-shiftmetaleft)
     ("i" . (progn (forward-char 1) (call-interactively
-				    'org-insert-heading-respect-content)))
+            'org-insert-heading-respect-content)))
     ("^" . org-sort)
     ("w" . org-refile)
     ("a" . org-archive-subtree-default-with-confirmation)
@@ -783,7 +783,7 @@ hook.  The default setting is `org-speed-command-activate'."
     ("e" . org-set-effort)
     ("E" . org-inc-effort)
     ("W" . (lambda(m) (interactive "sMinutes before warning: ")
-	     (org-entry-put (point) "APPT_WARNTIME" m)))
+       (org-entry-put (point) "APPT_WARNTIME" m)))
     ("Agenda Views etc")
     ("v" . org-agenda)
     ("/" . org-sparse-tree)
@@ -797,15 +797,15 @@ hook.  The default setting is `org-speed-command-activate'."
 (defun org-print-speed-command (e)
   (if (> (length (car e)) 1)
       (progn
-	(princ "\n")
-	(princ (car e))
-	(princ "\n")
-	(princ (make-string (length (car e)) ?-))
-	(princ "\n"))
+        (princ "\n")
+        (princ (car e))
+        (princ "\n")
+        (princ (make-string (length (car e)) ?-))
+        (princ "\n"))
     (princ (car e))
     (princ "   ")
     (if (symbolp (cdr e))
-	(princ (symbol-name (cdr e)))
+        (princ (symbol-name (cdr e)))
       (prin1 (cdr e)))
     (princ "\n")))
 
@@ -838,10 +838,10 @@ If not, return to the original position and throw an error."
 `org-speed-commands-default' specifies a minimal command set.
 Use `org-speed-commands-user' for further customization."
   (when (or (and (bolp) (looking-at org-outline-regexp))
-	    (and (functionp org-use-speed-commands)
-		 (funcall org-use-speed-commands)))
+            (and (functionp org-use-speed-commands)
+                 (funcall org-use-speed-commands)))
     (cdr (assoc keys (append org-speed-commands-user
-			     org-speed-commands-default)))))
+                             org-speed-commands-default)))))
 
 
 ;;; Babel speed keys
@@ -913,8 +913,8 @@ a-list placed behind the generic `org-babel-key-prefix'.")
 (defun org-babel-speed-command-activate (keys)
   "Hook for activating single-letter code block commands."
   (when (and (bolp)
-	     (let ((case-fold-search t)) (looking-at "[ \t]*#\\+begin_src"))
-	     (eq 'src-block (org-element-type (org-element-at-point))))
+             (let ((case-fold-search t)) (looking-at "[ \t]*#\\+begin_src"))
+             (eq 'src-block (org-element-type (org-element-at-point))))
     (cdr (assoc keys org-babel-key-bindings))))
 
 ;;;###autoload

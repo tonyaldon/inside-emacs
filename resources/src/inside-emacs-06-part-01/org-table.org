@@ -1,4 +1,4 @@
-* scene 1: create tables
+* create tables
 # TAB, RET and |
 
 | expense | price |
@@ -21,7 +21,7 @@
 |---+---|
 |   |   |
 
-* scene 2: convert from region
+* convert from region
 # org-table-create-or-convert-from-region
 
 # use C-| on a region
@@ -53,7 +53,7 @@ kim:small,brown
 |          104 | Murata Makoto      | Kumamoto, Kumamoto |
 |          152 | Matsumoto Yukihiro | Okinawa, Okinawa   |
 
-* scene 3: import tables
+* import tables
 # M-x org-table-import
 
 | ID (Integer) | Name (String)      | Address (String)   |

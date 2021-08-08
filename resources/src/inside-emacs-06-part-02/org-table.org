@@ -1,4 +1,4 @@
-* scene 1
+* Moving inside a field
 # M-a   (org-backward-sentence)
 # M-e   (org-forward-sentence)
 
@@ -8,7 +8,7 @@
 | a       | Dialog Align Distribute | Dialogs | C-S-a   |
 | e       | Dialog Export           | Dialogs | C-S-e   |
 
-* scene 2
+* Moving between fields
 # use of TAB and S-TAB
 
 | binding | inkscape command        | section | Default |
@@ -24,7 +24,8 @@
 | C-t     | Dialogs Toggle          | Dialogs | F12     |
 | a       | Dialog Align Distribute | Dialogs | C-S-a   |
 | e       | Dialog Export           | Dialogs | C-S-e   |
-* scene 3
+
+* Coding my-org-table-previous-row
 # to play with my-org-table-previous-row
 
 | binding | inkscape command        | section | Default |

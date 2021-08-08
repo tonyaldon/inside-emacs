@@ -60,41 +60,41 @@ if the variable `org-cycle-global-at-bob' is t."
   (interactive "P")
   (org-load-modules-maybe)
   (unless (or (run-hook-with-args-until-success 'org-tab-first-hook)
-							(and org-cycle-level-after-item/entry-creation
-									 (or (org-cycle-level)
-											 (org-cycle-item-indentation))))
+              (and org-cycle-level-after-item/entry-creation
+                   (or (org-cycle-level)
+                       (org-cycle-item-indentation))))
     (let* ((limit-level
-						(or org-cycle-max-level
-								(and (boundp 'org-inlinetask-min-level)
-										 org-inlinetask-min-level
-										 (1- org-inlinetask-min-level))))
-					 (nstars (and limit-level
-												(if org-odd-levels-only
-														(and limit-level (1- (* limit-level 2)))
-													limit-level)))
-					 (org-outline-regexp
-						(if (not (derived-mode-p 'org-mode))
-								outline-regexp
-							(concat "\\*" (if nstars (format "\\{1,%d\\} " nstars) "+ "))))
-					 (bob-special (and org-cycle-global-at-bob (not arg) (bobp)
-														 (not (looking-at org-outline-regexp))))
-					 (org-cycle-hook
-						(if bob-special
-								(delq 'org-optimize-window-after-visibility-change
-											(copy-sequence org-cycle-hook))
-							org-cycle-hook))
-					 (pos (point)))
+            (or org-cycle-max-level
+                (and (boundp 'org-inlinetask-min-level)
+                     org-inlinetask-min-level
+                     (1- org-inlinetask-min-level))))
+           (nstars (and limit-level
+                        (if org-odd-levels-only
+                            (and limit-level (1- (* limit-level 2)))
+                          limit-level)))
+           (org-outline-regexp
+            (if (not (derived-mode-p 'org-mode))
+                outline-regexp
+              (concat "\\*" (if nstars (format "\\{1,%d\\} " nstars) "+ "))))
+           (bob-special (and org-cycle-global-at-bob (not arg) (bobp)
+                             (not (looking-at org-outline-regexp))))
+           (org-cycle-hook
+            (if bob-special
+                (delq 'org-optimize-window-after-visibility-change
+                      (copy-sequence org-cycle-hook))
+              org-cycle-hook))
+           (pos (point)))
 
       (cond
 
        ((equal arg '(16))
-				(setq last-command 'dummy)
-				(org-set-startup-visibility)
-				(org-unlogged-message "Startup visibility, plus VISIBILITY properties"))
+        (setq last-command 'dummy)
+        (org-set-startup-visibility)
+        (org-unlogged-message "Startup visibility, plus VISIBILITY properties"))
 
        ((equal arg '(64))
-				(org-show-all)
-				(org-unlogged-message "Entire buffer visible, including drawers"))
+        (org-show-all)
+        (org-unlogged-message "Entire buffer visible, including drawers"))
 
        ((equal arg '(4)) (org-cycle-internal-global))
 
@@ -106,12 +106,12 @@ if the variable `org-cycle-global-at-bob' is t."
 
        ;; Table: enter it or move to the next field.
        ((org-at-table-p 'any)
-				(if (org-at-table.el-p)
-						(message "%s" (substitute-command-keys "\\<org-mode-map>\
+        (if (org-at-table.el-p)
+            (message "%s" (substitute-command-keys "\\<org-mode-map>\
 Use `\\[org-edit-special]' to edit table.el tables"))
-					(if arg (org-table-edit-field t)
-						(org-table-justify-field-maybe)
-						(call-interactively 'org-table-next-field))))
+          (if arg (org-table-edit-field t)
+            (org-table-justify-field-maybe)
+            (call-interactively 'org-table-next-field))))
 
        ((run-hook-with-args-until-success 'org-tab-after-check-for-table-hook))
 
@@ -120,59 +120,59 @@ Use `\\[org-edit-special]' to edit table.el tables"))
 
        ;; Drawers: delegate to `org-flag-drawer'.
        ((save-excursion
-					(beginning-of-line 1)
-					(looking-at org-drawer-regexp))
-				(org-flag-drawer		; toggle block visibility
-				 (not (get-char-property (match-end 0) 'invisible))))
+          (beginning-of-line 1)
+          (looking-at org-drawer-regexp))
+        (org-flag-drawer    ; toggle block visibility
+         (not (get-char-property (match-end 0) 'invisible))))
 
        ;; Show-subtree, ARG levels up from here.
        ((integerp arg)
-				(save-excursion
-					(org-back-to-heading)
-					(outline-up-heading (if (< arg 0) (- arg)
-																(- (funcall outline-level) arg)))
-					(org-show-subtree)))
+        (save-excursion
+          (org-back-to-heading)
+          (outline-up-heading (if (< arg 0) (- arg)
+                                (- (funcall outline-level) arg)))
+          (org-show-subtree)))
 
        ;; Inline task: delegate to `org-inlinetask-toggle-visibility'.
        ((and (featurep 'org-inlinetask)
-						 (org-inlinetask-at-task-p)
-						 (or (bolp) (not (eq org-cycle-emulate-tab 'exc-hl-bol))))
-				(org-inlinetask-toggle-visibility))
+             (org-inlinetask-at-task-p)
+             (or (bolp) (not (eq org-cycle-emulate-tab 'exc-hl-bol))))
+        (org-inlinetask-toggle-visibility))
 
        ;; At an item/headline: delegate to `org-cycle-internal-local'.
        ((and (or (and org-cycle-include-plain-lists (org-at-item-p))
-								 (save-excursion (move-beginning-of-line 1)
-																 (looking-at org-outline-regexp)))
-						 (or (bolp) (not (eq org-cycle-emulate-tab 'exc-hl-bol))))
-				(org-cycle-internal-local))
+                 (save-excursion (move-beginning-of-line 1)
+                                 (looking-at org-outline-regexp)))
+             (or (bolp) (not (eq org-cycle-emulate-tab 'exc-hl-bol))))
+        (org-cycle-internal-local))
 
        ;; From there: TAB emulation and template completion.
        (buffer-read-only (org-back-to-heading))
 
        ((run-hook-with-args-until-success
-				 'org-tab-after-check-for-cycling-hook))
+         'org-tab-after-check-for-cycling-hook))
 
        ((run-hook-with-args-until-success
-				 'org-tab-before-tab-emulation-hook))
+         'org-tab-before-tab-emulation-hook))
 
        ((and (eq org-cycle-emulate-tab 'exc-hl-bol)
-						 (or (not (bolp))
-								 (not (looking-at org-outline-regexp))))
-				(call-interactively (global-key-binding "\t")))
+             (or (not (bolp))
+                 (not (looking-at org-outline-regexp))))
+        (call-interactively (global-key-binding "\t")))
 
        ((if (and (memq org-cycle-emulate-tab '(white whitestart))
-								 (save-excursion (beginning-of-line 1) (looking-at "[ \t]*"))
-								 (or (and (eq org-cycle-emulate-tab 'white)
-													(= (match-end 0) (point-at-eol)))
-										 (and (eq org-cycle-emulate-tab 'whitestart)
-													(>= (match-end 0) pos))))
-						t
-					(eq org-cycle-emulate-tab t))
-				(call-interactively (global-key-binding "\t")))
+                 (save-excursion (beginning-of-line 1) (looking-at "[ \t]*"))
+                 (or (and (eq org-cycle-emulate-tab 'white)
+                          (= (match-end 0) (point-at-eol)))
+                     (and (eq org-cycle-emulate-tab 'whitestart)
+                          (>= (match-end 0) pos))))
+            t
+          (eq org-cycle-emulate-tab t))
+        (call-interactively (global-key-binding "\t")))
 
        (t (save-excursion
-						(org-back-to-heading)
-						(org-cycle)))))))
+            (org-back-to-heading)
+            (org-cycle)))))))
 
 (defun org-return (&optional indent)
   "Goto next table row or insert a newline.
@@ -189,72 +189,72 @@ object (e.g., within a comment).  In these case, you need to use
 `org-open-at-point' directly."
   (interactive)
   (let ((context (if org-return-follows-link (org-element-context)
-									 (org-element-at-point))))
+                   (org-element-at-point))))
     (cond
      ;; In a table, call `org-table-next-row'.  However, before first
      ;; column or after last one, split the table.
      ((or (and (eq 'table (org-element-type context))
-							 (not (eq 'table.el (org-element-property :type context)))
-							 (>= (point) (org-element-property :contents-begin context))
-							 (< (point) (org-element-property :contents-end context)))
-					(org-element-lineage context '(table-row table-cell) t))
+               (not (eq 'table.el (org-element-property :type context)))
+               (>= (point) (org-element-property :contents-begin context))
+               (< (point) (org-element-property :contents-end context)))
+          (org-element-lineage context '(table-row table-cell) t))
       (if (or (looking-at-p "[ \t]*$")
-							(save-excursion (skip-chars-backward " \t") (bolp)))
-					(insert "\n")
-				(org-table-justify-field-maybe)
-				(call-interactively #'org-table-next-row)))
+              (save-excursion (skip-chars-backward " \t") (bolp)))
+          (insert "\n")
+        (org-table-justify-field-maybe)
+        (call-interactively #'org-table-next-row)))
      ;; On a link or a timestamp, call `org-open-at-point' if
      ;; `org-return-follows-link' allows it.  Tolerate fuzzy
      ;; locations, e.g., in a comment, as `org-open-at-point'.
      ((and org-return-follows-link
-					 (or (and (eq 'link (org-element-type context))
-										;; Ensure point is not on the white spaces after
-										;; the link.
-										(let ((origin (point)))
-											(org-with-point-at (org-element-property :end context)
-												(skip-chars-backward " \t")
-												(> (point) origin))))
-							 (org-in-regexp org-ts-regexp-both nil t)
-							 (org-in-regexp org-tsr-regexp-both nil  t)
-							 (org-in-regexp org-link-any-re nil t)))
+           (or (and (eq 'link (org-element-type context))
+                    ;; Ensure point is not on the white spaces after
+                    ;; the link.
+                    (let ((origin (point)))
+                      (org-with-point-at (org-element-property :end context)
+                        (skip-chars-backward " \t")
+                        (> (point) origin))))
+               (org-in-regexp org-ts-regexp-both nil t)
+               (org-in-regexp org-tsr-regexp-both nil  t)
+               (org-in-regexp org-link-any-re nil t)))
       (call-interactively #'org-open-at-point))
      ;; Insert newline in heading, but preserve tags.
      ((and (not (bolp))
-					 (let ((case-fold-search nil))
-						 (org-match-line org-complex-heading-regexp)))
+           (let ((case-fold-search nil))
+             (org-match-line org-complex-heading-regexp)))
       ;; At headline.  Split line.  However, if point is on keyword,
       ;; priority cookie or tags, do not break any of them: add
       ;; a newline after the headline instead.
       (let ((tags-column (and (match-beginning 5)
-															(save-excursion (goto-char (match-beginning 5))
-																							(current-column))))
-						(string
-						 (when (and (match-end 4) (org-point-in-group (point) 4))
-							 (delete-and-extract-region (point) (match-end 4)))))
-				;; Adjust tag alignment.
-				(cond
-				 ((not (and tags-column string)))
-				 (org-auto-align-tags (org-align-tags))
-				 (t (org--align-tags-here tags-column))) ;preserve tags column
-				(end-of-line)
-				(org-show-entry)
-				(if indent (newline-and-indent) (newline))
-				(when string (save-excursion (insert (org-trim string))))))
+                              (save-excursion (goto-char (match-beginning 5))
+                                              (current-column))))
+            (string
+             (when (and (match-end 4) (org-point-in-group (point) 4))
+               (delete-and-extract-region (point) (match-end 4)))))
+        ;; Adjust tag alignment.
+        (cond
+         ((not (and tags-column string)))
+         (org-auto-align-tags (org-align-tags))
+         (t (org--align-tags-here tags-column))) ;preserve tags column
+        (end-of-line)
+        (org-show-entry)
+        (if indent (newline-and-indent) (newline))
+        (when string (save-excursion (insert (org-trim string))))))
      ;; In a list, make sure indenting keeps trailing text within.
      ((and indent
-					 (not (eolp))
-					 (org-element-lineage context '(item)))
+           (not (eolp))
+           (org-element-lineage context '(item)))
       (let ((trailing-data
-						 (delete-and-extract-region (point) (line-end-position))))
-				(newline-and-indent)
-				(save-excursion (insert trailing-data))))
+             (delete-and-extract-region (point) (line-end-position))))
+        (newline-and-indent)
+        (save-excursion (insert trailing-data))))
      (t
       ;; Do not auto-fill when point is in an Org property drawer.
       (let ((auto-fill-function (and (not (org-at-property-p))
-																		 auto-fill-function)))
-				(if indent
-						(newline-and-indent)
-					(newline)))))))
+                                     auto-fill-function)))
+        (if indent
+            (newline-and-indent)
+          (newline)))))))
 
 
 (defun org-backward-sentence (&optional _arg)
@@ -263,19 +263,19 @@ This will call `backward-sentence' or `org-table-beginning-of-field',
 depending on context."
   (interactive)
   (let* ((element (org-element-at-point))
-				 (contents-begin (org-element-property :contents-begin element))
-				 (table (org-element-lineage element '(table) t)))
+         (contents-begin (org-element-property :contents-begin element))
+         (table (org-element-lineage element '(table) t)))
     (if (and table
-						 (> (point) contents-begin)
-						 (<= (point) (org-element-property :contents-end table)))
-				(call-interactively #'org-table-beginning-of-field)
+             (> (point) contents-begin)
+             (<= (point) (org-element-property :contents-end table)))
+        (call-interactively #'org-table-beginning-of-field)
       (save-restriction
-				(when (and contents-begin
-									 (< (point-min) contents-begin)
-									 (> (point) contents-begin))
-					(narrow-to-region contents-begin
-														(org-element-property :contents-end element)))
-				(call-interactively #'backward-sentence)))))
+        (when (and contents-begin
+                   (< (point-min) contents-begin)
+                   (> (point) contents-begin))
+          (narrow-to-region contents-begin
+                            (org-element-property :contents-end element)))
+        (call-interactively #'backward-sentence)))))
 
 (defun org-forward-sentence (&optional _arg)
   "Go to end of sentence, or end of table field.
@@ -283,29 +283,29 @@ This will call `forward-sentence' or `org-table-end-of-field',
 depending on context."
   (interactive)
   (if (and (org-at-heading-p)
-					 (save-restriction (skip-chars-forward " \t") (not (eolp))))
+           (save-restriction (skip-chars-forward " \t") (not (eolp))))
       (save-restriction
-				(narrow-to-region (line-beginning-position) (line-end-position))
-				(call-interactively #'forward-sentence))
+        (narrow-to-region (line-beginning-position) (line-end-position))
+        (call-interactively #'forward-sentence))
     (let* ((element (org-element-at-point))
-					 (contents-end (org-element-property :contents-end element))
-					 (table (org-element-lineage element '(table) t)))
+           (contents-end (org-element-property :contents-end element))
+           (table (org-element-lineage element '(table) t)))
       (if (and table
-							 (>= (point) (org-element-property :contents-begin table))
-							 (< (point) contents-end))
-					(call-interactively #'org-table-end-of-field)
-				(save-restriction
-					(when (and contents-end
-										 (> (point-max) contents-end)
-										 ;; Skip blank lines between elements.
-										 (< (org-element-property :end element)
-												(save-excursion (goto-char contents-end)
-																				(skip-chars-forward " \r\t\n"))))
-						(narrow-to-region (org-element-property :contents-begin element)
-															contents-end))
-					;; End of heading is considered as the end of a sentence.
-					(let ((sentence-end (concat (sentence-end) "\\|^\\*+ .*$")))
-						(call-interactively #'forward-sentence)))))))
+               (>= (point) (org-element-property :contents-begin table))
+               (< (point) contents-end))
+          (call-interactively #'org-table-end-of-field)
+        (save-restriction
+          (when (and contents-end
+                     (> (point-max) contents-end)
+                     ;; Skip blank lines between elements.
+                     (< (org-element-property :end element)
+                        (save-excursion (goto-char contents-end)
+                                        (skip-chars-forward " \r\t\n"))))
+            (narrow-to-region (org-element-property :contents-begin element)
+                              contents-end))
+          ;; End of heading is considered as the end of a sentence.
+          (let ((sentence-end (concat (sentence-end) "\\|^\\*+ .*$")))
+            (call-interactively #'forward-sentence)))))))
 
 (define-derived-mode org-mode outline-mode "Org"
   "Outline-based notes management and organizer, alias
@@ -339,7 +339,7 @@ The following commands are available:
     (set-display-table-slot
      org-display-table 4
      (vconcat (mapcar (lambda (c) (make-glyph-code c 'org-ellipsis))
-											org-ellipsis)))
+                      org-ellipsis)))
     (setq buffer-display-table org-display-table))
   (org-set-regexps-and-options)
   (org-set-font-lock-defaults)
@@ -376,11 +376,11 @@ The following commands are available:
   ;; Beginning/end of defun
   (setq-local beginning-of-defun-function 'org-backward-element)
   (setq-local end-of-defun-function
-							(lambda ()
-								(if (not (org-at-heading-p))
-										(org-forward-element)
-									(org-forward-element)
-									(forward-char -1))))
+              (lambda ()
+                (if (not (org-at-heading-p))
+                    (org-forward-element)
+                  (org-forward-element)
+                  (forward-char -1))))
   ;; Next error for sparse trees
   (setq-local next-error-function 'org-occur-next-match)
   ;; Make commit log messages from Org documents easier.
@@ -389,14 +389,14 @@ The following commands are available:
   ;; too late :-(
   (if org-enforce-todo-dependencies
       (add-hook 'org-blocker-hook
-								'org-block-todo-from-children-or-siblings-or-parent)
+                'org-block-todo-from-children-or-siblings-or-parent)
     (remove-hook 'org-blocker-hook
-								 'org-block-todo-from-children-or-siblings-or-parent))
+                 'org-block-todo-from-children-or-siblings-or-parent))
   (if org-enforce-todo-checkbox-dependencies
       (add-hook 'org-blocker-hook
-								'org-block-todo-from-checkboxes)
+                'org-block-todo-from-checkboxes)
     (remove-hook 'org-blocker-hook
-								 'org-block-todo-from-checkboxes))
+                 'org-block-todo-from-checkboxes))
 
   ;; Align options lines
   (setq-local
@@ -407,7 +407,7 @@ The following commands are available:
 
   ;; Make isearch reveal context
   (setq-local outline-isearch-open-invisible-function
-							(lambda (&rest _) (org-show-context 'isearch)))
+              (lambda (&rest _) (org-show-context 'isearch)))
 
   ;; Setup the pcomplete hooks
   (setq-local pcomplete-command-completion-function #'org-pcomplete-initial)
@@ -422,20 +422,20 @@ The following commands are available:
   ;; If empty file that did not turn on Org mode automatically, make
   ;; it to.
   (when (and org-insert-mode-line-in-empty-file
-						 (called-interactively-p 'any)
-						 (= (point-min) (point-max)))
+             (called-interactively-p 'any)
+             (= (point-min) (point-max)))
     (insert "#    -*- mode: org -*-\n\n"))
   (unless org-inhibit-startup
     (org-unmodified
      (when org-startup-with-beamer-mode (org-beamer-mode))
      (when (or org-startup-align-all-tables org-startup-shrink-all-tables)
        (org-table-map-tables
-				(cond ((and org-startup-align-all-tables
-										org-startup-shrink-all-tables)
-							 (lambda () (org-table-align) (org-table-shrink)))
-							(org-startup-align-all-tables #'org-table-align)
-							(t #'org-table-shrink))
-				t))
+        (cond ((and org-startup-align-all-tables
+                    org-startup-shrink-all-tables)
+               (lambda () (org-table-align) (org-table-shrink)))
+              (org-startup-align-all-tables #'org-table-align)
+              (t #'org-table-shrink))
+        t))
      (when org-startup-with-inline-images (org-display-inline-images))
      (when org-startup-with-latex-preview (org-latex-preview '(16)))
      (unless org-inhibit-startup-visibility-stuff (org-set-startup-visibility))

@@ -1,4 +1,4 @@
-* scene 1: Copy and Past Region
+* Copy and Past Region
 ** scene 1-a
 # org-table-copy-region
 # org-table-paste-rectangle
@@ -28,7 +28,7 @@
 | 202 | Nilay     | Sendai, Miyagi     |
 | 104 | Murata    | Kumamoto, Kumamoto |
 | 152 | Matsumoto | Okinawa, Okinawa   |
-* scene 2: Insert Horizontal Lines
+* Insert Horizontal Lines
 # C-c -
 
 | binding | command                  |
@@ -52,7 +52,7 @@
 | binding | command                  |
 | C-c -   | org-table-insert-hline   |
 | C-c RET | org-table-hline-and-move |
-* scene 3: Sort Table Lines
+* Sort Table Lines
 # org-table-sort-lines
 # C-c ^
 
