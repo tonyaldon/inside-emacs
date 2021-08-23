@@ -1,7 +1,12 @@
 # About
+
 `inside-emacs` is a **complementary material** for the video series **inside emacs**.
 
-Watch [here](https://youtu.be/F1IXixEhQwk).
+Watch on my Youtube channel [Tony Aldon](https://youtu.be/F1IXixEhQwk)
+the playlists:
+- [ORG SPREADSHEET](https://www.youtube.com/watch?v=wrEYankhAIs&list=PLGMx7bOKMJTwx5eGVlBndN-teW1RhV7VQ&ab_channel=TonyAldon)
+- [ORG-TABLE](https://www.youtube.com/watch?v=pRXRwQ1GGr4&list=PLGMx7bOKMJTw4p7vs1kTGBAnW81NB57Wv&ab_channel=TonyAldon)
+- [INSIDE EMACS](https://www.youtube.com/watch?v=F1IXixEhQwk&list=PLGMx7bOKMJTxx2Vx155xbiOrb38Lp3nt1&ab_channel=TonyAldon)
 
 # Content
 
