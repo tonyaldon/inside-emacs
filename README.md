@@ -10,13 +10,16 @@ emacs** videos, here you'll find:
 
 1. Various list of the commands I use in the videos and the packages
    they belong to,
-2. The code of the customized commands I use in the videos (I put them
-   in `utils.el` file in the corresponding subdirectories of the
-   [src](./src/) directory), they generaly are prefixed by `ta-`
-   (stands for Tony Aldon),
-3. When it's possible, the files I use to make the videos (see the
-   [src](./src/) directory).
+2. The code of the customized commands I use in the videos,
+3. When it's possible, the files I use to make the videos.
 
+For instance, the informations corresponding to the video
+[tables, code blocks, the magic of org-mode | Inside Emacs #6 (part 14)](https://www.youtube.com/watch?v=ay7zslbSFqg)
+can be found:
+1. in [./resources/videos/inside-emacs-06-part-14.org](./resources/videos/inside-emacs-06-part-14.org)
+   for the commands, functions and variables used in the video,
+2. in [./resources/src/inside-emacs-06-part-14/](./resources/src/inside-emacs-06-part-14/)
+   for the files used in the video.
 
 # Contact
 
