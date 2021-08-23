@@ -112,8 +112,7 @@ and :op non empty. See `sp-get-thing'."
     (goto-char sexp-beg)))
 
 (defun ta-mark-sexp-at-point ()
-  "Mark the `sexp' at point. See `sexp-at-point' and `sp-mark-sexp'
-(smartparens packages)."
+  "Mark the `sexp' at point. See `sexp-at-point' and `sp-mark-sexp'."
   (interactive)
   (if (or (ta--point-at-beginnig-sp-sexp-p)
           (eq (following-char) ?<))

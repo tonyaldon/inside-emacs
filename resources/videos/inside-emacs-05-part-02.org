@@ -4,7 +4,7 @@
 #+PROPERTY: YOUTUBE_LINK  https://youtu.be/fg_jTo9SK9I
 #+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
 #+PROPERTY: CONFIG_COMMIT 33c04510f94e5eb96ed7b072dfba410cbc70a9d0
-#+PROPERTY: VIDEO_SCR_DIR
+#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-05-part-02/
 #+TAGS: FIXME
 
 * Description
