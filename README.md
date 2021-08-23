@@ -17,27 +17,6 @@ emacs** videos, here you'll find:
 3. When it's possible, the files I use to make the videos (see the
    [src](./src/) directory).
 
-# Motivation
-
-1. I want to take some live notes on my `emacs` workflow.
-2. I want to own the best `emacs` commands, I want them to be part of me
-   and want to be able to play with them as a musician would do.
-3. I love `emacs` but I doesn't want to think about it when I'm using
-   it. Therefore I take time out of my schedule to learn it. These
-   videos are part of this learning process.
-
-My main goal doing these videos is to be **quicker**, **clearer** and
-more **fluent** when I **read**, **modify** or **write** code.
-
-I hope these videos can help you in your `emacs` trip.
-
-# Great video series
-
-I've learnt a lot of emacs cool stuff from [magnars](https://github.com/magnars) and
-[protesilaos](https://protesilaos.com/about/). Go for it:
-
-* [emacs rocks](http://emacsrocks.com/),
-* [protesilaos (youtube)](https://www.youtube.com/channel/UC0uTPqBCFIpZxlz_Lv1tk_g).
 
 # Contact
 
