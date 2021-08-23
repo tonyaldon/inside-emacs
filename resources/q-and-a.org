@@ -1,6 +1,6 @@
 #+TITLE: Questions and Answers
 #+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
+#+DATE: <2021-08-23 Mon>
 
 As the number of videos produced increases, comments, questions,
 answers and conversations increase too.
@@ -22,6 +22,7 @@ If you have any questions or suggestions, *contact me* by [[mailto:tony.aldon.ad
 Twitter ([[https://twitter.com/tonyaldon][@tonyaldon]]) or Reddit ([[https://www.reddit.com/user/tonyaldon][u/tonyaldon]]).
 
 * What key bindings paradigm are you using?
+
 The original question is "Would you mind sharing what you are using
 to navigate.  Looks like any. Is it?" posted on Reddit (see [[https://www.reddit.com/r/emacs/comments/oc8ap9/the_bases_of_the_org_spreadsheet_limitless_is/h40pd0k?utm_source=share&utm_medium=web2x&context=3][comment]]).
 
@@ -31,7 +32,9 @@ specific [[https://github.com/tonyaldon/keyboard-layout][keyboard-layout]] I'm u
 
 If I can't remember a key binding, mostly it's because I almost don't
 use the command it maps to.  In that case, I remove it.
+
 ** Enhanced key bindings
+
 To get most of Emacs key bindings, I use the packages ~hydra~ and
 ~key-chord~.
 
@@ -46,7 +49,9 @@ changed when I use an ~hydra~.  And, all my ~hydras~ have the parameter
 simultaneously pressed keys to a command and for mapping the same key
 being pressed twice in quick succession to a command.  Such bindings
 are called "key chords".
+
 ** Emacs text navigation
+
 To jump to visible text using a char-based decision tree, I use
 [[https://github.com/abo-abo/avy][avy]].
 
