@@ -200,32 +200,8 @@ Before doing so, re-align the table if necessary."
 #+END_SRC
 
 * Emacs Lisp
-** org-table-auto-blank-field
-~org-table-auto-blank-field~: Non-nil means automatically blank table
-field when starting to type into it.
 
-#+BEGIN_SRC emacs-lisp
-(defcustom org-table-auto-blank-field t
-  "Non-nil means automatically blank table field when starting to type into it.
-This only happens when typing immediately after a field motion
-command (TAB, S-TAB or RET)."
-  :group 'org-table-editing
-  :type 'boolean)
-#+END_SRC
-
-** org-table-copy-increment
-~org-table-copy-increment~: Non-nil means increment when copying
-current field with ~org-table-copy-down~.
-
-#+BEGIN_SRC emacs-lisp
-(defcustom org-table-copy-increment t
-  "Non-nil means increment when copying current field with \
-`\\[org-table-copy-down]'."
-  :group 'org-table-calculation
-  :version "26.1"
-  :package-version '(Org . "8.3")
-  :type '(choice
-          (const :tag "Use the difference between the current and the above fields" t)
-          (integer :tag "Use a number" 1)
-          (const :tag "Don't increment the value when copying a field" nil)))
-#+END_SRC
+- ~org-table-auto-blank-field~: Non-nil means automatically blank table
+  field when starting to type into it.
+- ~org-table-copy-increment~: Non-nil means increment when copying
+  current field with ~org-table-copy-down~.

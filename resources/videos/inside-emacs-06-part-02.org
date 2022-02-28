@@ -245,157 +245,16 @@ and :op non empty. See `sp-get-thing'."
 #+END_SRC
 
 * Emacs Lisp
-** command-remapping
-~command-remapping~: Return the remapping for command COMMAND.
 
-#+BEGIN_SRC C
-/* This function may GC (it calls Fkey_binding).  */
-
-DEFUN ("command-remapping", Fcommand_remapping, Scommand_remapping, 1, 3, 0,
-       doc: /* Return the remapping for command COMMAND.
-Returns nil if COMMAND is not remapped (or not a symbol).
-
-If the optional argument POSITION is non-nil, it specifies a mouse
-position as returned by `event-start' and `event-end', and the
-remapping occurs in the keymaps associated with it.  It can also be a
-number or marker, in which case the keymap properties at the specified
-buffer position instead of point are used.  The KEYMAPS argument is
-ignored if POSITION is non-nil.
-
-If the optional argument KEYMAPS is non-nil, it should be a keymap or list of
-keymaps to search for command remapping.  Otherwise, search for the
-remapping in all currently active keymaps.  */)
-  (Lisp_Object command, Lisp_Object position, Lisp_Object keymaps)
-{
-  if (!SYMBOLP (command))
-    return Qnil;
-
-  ASET (command_remapping_vector, 1, command);
-
-  if (NILP (keymaps))
-    command = Fkey_binding (command_remapping_vector, Qnil, Qt, position);
-  else
-    command = Flookup_key (keymaps, command_remapping_vector, Qnil);
-  return FIXNUMP (command) ? Qnil : command;
-}
-#+END_SRC
-
-** org-at-table-hline-p
-~org-at-table-hline-p~: Non-nil when point is inside a hline in a table.
-
-#+BEGIN_SRC emacs-lisp
-(defun org-at-table-hline-p ()
-  "Non-nil when point is inside a hline in a table.
-Assume point is already in a table."
-  (org-match-line org-table-hline-regexp))
-#+END_SRC
-
-** org-at-table-p
-~org-at-table-p~: Non-nil if the cursor is inside an Org table.
-
-#+BEGIN_SRC emacs-lisp
-(defun org-at-table-p (&optional table-type)
-  "Non-nil if the cursor is inside an Org table.
-If TABLE-TYPE is non-nil, also check for table.el-type tables."
-  (and (org-match-line (if table-type "[ \t]*[|+]" "[ \t]*|"))
-       (or (not (derived-mode-p 'org-mode))
-           (let ((e (org-element-lineage (org-element-at-point) '(table) t)))
-             (and e (or table-type
-                        (eq 'org (org-element-property :type e))))))))
-#+END_SRC
-
-** org-table-current-column
-~org-table-current-column~: Return current column number.
-
-#+BEGIN_SRC emacs-lisp
-(defun org-table-current-column ()
-  "Return current column number."
-  (interactive)
-  (save-excursion
-    (let ((pos (point)))
-      (beginning-of-line)
-      (if (not (search-forward "|" pos t)) 0
-        (let ((column 1)
-              (separator (if (org-at-table-hline-p) "[+|]" "|")))
-          (while (re-search-forward separator pos t) (cl-incf column))
-          column)))))
-#+END_SRC
-
-** org-table-current-line
-~org-table-current-line~: Return the index of the current data line.
-
-#+BEGIN_SRC emacs-lisp
-(defun org-table-current-line ()
-  "Return the index of the current data line."
-  (let ((pos (point)) (end (org-table-end)) (cnt 0))
-    (save-excursion
-      (goto-char (org-table-begin))
-      (while (and (re-search-forward org-table-dataline-regexp end t)
-                  (setq cnt (1+ cnt))
-                  (< (point-at-eol) pos))))
-    cnt))
-#+END_SRC
-
-** org-table-goto-column
-~org-table-goto-column~: Move the cursor to the Nth column in the
-current table line.
-
-#+BEGIN_SRC emacs-lisp
-(defun org-table-goto-column (n &optional on-delim force)
-  "Move the cursor to the Nth column in the current table line.
-With optional argument ON-DELIM, stop with point before the left delimiter
-of the field.
-If there are less than N fields, just go to after the last delimiter.
-However, when FORCE is non-nil, create new columns if necessary."
-  (interactive "p")
-  (beginning-of-line 1)
-  (when (> n 0)
-    (while (and (> (setq n (1- n)) -1)
-                (or (search-forward "|" (point-at-eol) t)
-                    (and force
-                         (progn (end-of-line 1)
-                                (skip-chars-backward "^|")
-                                (insert " | ")
-                                t)))))
-    (when (and force (not (looking-at ".*|")))
-      (save-excursion (end-of-line 1) (insert " | ")))
-    (if on-delim
-        (backward-char 1)
-      (if (looking-at " ") (forward-char 1)))))
-#+END_SRC
-
-** org-table-maybe-eval-formula
-~org-table-maybe-eval-formula~: Check if the current field starts with
-"==" or ":==". If yes, store the formula and apply it.
-
-#+BEGIN_SRC emacs-lisp
-(defun org-table-maybe-eval-formula ()
-  "Check if the current field starts with \"=\" or \":=\".
-If yes, store the formula and apply it."
-  ;; We already know we are in a table.  Get field will only return a formula
-  ;; when appropriate.  It might return a separator line, but no problem.
-  (when org-table-formula-evaluate-inline
-    (let* ((field (org-trim (or (org-table-get-field) "")))
-           named eq)
-      (when (string-match "^:?=\\(.*[^=]\\)$" field)
-        (setq named (equal (string-to-char field) ?:)
-              eq (match-string 1 field))
-        (org-table-eval-formula (and named '(4))
-                                (org-table-formula-from-user eq))))))
-#+END_SRC
-
-** org-table-maybe-recalculate-line
-~org-table-maybe-recalculate-line~: Recompute the current line if marked
-for it, and if we haven't just done it.
-
-#+BEGIN_SRC emacs-lisp
-(defun org-table-maybe-recalculate-line ()
-  "Recompute the current line if marked for it, and if we haven't just done it."
-  (interactive)
-  (and org-table-allow-automatic-line-recalculation
-       (not (and (memq last-command org-recalc-commands)
-                 (eq org-last-recalc-line (line-beginning-position))))
-       (save-excursion (beginning-of-line 1)
-                       (looking-at org-table-auto-recalculate-regexp))
-       (org-table-recalculate) t))
-#+END_SRC
+- ~command-remapping~: Return the remapping for command COMMAND.
+- ~org-at-table-hline-p~: Non-nil when point is inside a hline in a
+  table.
+- ~org-at-table-p~: Non-nil if the cursor is inside an Org table.
+- ~org-table-current-column~: Return current column number.
+- ~org-table-current-line~: Return the index of the current data line.
+- ~org-table-goto-column~: Move the cursor to the Nth column in the
+  current table line.
+- ~org-table-maybe-eval-formula~: Check if the current field starts with
+  "==" or ":==". If yes, store the formula and apply it.
+- ~org-table-maybe-recalculate-line~: Recompute the current line if
+  marked for it, and if we haven't just done it.
