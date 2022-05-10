@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 6 part 9
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/wrEYankhAIs
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 15379cdd5e548f1540d677d4386bb5da7d5bc5b0
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-09/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2021-07-02 Fri] The bases of the ORG SPREADSHEET | org-table | Inside Emacs #6 (part 9)
+:PROPERTIES:
+:YOUTUBE_TITLE: The bases of the ORG SPREADSHEET | org-table | Inside Emacs #6 (part 9)
+:YOUTUBE_LINK: https://youtu.be/wrEYankhAIs
+:YOUTUBE_UPLOAD_DATE: [2021-07-02 Fri]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 15379cdd5e548f1540d677d4386bb5da7d5bc5b0
+:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-09/
+:END:
+** Built-in commands
 *** org-mode-map
 
 - ~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update
@@ -16,7 +15,7 @@
 - ~org-yank~ (~C-y~): Yank.  If the kill is a subtree, treat it
   specially.
 
-** customized
+** Customized commands
 *** handy-mark-line
 
 ~handy-mark-line~: Mark the current line.

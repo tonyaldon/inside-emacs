@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 6 part 7
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/LogbcVWb3mQ
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 06ba16e26da4fbedb430090287aec096bf491037
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-07/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2021-06-16 Wed] Use custom formats to export Org tables to HTML tables | org-table | Inside Emacs #6 (part 7)
+:PROPERTIES:
+:YOUTUBE_TITLE: Use custom formats to export Org tables to HTML tables | org-table | Inside Emacs #6 (part 7)
+:YOUTUBE_LINK: https://www.youtube.com/watch?v=LogbcVWb3mQ
+:YOUTUBE_UPLOAD_DATE: [2021-06-16 Wed]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 06ba16e26da4fbedb430090287aec096bf491037
+:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-07/
+:END:
+** Built-in commands
 *** without default key binding
 
 - ~isearch-occur~: Run ~occur~ using the last search string as the
@@ -38,7 +37,7 @@
 
 - ~org-table-export~: Export table to a file, with configurable format.
 
-** external
+** External commands
 
 - ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
   in the minibuffer).
@@ -50,7 +49,7 @@
   next balanced expression.
 - ~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point.
 
-** customized
+** Customized commands
 *** handy-expand-region-dwim
 
 ~handy-expand-region-dwim~: If region is active, call
@@ -224,7 +223,7 @@ nor a variable."
     (describe-symbol symbol)))
 #+END_SRC
 
-* Emacs Lisp
+** Emacs Lisp
 
 - ~orgtbl-to-generic~: Convert the orgtbl-mode TABLE to some other
   format.

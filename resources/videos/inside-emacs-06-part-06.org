@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 6 part 6
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/loa1g9wwNlI
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 06ba16e26da4fbedb430090287aec096bf491037
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-06/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2021-06-12 Sat] Export Org tables to HTML tables | org-table | Inside Emacs #6 (part 6)
+:PROPERTIES:
+:YOUTUBE_TITLE: Export Org tables to HTML tables | org-table | Inside Emacs #6 (part 6)
+:YOUTUBE_LINK: https://www.youtube.com/watch?v=loa1g9wwNlI
+:YOUTUBE_UPLOAD_DATE: [2021-06-12 Sat]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 06ba16e26da4fbedb430090287aec096bf491037
+:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-06/
+:END:
+** Built-in
 *** org-mode-map
 
 - ~org-cycle~ (~TAB~): TAB-action and visibility cycling for Org mode.
@@ -21,7 +20,7 @@
 
 - ~org-table-export~: Export table to a file, with configurable format.
 
-** external
+** External commands
 
 - ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
   in the minibuffer).
@@ -29,7 +28,7 @@
 - ~counsel-M-x~ (from [[https://github.com/abo-abo/swiper][counsel]]): Ivy version of ~execute-extended-command~.
 - ~counsel-find-file~ (from [[https://github.com/abo-abo/swiper][swiper]]): Forward to ~find-file~.
 
-** customized
+** Customized
 *** handy-expand-region-dwim
 
 ~handy-expand-region-dwim~: If region is active, call
@@ -183,7 +182,7 @@ Everywhere else, drag the line at point down."
    (t (call-interactively 'org-drag-line-forward))))
 #+END_SRC
 
-* Emacs Lisp
+** Emacs Lisp
 
 - ~orgtbl-to-generic~: Convert the orgtbl-mode TABLE to some other
   format.

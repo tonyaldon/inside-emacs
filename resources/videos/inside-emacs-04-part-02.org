@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 4 part 2
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/zSPraaX2524
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 4cbdb3ce735ae296387069ef7ff309f0cfa812e8
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-04-part-02/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2020-08-28 Fri] company-mode, company-backends, frontend, company-active-map | Inside Emacs #4 (part 2)
+:PROPERTIES:
+:YOUTUBE_TITLE: company-mode, company-backends, frontend, company-active-map | Inside Emacs #4 (part 2)
+:YOUTUBE_LINK: https://youtu.be/zSPraaX2524
+:YOUTUBE_UPLOAD_DATE: [2020-08-28 Fri]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 4cbdb3ce735ae296387069ef7ff309f0cfa812e8
+:VIDEO_SCR_DIR: ../src/inside-emacs-04-part-02/
+:END:
+** Built-in commands
 *** without default key binding
 
 - ~eval-defun~: Evaluate the top-level form containing point, or after
@@ -34,7 +33,7 @@
 - ~revert-buffer~ (~C-x x g~): Replace current buffer text with the
   text of the visited file on disk.
 
-** external
+** External commands
 
 - ~avy-goto-word-or-subword-1~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible
   char (read in the minibuffer) at a subword or word start.
@@ -44,7 +43,7 @@
 - ~swiper~ (from [[https://github.com/abo-abo/swiper][swiper]]): ~isearch-forward~ with an overview.
 - ~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point.
 
-** customized
+** Customized commands
 *** ta-above-new-indent
 
 ~ta-above-new-indent~: Add an empty line above and move the cursor to

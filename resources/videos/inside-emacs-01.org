@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 1
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/F1IXixEhQwk
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT f760601bfc92bac7570f74396dbe1e4910af86af
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-01/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2020-07-30 Thu] iedit-mode, multiple-cursors, iy-go-to-char, replace-string | Inside Emacs #1
+:PROPERTIES:
+:YOUTUBE_TITLE: iedit-mode, multiple-cursors, iy-go-to-char, replace-string | Inside Emacs #1
+:YOUTUBE_LINK: https://youtu.be/F1IXixEhQwk
+:YOUTUBE_UPLOAD_DATE: [2020-07-30 Thu]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: f760601bfc92bac7570f74396dbe1e4910af86af
+:VIDEO_SCR_DIR: ../src/inside-emacs-01/
+:END:
+** Built-in commands
 *** without default key binding
 
 - ~replace-string~: Interactively, replace occurrences of a string read
@@ -23,7 +22,7 @@
 - ~yank-rectangle~ (~C-x r y~): Yank the last killed rectangle with upper
   left corner at point.
 
-** external
+** External commands
 
 - ~avy-goto-word-or-subword-1~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible
   char (read in the minibuffer) at a subword or word start.
@@ -50,7 +49,7 @@
 - ~mc/mark-next-like-this-word~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark
   the next part of the buffer matching the currently active region.
 
-** customized
+** Customized commands
 *** cleanup-buffer
 
 ~cleanup-buffer~: Convert all tabs into spaces, delete trailing spaces

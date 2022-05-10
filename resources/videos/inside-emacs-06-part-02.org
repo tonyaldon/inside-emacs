@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 6 part 2
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/RhwCClMdaps
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 6982f26e031a6aaa82515274d8572204fffaec56
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-02/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2020-12-19 Sat] Move through an org table | org-table | Inside Emacs #6 (part 2)
+:PROPERTIES:
+:YOUTUBE_TITLE: Move through an org table | org-table | Inside Emacs #6 (part 2)
+:YOUTUBE_LINK: https://youtu.be/RhwCClMdaps
+:YOUTUBE_UPLOAD_DATE: [2020-12-19 Sat]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 6982f26e031a6aaa82515274d8572204fffaec56
+:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-02/
+:END:
+** Built-in commands
 *** without default key binding
 
 - ~eval-defun~: Evaluate the top-level form containing point, or after
@@ -38,7 +37,7 @@
 - ~org-shifttab~ (~S-TAB~): Global visibility cycling or move to previous
   table field.
 
-** external
+** External commands
 
 - ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
   in the minibuffer).
@@ -62,7 +61,7 @@
 - ~sp-raise-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Unwrap the current list and kill
   everything inside except next expression.
 
-** customized
+** Customized commands
 *** my-org-table-previous-row
 
 ~my-org-table-previous-row~: Go to the previous row (same column) in the
@@ -238,7 +237,7 @@ and :op non empty. See `sp-get-thing'."
       (ta--mark-sexp-at-point))))
 #+END_SRC
 
-* Emacs Lisp
+** Emacs Lisp
 
 - ~command-remapping~: Return the remapping for command COMMAND.
 - ~org-at-table-hline-p~: Non-nil when point is inside a hline in a

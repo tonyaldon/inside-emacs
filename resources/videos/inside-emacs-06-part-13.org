@@ -1,16 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 6 part 13
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/w3LbuI5naMI
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 08912d6e6ef29158d1fa8ebbb98d90214ddc805e
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-13/
-#+TAGS: FIXME
-
-* Description
-
-* Commands
-** built-in
+* [2021-07-20 Tue] Paycheck calculation using org-lookup-first | org-table | Inside Emacs #6 (part 13)
+:PROPERTIES:
+:YOUTUBE_TITLE: Paycheck calculation using org-lookup-first | org-table | Inside Emacs #6 (part 13)
+:YOUTUBE_LINK: https://youtu.be/w3LbuI5naMI
+:YOUTUBE_UPLOAD_DATE: [2021-07-20 Tue]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 08912d6e6ef29158d1fa8ebbb98d90214ddc805e
+:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-13/
+:END:
+** Built-in commands
 *** global-map
 
 - ~isearch-forward~ (~C-s~): Do incremental search forward.
@@ -32,7 +29,7 @@
 - ~org-table-fedit-finish~ (~C-c '~): Parse the buffer for formula
   definitions and install them.
 
-** external
+** External commands
 
 - ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
   in the minibuffer).
@@ -41,7 +38,7 @@
   mark the previous part of the buffer matching the currently active
   region.
 
-** customized
+** Customized commands
 *** handy-expand-region-dwim
 
 ~handy-expand-region-dwim~: If region is active, call
@@ -127,7 +124,7 @@ Call `avy-goto-char' with \"\n\" as argument."
   (avy-goto-char ?\n))
 #+END_SRC
 
-* Emacs Lisp
+** Emacs Lisp
 
 - ~org-lookup-first~: Find first occurrence of VAL in S-LIST; return
   corresponding element of R-LIST.

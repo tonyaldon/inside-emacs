@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 6 part 1
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/pRXRwQ1GGr4
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT fc02ec1c2d2caa52b22410adb465f79c115c7e2a
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-01/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2020-11-26 Thu] Create and import tables | org-table | Inside Emacs #6 (part 1)
+:PROPERTIES:
+:YOUTUBE_TITLE: Create and import tables | org-table | Inside Emacs #6 (part 1)
+:YOUTUBE_LINK: https://youtu.be/pRXRwQ1GGr4
+:YOUTUBE_UPLOAD_DATE: [2020-11-26 Thu]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: fc02ec1c2d2caa52b22410adb465f79c115c7e2a
+:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-01/
+:END:
+** Built-in
 *** without default key binding
 
 - ~whitespace-mode~: Toggle whitespace visualization (Whitespace mode).
@@ -29,7 +28,7 @@
 - ~org-table-create-or-convert-from-region~ (~C-|~): Convert region to
   table, or create an empty table.
 
-** external
+** External
 
 - ~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
 - ~csv-align-fields~ (from [[https://elpa.gnu.org/packages/csv-mode.html][csv-mode]]): Align all the fields in the region

@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 2
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/Tc4-sLf8HBc
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT f760601bfc92bac7570f74396dbe1e4910af86af
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-02/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2020-08-07 Fri] winner-undo, transpose-frame, dired, kmacro, universal-argument | Inside Emacs #2
+:PROPERTIES:
+:YOUTUBE_TITLE: winner-undo, transpose-frame, dired, kmacro, universal-argument | Inside Emacs #2
+:YOUTUBE_LINK: https://youtu.be/Tc4-sLf8HBc
+:YOUTUBE_UPLOAD_DATE: [2020-08-07 Fri]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: f760601bfc92bac7570f74396dbe1e4910af86af
+:VIDEO_SCR_DIR: ../src/inside-emacs-02/
+:END:
+** Built-in commands
 *** without default key binding
 
 - ~replace-string~: Interactively, replace occurrences of a string
@@ -39,7 +38,7 @@
 - ~dired-unmark-all-marks~ (~U~): Remove all marks from all files in the
   Dired buffer.
 
-** external
+** External commands
 
 - ~avy-goto-word-or-subword-1~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible
   char (read in the minibuffer) at a subword or word start.
@@ -56,7 +55,7 @@
 - ~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point. If no
   snippet
 
-** customized
+** Customized commands
 *** ta-mark-inside-quotes-or-pairs
 
 ~ta-mark-inside-quotes-or-pairs~: Mark inside quotes or inside pairs

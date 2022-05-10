@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 6 part 14
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/ay7zslbSFqg
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 08912d6e6ef29158d1fa8ebbb98d90214ddc805e
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-14/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2021-07-23 Fri] Use the result of a Python source-block in a table formula | org-table | Inside Emacs #6 (part 14)
+:PROPERTIES:
+:YOUTUBE_TITLE: Use the result of a Python source-block in a table formula | org-table | Inside Emacs #6 (part 14)
+:YOUTUBE_LINK: https://youtu.be/ay7zslbSFqg
+:YOUTUBE_UPLOAD_DATE: [2021-07-23 Fri]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 08912d6e6ef29158d1fa8ebbb98d90214ddc805e
+:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-14/
+:END:
+** Built-in commands
 *** global-map
 
 - ~backward-kill-word~ (~M-DEL~): Kill characters backward until
@@ -27,13 +26,13 @@
 - ~org-yank~ (~C-y~): Yank.  If the kill is a subtree, treat it
   specially.
 
-** external
+** External commands
 
 - ~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
 - ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
   in the minibuffer).
 
-** customized
+** Customized commands
 *** handy-mark-pop-local
 
 ~handy-mark-pop-local~: Jump to local mark.
@@ -59,7 +58,7 @@ Call `avy-goto-char' with \"\n\" as argument."
   (avy-goto-char ?\n))
 #+END_SRC
 
-* Emacs Lisp
+** Emacs Lisp
 
 - ~format~: Format a string out of a format-string and arguments.
 - ~org-sbe~: Return the results of calling SOURCE-BLOCK with VARIABLES.

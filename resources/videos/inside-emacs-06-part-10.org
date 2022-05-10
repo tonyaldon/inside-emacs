@@ -1,16 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 6 part 10
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/w3V8-_qjYgI
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 15379cdd5e548f1540d677d4386bb5da7d5bc5b0
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-10/
-#+TAGS: FIXME
-
-* Description
-
-* Commands
-** built-in
+* [2021-07-07 Wed] Field substitution in Emacs Lisp Formulas | org-table | Inside Emacs #6 (part 10)
+:PROPERTIES:
+:YOUTUBE_TITLE: Field substitution in Emacs Lisp Formulas | org-table | Inside Emacs #6 (part 10)
+:YOUTUBE_LINK: https://youtu.be/w3V8-_qjYgI
+:YOUTUBE_UPLOAD_DATE: [2021-07-07 Wed]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 15379cdd5e548f1540d677d4386bb5da7d5bc5b0
+:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-10/
+:END:
+** Built-in commands
 *** without default key binding
 
 - ~eval-defun~: Evaluate the top-level form containing point, or after
@@ -36,13 +33,13 @@
 - ~org-table-toggle-formula-debugger~ (~C-c {~): Toggle the formula
   debugger in tables.
 
-** external
+** External commands
 
 - ~counsel-find-file~ (from [[https://github.com/abo-abo/swiper][swiper]]): Forward to ~find-file~.
 - ~sp-backward-up-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move backward out of one
   level of parentheses.
 
-** customized
+** Customized commands
 *** handy-add-space
 
 ~handy-add-space~: Add space at point without moving.
@@ -109,7 +106,7 @@ If call with `universal-argument', copy the line."
     (set-mark (point))
     (beginning-of-line)))
 #+END_SRC
-* Emacs Lisp
+** Emacs Lisp
 
 - ~+~: Return sum of any number of arguments, which are numbers or
   markers.

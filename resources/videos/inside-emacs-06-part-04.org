@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 6 part 4
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/0fbrVArRxUo
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 124a1958e4e222722980ced00724f0ee7c948575
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-04/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2020-12-26 Sat] Copy and paste tables | org-table | Inside Emacs #6 (part 4)
+:PROPERTIES:
+:YOUTUBE_TITLE: Copy and paste tables | org-table | Inside Emacs #6 (part 4)
+:YOUTUBE_LINK: https://youtu.be/0fbrVArRxUo
+:YOUTUBE_UPLOAD_DATE: [2020-12-26 Sat]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 124a1958e4e222722980ced00724f0ee7c948575
+:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-04/
+:END:
+** Built-in commands
 *** global-map
 
 - ~undo~ (~C-x u~): Undo some previous changes.
@@ -31,7 +30,7 @@
 - ~org-table-copy-region~: Copy rectangular region in table to clipboard.
 - ~org-table-paste-rectangle~: Paste a rectangular region into a table.
 
-** external
+** External commands
 
 ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read in
 the minibuffer).

@@ -1,20 +1,19 @@
-#+TITLE: FIXME: Inside Emacs 3
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/RFhay0n7JJo
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 4cbdb3ce735ae296387069ef7ff309f0cfa812e8
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-03/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2020-08-13 Thu] other-window-scroll-buffer, mc/add-cursor-on-click, drag-stuff, smartparens | Inside Emacs #3
+:PROPERTIES:
+:YOUTUBE_TITLE: other-window-scroll-buffer, mc/add-cursor-on-click, drag-stuff, smartparens | Inside Emacs #3
+:YOUTUBE_LINK: https://youtu.be/RFhay0n7JJo
+:YOUTUBE_UPLOAD_DATE: [2020-08-13 Thu]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 4cbdb3ce735ae296387069ef7ff309f0cfa812e8
+:VIDEO_SCR_DIR: ../src/inside-emacs-03/
+:END:
+** Built-in commands
 *** global-map
 
 - ~scroll-other-window~ (~M-<next>~): Scroll next window upward.
 - ~scroll-other-window-down~ (~M-<prior>~): Scroll next window downward.
 
-** external
+** External commands
 
 - ~drag-stuff-down~ (from [[https://github.com/rejeep/drag-stuff.el][drag-stuff]]): Drag stuff down.
 - ~mc/add-cursor-on-click~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Add a cursor where
@@ -26,7 +25,7 @@
   expression preceding point.
 - ~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point.
 
-** customized
+** Customized commands
 *** ta-mark-sexp-at-point
 
 ~ta-mark-sexp-at-point~: Mark the ~sexp~ at point.

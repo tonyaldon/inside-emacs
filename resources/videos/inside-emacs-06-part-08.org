@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 6 part 8
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/JyG54FFWu-o
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 06ba16e26da4fbedb430090287aec096bf491037
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-08/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2021-06-17 Thu] Produce html tables in seconds with orgtbl-mode | org-table | Inside Emacs #6 (part 8)
+:PROPERTIES:
+:YOUTUBE_TITLE: Produce html tables in seconds with orgtbl-mode | org-table | Inside Emacs #6 (part 8)
+:YOUTUBE_LINK: https://www.youtube.com/watch?v=JyG54FFWu-o
+:YOUTUBE_UPLOAD_DATE: [2021-06-17 Thu]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 06ba16e26da4fbedb430090287aec096bf491037
+:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-08/
+:END:
+** Built-in commands
 *** without default key binding
 
 - ~org-table-transpose-table-at-point~: Transpose Org table at point and
@@ -41,13 +40,13 @@
   realign the table.  If it is a table to be sent away to a receiver,
   do it.  With universal argument, also recompute table.
 
-** external
+** External commands
 
 - ~counsel-M-x~ (from [[https://github.com/abo-abo/swiper][counsel]]): Ivy version of
   ~execute-extended-command~.
 - ~counsel-yank-pop~ (from [[https://github.com/abo-abo/swiper][swiper]]): Ivy replacement for ~yank-pop~.
 
-** customized
+** Customized commands
 *** ta-avy-goto-end-of-line
 
 ~ta-avy-goto-end-of-line~: Jump to the visible end of line.
@@ -62,7 +61,7 @@ Call `avy-goto-char' with \"\n\" as argument."
   (avy-goto-char ?\n))
 #+END_SRC
 
-* Emacs Lisp
+** Emacs Lisp
 
 - ~orgtbl-radio-table-templates~: Templates for radio tables in
   different major modes.

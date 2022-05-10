@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 6 part 5
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/w4wxGOijyZs
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 852afb87e258c90a8e79a026dae369272b3b5280
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-05/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2020-12-29 Tue] Very fast editing of tables | org-table | Inside Emacs #6 (part 5)
+:PROPERTIES:
+:YOUTUBE_TITLE: Very fast editing of tables | org-table | Inside Emacs #6 (part 5)
+:YOUTUBE_LINK: https://youtu.be/w4wxGOijyZs
+:YOUTUBE_UPLOAD_DATE: [2020-12-29 Tue]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 852afb87e258c90a8e79a026dae369272b3b5280
+:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-05/
+:END:
+** Built-in commands
 *** global-map
 
 - ~eval-expression~ (~M-:~): Read an Emacs Lisp expression in the
@@ -61,12 +60,12 @@
 - ~org-table-copy-down~ (~S-RET~): Copy the value of the current field one
   row below.
 
-** external
+** External commands
 
 - ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
   in the minibuffer).
 
-** customized
+** Customized commands
 *** ta-mark-inside-dwim
 
 ~ta-mark-inside-dwim~: Mark things inside quotes if point is inside a
@@ -182,7 +181,7 @@ Before doing so, re-align the table if necessary."
         (org-table-goto-column col)))))
 #+END_SRC
 
-* Emacs Lisp
+** Emacs Lisp
 
 - ~org-table-auto-blank-field~: Non-nil means automatically blank table
   field when starting to type into it.

@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 6 part 3
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/KxOwKK5sXRA
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 124a1958e4e222722980ced00724f0ee7c948575
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-03/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2020-12-24 Thu] Tweak the command org-meta-return | org-table | Inside Emacs #6 (part 3)
+:PROPERTIES:
+:YOUTUBE_TITLE: Tweak the command org-meta-return | org-table | Inside Emacs #6 (part 3)
+:YOUTUBE_LINK: https://youtu.be/KxOwKK5sXRA
+:YOUTUBE_UPLOAD_DATE: [2020-12-24 Thu]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 124a1958e4e222722980ced00724f0ee7c948575
+:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-03/
+:END:
+** Built-in commands
 *** without default key binding
 
 - ~eval-defun~: Evaluate the top-level form containing point, or after
@@ -36,7 +35,7 @@
 - ~org-table-wrap-region~: Wrap several fields in a column like a
   paragraph.
 
-** external
+** External commands
 
 - ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
   in the minibuffer).
@@ -49,7 +48,7 @@
 - ~sp-forward-slurp-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Add sexp following the
   current list in it by moving the closing delimiter.
 
-** customized
+** Customized commands
 *** my-org-meta-return
 
 ~my-org-meta-return~: Insert a new heading or wrap a region in a table.
@@ -232,7 +231,7 @@ Before doing so, re-align the table if necessary."
         (org-table-goto-column col)))))
 #+END_SRC
 
-* Emacs Lisp
+** Emacs Lisp
 
 - ~call-interactively~: Call FUNCTION, providing args according to its
   interactive calling specs.

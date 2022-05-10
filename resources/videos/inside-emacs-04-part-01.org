@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 4 part 1
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/96jn5A73-oQ
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 4cbdb3ce735ae296387069ef7ff309f0cfa812e8
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-04-part-01/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2020-08-23 Sun] company-mode, showcase, source code, faces | Inside Emacs #4 (part 1)
+:PROPERTIES:
+:YOUTUBE_TITLE: company-mode, showcase, source code, faces | Inside Emacs #4 (part 1)
+:YOUTUBE_LINK: https://youtu.be/96jn5A73-oQ
+:YOUTUBE_UPLOAD_DATE: [2020-08-23 Sun]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 4cbdb3ce735ae296387069ef7ff309f0cfa812e8
+:VIDEO_SCR_DIR: ../src/inside-emacs-04-part-01/
+:END:
+** Built-in commands
 *** without default key binding
 
 - ~eval-defun~: Evaluate the top-level form containing point, or after
@@ -22,7 +21,7 @@
   blank lines, leaving just one.
 - ~open-line~ (~C-o~): Insert a newline and leave point before it.
 
-** external
+** External commands
 
 - ~avy-goto-word-or-subword-1~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible
   char (read in the minibuffer) at a subword or word start.
@@ -35,7 +34,7 @@
 - ~sp-forward-slurp-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Add sexp following the
   current list in it by moving the closing delimiter.
 
-** customized
+** Customized commands
 *** ta-avy-copy-sexp
 
 ~ta-avy-copy-sexp~: Copy ta point a visible sexp selected with ~avy~.

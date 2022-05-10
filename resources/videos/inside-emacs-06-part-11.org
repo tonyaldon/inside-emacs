@@ -1,14 +1,13 @@
-#+TITLE: FIXME: Inside Emacs 6 part 11
-#+AUTHOR: Tony Aldon
-#+DATE: <2021-08-05 Thu>
-#+PROPERTY: YOUTUBE_LINK  https://youtu.be/0HgoHiqboc4
-#+PROPERTY: CONFIG_REPO   https://github.com/tonyaldon/emacs.d
-#+PROPERTY: CONFIG_COMMIT 08912d6e6ef29158d1fa8ebbb98d90214ddc805e
-#+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-11/
-#+TAGS: FIXME
-
-* Commands
-** built-in
+* [2021-07-14 Wed] Editing formulas at the speed of light | org-table | Inside Emacs #6 (part 11)
+:PROPERTIES:
+:YOUTUBE_TITLE: Editing formulas at the speed of light | org-table | Inside Emacs #6 (part 11)
+:YOUTUBE_LINK: https://youtu.be/0HgoHiqboc4
+:YOUTUBE_UPLOAD_DATE: [2021-07-14 Wed]
+:CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
+:CONFIG_COMMIT: 08912d6e6ef29158d1fa8ebbb98d90214ddc805e
+:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-11/
+:END:
+** Built-in commands
 *** without default key binding
 
 - ~kill-word~: Kill characters forward until encountering the end of a word.
@@ -60,7 +59,7 @@
 - ~org-table-fedit-ref-down~ (~S-<down>~): Shift the reference at point
   one row/hline down.
 
-** external
+** External commands
 
 - ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
   in the minibuffer).
