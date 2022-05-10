@@ -7,87 +7,68 @@
 #+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-05/
 #+TAGS: FIXME
 
-* Description
-
 * Commands
 ** built-in
 *** global-map
 
-~eval-expression~ (~M-:~): Read an Emacs Lisp expression in the minibuffer
-and evaluate it.
+- ~eval-expression~ (~M-:~): Read an Emacs Lisp expression in the
+  minibuffer and evaluate it.
 
 *** org-mode-map
 
-~org-cycle~ (~TAB~): TAB-action and visibility cycling for Org mode.
-
-~org-metadown~ (~M-<down>~): Move subtree down or move table row down.
-
-~org-metaleft~ (~M-<left>~): Promote heading, list item at point or move
-table column left.
-
-~org-metaright~ (~M-<right>~): Demote heading, list item at point or move
-table column right.
-
-~org-metaup~ (~M-<up>~): Move subtree up or move table row up.
-
-~org-return~ (~RET~): Goto next table row or insert a newline.
-
-~org-shiftdown~ (~S-<down>~): Act on current element according to
-context.  Call ~org-timestamp-down~ or ~org-priority-down~, or
-~org-next-item~, or ~org-table-move-cell-down~.
-
-~org-shiftleft~ (~S-<left>~): Act on current element according to
-context.  This does one of the following: 1) switch a timestamp at
-point one day into the past, 2) on a headline, switch to the previous
-TODO keyword, 3) on an item, switch entire list to the previous bullet
-type, 4) on a property line, switch to the previous allowed value, 5)
-on a clocktable definition line, move time block into the past, 6) in
-a table, move a single cell left,
-
-~org-shiftmetadown~ (~M-S-<down>~): Drag the line at point down.  In a
-table, insert an empty row at the current line.  On a clock timestamp,
-update the value of the timestamp like ~S-<down>~ but also adjust the
-previous clocked item in the clock history.
-
-~org-shiftmetaleft~ (~M-S-<left>~): Promote subtree or delete table
-column.
-
-~org-shiftmetaright~ (~M-S-<right>~): Demote subtree or insert table
-column.
-
-~org-shiftmetaup~ (~M-S-<up>~): Drag the line at point up.  In a table,
-kill the current row.  On a clock timestamp, update the value of the
-timestamp like ~S-<up>~ but also adjust the previous clocked item in the
-clock history.
-
-~org-shiftright~ (~S-<right>~): Act on the current element according to
-context.  This does one of the following: 1) switch a timestamp at
-point one day into the future, 2) on a headline, switch to the next
-TODO keyword, 3) on an item, switch entire list to the next bullet
-type, 4) on a property line, switch to the next allowed value, 5) on a
-clocktable definition line, move time block into the future, 6) in a
-table, move a single cell right,
-
-~org-shifttab~ (~S-TAB~): Global visibility cycling or move to previous
-table field.
-
-~org-shiftup~ (~S-<up>~): Act on current element according to context.
-Call ~org-timestamp-up~ or ~org-priority-up~, or ~org-previous-item~,
-or ~org-table-move-cell-up~.
-
-~org-table-blank-field~ (~C-SPC~): Blank the current table field or active
-region.
-
-~org-table-copy-down~ (~S-RET~): Copy the value of the current field one
-row below.
+- ~org-cycle~ (~TAB~): TAB-action and visibility cycling for Org mode.
+- ~org-metadown~ (~M-<down>~): Move subtree down or move table row down.
+- ~org-metaleft~ (~M-<left>~): Promote heading, list item at point or move
+  table column left.
+- ~org-metaright~ (~M-<right>~): Demote heading, list item at point or
+  move table column right.
+- ~org-metaup~ (~M-<up>~): Move subtree up or move table row up.
+- ~org-return~ (~RET~): Goto next table row or insert a newline.
+- ~org-shiftdown~ (~S-<down>~): Act on current element according to
+  context.  Call ~org-timestamp-down~ or ~org-priority-down~, or
+  ~org-next-item~, or ~org-table-move-cell-down~.
+- ~org-shiftleft~ (~S-<left>~): Act on current element according to
+  context.  This does one of the following: 1) switch a timestamp at
+  point one day into the past, 2) on a headline, switch to the
+  previous TODO keyword, 3) on an item, switch entire list to the
+  previous bullet type, 4) on a property line, switch to the previous
+  allowed value, 5) on a clocktable definition line, move time block
+  into the past, 6) in a table, move a single cell left,
+- ~org-shiftmetadown~ (~M-S-<down>~): Drag the line at point down.  In a
+  table, insert an empty row at the current line.  On a clock
+  timestamp, update the value of the timestamp like ~S-<down>~ but also
+  adjust the previous clocked item in the clock history.
+- ~org-shiftmetaleft~ (~M-S-<left>~): Promote subtree or delete table column.
+- ~org-shiftmetaright~ (~M-S-<right>~): Demote subtree or insert table column.
+- ~org-shiftmetaup~ (~M-S-<up>~): Drag the line at point up.  In a table,
+  kill the current row.  On a clock timestamp, update the value of the
+  timestamp like ~S-<up>~ but also adjust the previous clocked item in
+  the clock history.
+- ~org-shiftright~ (~S-<right>~): Act on the current element according to
+  context.  This does one of the following: 1) switch a timestamp at
+  point one day into the future, 2) on a headline, switch to the next
+  TODO keyword, 3) on an item, switch entire list to the next bullet
+  type, 4) on a property line, switch to the next allowed value, 5) on
+  a clocktable definition line, move time block into the future, 6) in
+  a table, move a single cell right,
+- ~org-shifttab~ (~S-TAB~): Global visibility cycling or move to previous
+  table field.
+- ~org-shiftup~ (~S-<up>~): Act on current element according to
+  context. Call ~org-timestamp-up~ or ~org-priority-up~, or
+  ~org-previous-item~, or ~org-table-move-cell-up~.
+- ~org-table-blank-field~ (~C-SPC~): Blank the current table field or
+  active region.
+- ~org-table-copy-down~ (~S-RET~): Copy the value of the current field one
+  row below.
 
 ** external
 
-~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read in
-the minibuffer).
+- ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
+  in the minibuffer).
 
 ** customized
 *** ta-mark-inside-dwim
+
 ~ta-mark-inside-dwim~: Mark things inside quotes if point is inside a
 string.
 
@@ -136,6 +117,7 @@ If call two times consecutively mark inside pairs."
 #+END_SRC
 
 *** ta-mark-sexp-at-point
+
 ~ta-mark-sexp-at-point~: Mark the ~sexp~ at point.
 
 #+BEGIN_SRC emacs-lisp
@@ -177,6 +159,7 @@ and :op non empty. See `sp-get-thing'."
 #+END_SRC
 
 *** ta-org-table-previous-row
+
 ~ta-org-table-previous-row~: Go to the previous row (same column) in the
 current table.
 

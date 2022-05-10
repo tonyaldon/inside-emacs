@@ -13,41 +13,38 @@
 ** built-in
 *** without default key binding
 
-~eval-defun~: Evaluate the top-level form containing point, or after
-point.
+- ~eval-defun~: Evaluate the top-level form containing point, or after
+  point.
 
 *** global-map
 
-~delete-other-windows~ (~C-x 1~): Make selected window fill its frame.
-
-~eval-last-sexp~ (~C-x C-e~): Evaluate sexp before point; print value in
-the echo area.
-
-~isearch-forward~ (~C-s~): Do incremental search forward.
-
-~previous-buffer~ (~C-x <left>~): In selected window switch to previous buffer.
+- ~delete-other-windows~ (~C-x 1~): Make selected window fill its frame.
+- ~eval-last-sexp~ (~C-x C-e~): Evaluate sexp before point; print value in
+  the echo area.
+- ~isearch-forward~ (~C-s~): Do incremental search forward.
+- ~previous-buffer~ (~C-x <left>~): In selected window switch to previous
+  buffer.
 
 *** isearch-mode-map
 
-~isearch-query-replace-regexp~ (~C-M-%~): Start ~query-replace-regexp~ with
-string to replace from last search string.
+- ~isearch-query-replace-regexp~ (~C-M-%~): Start ~query-replace-regexp~
+  with string to replace from last search string.
 
 *** org-mode-map
 
-~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update according
-
-~org-table-toggle-formula-debugger~ (~C-c {~): Toggle the formula debugger
-in tables.
+- ~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update according
+- ~org-table-toggle-formula-debugger~ (~C-c {~): Toggle the formula
+  debugger in tables.
 
 ** external
 
-~counsel-find-file~ (from [[https://github.com/abo-abo/swiper][swiper]]): Forward to ~find-file~.
-
-~sp-backward-up-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move backward out of one level
-of parentheses.
+- ~counsel-find-file~ (from [[https://github.com/abo-abo/swiper][swiper]]): Forward to ~find-file~.
+- ~sp-backward-up-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move backward out of one
+  level of parentheses.
 
 ** customized
 *** handy-add-space
+
 ~handy-add-space~: Add space at point without moving.
 
 #+BEGIN_SRC emacs-lisp
@@ -59,6 +56,7 @@ of parentheses.
 #+END_SRC
 
 *** handy-avy-copy-past-sexp
+
 ~handy-avy-copy-past-sexp~: Past sexp copied using ~avy~ at current
 cursor position.
 
@@ -78,6 +76,7 @@ cursor position.
 #+END_SRC
 
 *** ta-eval-expression
+
 ~ta-eval-expression~: Call ~eval-expression~.  If called with universal
 argument, call ~pp-eval-expression~.
 
@@ -92,7 +91,8 @@ If called with universal argument, call `pp-eval-expression'."
 #+END_SRC
 
 *** handy-mark-line
-~handy-mark-line~:
+
+~handy-mark-line~: Mark the current line.
 
 #+BEGIN_SRC emacs-lisp
 (defun handy-mark-line (arg)

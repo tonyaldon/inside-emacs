@@ -7,60 +7,52 @@
 #+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-07/
 #+TAGS: FIXME
 
-* Description
-
 * Commands
 ** built-in
 *** without default key binding
 
-~isearch-occur~: Run ~occur~ using the last search string as the regexp.
+- ~isearch-occur~: Run ~occur~ using the last search string as the
+  regexp.
 
 *** global-map
 
-~eval-last-sexp~ (~C-x C-e~): Evaluate sexp before point; print value in
-the echo area.
-
-~narrow-to-region~ (~C-x n n~): Restrict editing in this buffer to the
-current region.
-
-~recenter-top-bottom~ (~C-l~): Scroll the window so that current line is
-in the middle of the window.
-
-~isearch-forward~ (~C-s~): Do incremental search forward.
+- ~eval-last-sexp~ (~C-x C-e~): Evaluate sexp before point; print value in
+  the echo area.
+- ~narrow-to-region~ (~C-x n n~): Restrict editing in this buffer to the
+  current region.
+- ~recenter-top-bottom~ (~C-l~): Scroll the window so that current line is
+  in the middle of the window.
+- ~isearch-forward~ (~C-s~): Do incremental search forward.
 
 *** org-mode-map
 
-~org-edit-special~ (~C-c '~): Call a special editor for the element at point.
+- ~org-edit-special~ (~C-c '~): Call a special editor for the element at
+  point.
 
 *** org-src-mode-map
 
-~org-edit-src-exit~ (~C-c '~): Kill current sub-editing buffer and return
-to source buffer.
+- ~org-edit-src-exit~ (~C-c '~): Kill current sub-editing buffer and
+  return to source buffer.
 
 *** org-mode
 
-~org-table-export~: Export table to a file, with configurable format.
+- ~org-table-export~: Export table to a file, with configurable format.
 
 ** external
 
-~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read in
-the minibuffer).
-
-~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
-
-~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
-
-~counsel-M-x~ (from [[https://github.com/abo-abo/swiper][counsel]]): Ivy version of ~execute-extended-command~.
-
-~counsel-yank-pop~ (from [[https://github.com/abo-abo/swiper][swiper]]): Ivy replacement for ~yank-pop~.
-
-~sp-next-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move forward to the beginning of next
-balanced expression.
-
-~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point.
+- ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
+  in the minibuffer).
+- ~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
+- ~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
+- ~counsel-M-x~ (from [[https://github.com/abo-abo/swiper][counsel]]): Ivy version of ~execute-extended-command~.
+- ~counsel-yank-pop~ (from [[https://github.com/abo-abo/swiper][swiper]]): Ivy replacement for ~yank-pop~.
+- ~sp-next-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move forward to the beginning of
+  next balanced expression.
+- ~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point.
 
 ** customized
 *** handy-expand-region-dwim
+
 ~handy-expand-region-dwim~: If region is active, call
 ~er/expand-region~.  If not call ~er/mark-word~.
 
@@ -77,6 +69,7 @@ balanced expression.
 #+END_SRC
 
 *** handy-mark-dwim
+
 ~handy-mark-dwim~: Mark the url, sexp or sentence at point.
 
 #+BEGIN_SRC emacs-lisp
@@ -130,7 +123,9 @@ If call 2 times consecutively, call `er/mark-sentence'."
 #+END_SRC
 
 *** handy-mark-inside-dwim
-~handy-mark-inside-dwim~
+
+~handy-mark-inside-dwim~: Mark things inside quotes if point is inside
+a string.
 
 #+BEGIN_SRC emacs-lisp
 (require 'smartparens)
@@ -177,6 +172,7 @@ If call two times consecutively mark inside pairs."
 #+END_SRC
 
 *** insight-scroll-up-half-window
+
 ~insight-scroll-up-half-window~: Scroll up of half window height.
 
 #+BEGIN_SRC emacs-lisp
@@ -191,6 +187,7 @@ If call two times consecutively mark inside pairs."
 #+END_SRC
 
 *** ta-avy-goto-end-of-line
+
 ~ta-avy-goto-end-of-line~: Jump to the visible end of line.
 
 #+BEGIN_SRC emacs-lisp
@@ -204,6 +201,7 @@ Call `avy-goto-char' with \"\n\" as argument."
 #+END_SRC
 
 *** ta-describe-thing-at-point
+
 ~ta-describe-thing-at-point~: Display the full documentation of the
 ~thing-at-point~.
 

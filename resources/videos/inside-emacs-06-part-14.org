@@ -7,39 +7,35 @@
 #+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-14/
 #+TAGS: FIXME
 
-* Description
-
 * Commands
 ** built-in
 *** global-map
 
-~backward-kill-word~ (~M-DEL~): Kill characters backward until
-encountering the beginning of a word.
-
-~kill-ring-save~ (~M-w~): Save the region as if killed, but don’t kill
-it.
-
-~universal-argument~ (~C-u~): Begin a numeric argument for the following
-command.
+- ~backward-kill-word~ (~M-DEL~): Kill characters backward until
+  encountering the beginning of a word.
+- ~kill-ring-save~ (~M-w~): Save the region as if killed, but don’t kill
+  it.
+- ~universal-argument~ (~C-u~): Begin a numeric argument for the following
+  command.
 
 *** org-mode-map
 
-~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update according
-
-~org-mark-element~ (~M-h~): Put point at beginning of this element, mark
-at end.
-
-~org-yank~ (~C-y~): Yank.  If the kill is a subtree, treat it specially.
+- ~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update
+  according
+- ~org-mark-element~ (~M-h~): Put point at beginning of this element, mark
+  at end.
+- ~org-yank~ (~C-y~): Yank.  If the kill is a subtree, treat it
+  specially.
 
 ** external
 
-~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
-
-~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read in
-the minibuffer).
+- ~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
+- ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
+  in the minibuffer).
 
 ** customized
 *** handy-mark-pop-local
+
 ~handy-mark-pop-local~: Jump to local mark.
 
 #+BEGIN_SRC emacs-lisp
@@ -50,6 +46,7 @@ the minibuffer).
 #+END_SRC
 
 *** ta-avy-goto-end-of-line
+
 ~ta-avy-goto-end-of-line~: Jump to the visible end of line.
 
 #+BEGIN_SRC emacs-lisp

@@ -7,76 +7,64 @@
 #+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-02/
 #+TAGS: FIXME
 
-* Description
-
 * Commands
 ** built-in
 *** without default key binding
 
-~eval-defun~: Evaluate the top-level form containing point, or after
-point.
-
-~join-line~: Join this line to previous and fix up whitespace at join.
+- ~eval-defun~: Evaluate the top-level form containing point, or after
+  point.
+- ~join-line~: Join this line to previous and fix up whitespace at
+  join.
 
 *** global-map
 
-~eval-expression~ (~M-:~): Read an Emacs Lisp expression in the minibuffer
-and evaluate it.
-
-~kill-ring-save~ (~M-w~): Save the region as if killed, but don’t kill it.
-
-~next-buffer~ (~C-x <right>~): In selected window switch to next buffer.
-
-~previous-buffer~ (~C-x <left>~): In selected window switch to previous buffer.
+- ~eval-expression~ (~M-:~): Read an Emacs Lisp expression in the
+  minibuffer and evaluate it.
+- ~kill-ring-save~ (~M-w~): Save the region as if killed, but don’t kill
+  it.
+- ~next-buffer~ (~C-x <right>~): In selected window switch to next
+  buffer.
+- ~previous-buffer~ (~C-x <left>~): In selected window switch to previous
+  buffer.
 
 *** org-mode-map
 
-~org-backward-sentence~ (~M-a~): Go to beginning of sentence, or beginning
-of table field.
-
-~org-forward-sentence~ (~M-e~): Go to end of sentence, or end of table
-field.
-
-~org-cycle~ (~TAB~): TAB-action and visibility cycling for Org mode.
-
-~org-return~ (~RET~): Goto next table row or insert a newline.
-
-~org-shifttab~ (~S-TAB~): Global visibility cycling or move to previous
-table field.
+- ~org-backward-sentence~ (~M-a~): Go to beginning of sentence, or
+  beginning of table field.
+- ~org-forward-sentence~ (~M-e~): Go to end of sentence, or end of table
+  field.
+- ~org-cycle~ (~TAB~): TAB-action and visibility cycling for Org mode.
+- ~org-return~ (~RET~): Goto next table row or insert a newline.
+- ~org-shifttab~ (~S-TAB~): Global visibility cycling or move to previous
+  table field.
 
 ** external
 
-~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read in
-the minibuffer).
-
-~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
-
-~er/expand-region~ (from [[https://github.com/magnars/expand-region.el][expand-region]]): Increase selected region by
-semantic units.
-
-~iy-go-to-char~ (from [[https://github.com/doitian/iy-go-to-char][iy-go-to-char]]):  Move forward to next char read in
-the minibuffer.
-
-~mc/mark-next-like-this-word~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark the
-next part of the buffer matching the currently active region.
-
-
-~sp-backward-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]):
-
-~sp-backward-up-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]):
-
-~sp-forward-slurp-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Add sexp following the
-current list in it by moving the closing delimiter.
-
-~sp-kill-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]):
-
-~sp-next-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move forward to the beginning of next
-balanced expression.
-
-~sp-raise-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]):
+- ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
+  in the minibuffer).
+- ~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
+- ~er/expand-region~ (from [[https://github.com/magnars/expand-region.el][expand-region]]): Increase selected region by
+  semantic units.
+- ~iy-go-to-char~ (from [[https://github.com/doitian/iy-go-to-char][iy-go-to-char]]):  Move forward to next char read
+  in the minibuffer.
+- ~mc/mark-next-like-this-word~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark
+  the next part of the buffer matching the currently active region.
+- ~sp-backward-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move backward across one
+  balanced expression (sexp).
+- ~sp-backward-up-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move backward out of one
+  level of parentheses.
+- ~sp-forward-slurp-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Add sexp following the
+  current list in it by moving the closing delimiter.
+- ~sp-kill-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Kill the balanced expression
+  following point.
+- ~sp-next-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move forward to the beginning of
+  next balanced expression.
+- ~sp-raise-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Unwrap the current list and kill
+  everything inside except next expression.
 
 ** customized
 *** my-org-table-previous-row
+
 ~my-org-table-previous-row~: Go to the previous row (same column) in the
 current table.
 
@@ -100,6 +88,7 @@ Before doing so, re-align the table if necessary."
 #+END_SRC
 
 *** ta-avy-copy-sexp
+
 ~ta-avy-copy-sexp~: Copy ta point a visible sexp selected with ~avy~.
 
 #+BEGIN_SRC emacs-lisp
@@ -118,6 +107,7 @@ Before doing so, re-align the table if necessary."
 #+END_SRC
 
 *** ta-avy-goto-end-of-line
+
 ~ta-avy-goto-end-of-line~: Jump to the visible end of line.
 
 #+BEGIN_SRC emacs-lisp
@@ -131,6 +121,7 @@ Call `avy-goto-char' with \"\n\" as argument."
 #+END_SRC
 
 *** ta-below-new-indent
+
 ~ta-below-new-indent~: Add an empty line below and move the cursor to
 this line.
 
@@ -143,6 +134,7 @@ this line.
 #+END_SRC
 
 *** ta-kill-whole-line
+
 ~ta-kill-whole-line~: Kill the whole current line.
 
 #+BEGIN_SRC emacs-lisp
@@ -156,6 +148,7 @@ Preserve the column position of the cursor."
 #+END_SRC
 
 *** ta-mark-inside-dwim
+
 ~ta-mark-inside-dwim~: Mark things inside quotes if point is inside a
 string.
 
@@ -204,6 +197,7 @@ If call two times consecutively mark inside pairs."
 #+END_SRC
 
 *** ta-mark-sexp-at-point
+
 ~ta-mark-sexp-at-point~: Mark the ~sexp~ at point.
 
 #+BEGIN_SRC emacs-lisp

@@ -7,9 +7,11 @@
 #+PROPERTY: VIDEO_SCR_DIR
 #+TAGS: FIXME
 
-* Description
+* Commands
 
-#+BEGIN_EXAMPLE
+The commands used in the video are the following:
+
+#+BEGIN_SRC bash
 emacsclient -h
 emacsclient -nw
 emacs --daemon
@@ -19,11 +21,4 @@ man pidof
 pidof emacs
 ps -ax | grep emacs
 emacs -nw
-#+END_EXAMPLE
-
-* Commands
-** built-in
-
-** external
-
-** customized
+#+END_SRC

@@ -7,61 +7,51 @@
 #+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-03/
 #+TAGS: FIXME
 
-* Description
-
 * Commands
 ** built-in
 *** without default key binding
 
-~eval-defun~: Evaluate the top-level form containing point, or after
-point.
-
-~join-line~: Join this line to previous and fix up whitespace at join.
+- ~eval-defun~: Evaluate the top-level form containing point, or after
+  point.
+- ~join-line~: Join this line to previous and fix up whitespace at
+  join.
 
 *** global-map
 
-~previous-buffer~ (~C-x <left>~): In selected window switch to previous
-buffer.
-
-~repeat~ (~C-x z~): Repeat most recently executed command.
-
-~undo~ (~C-x u~): Undo some previous changes.
+- ~previous-buffer~ (~C-x <left>~): In selected window switch to previous
+  buffer.
+- ~repeat~ (~C-x z~): Repeat most recently executed command.
+- ~undo~ (~C-x u~): Undo some previous changes.
 
 *** org-mode-map
 
-~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update according
-to changed information at point.
-
-~org-meta-return~ (~<M-return>~): Insert a new heading or wrap a region in
-a table.
-
-~org-return~ (~RET~): Goto next table row or insert a newline.
+- ~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update
+  according to changed information at point.
+- ~org-meta-return~ (~<M-return>~): Insert a new heading or wrap a region
+  in a table.
+- ~org-return~ (~RET~): Goto next table row or insert a newline.
 
 *** org-mode
 
-~org-table-wrap-region~: Wrap several fields in a column like a
-paragraph.
+- ~org-table-wrap-region~: Wrap several fields in a column like a
+  paragraph.
 
 ** external
 
-~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read in
-the minibuffer).
-
-~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
-
-~mc/mark-next-like-this~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark the next
-part of the buffer matching the currently active region.
-
-~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point.
-
-~sp-backward-up-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move backward out of one level
-of parentheses.
-
-~sp-forward-slurp-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Add sexp following the
-current list in it by moving the closing delimiter.
+- ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
+  in the minibuffer).
+- ~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
+- ~mc/mark-next-like-this~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark the
+  next part of the buffer matching the currently active region.
+- ~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point.
+- ~sp-backward-up-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Move backward out of one
+  level of parentheses.
+- ~sp-forward-slurp-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Add sexp following the
+  current list in it by moving the closing delimiter.
 
 ** customized
 *** my-org-meta-return
+
 ~my-org-meta-return~: Insert a new heading or wrap a region in a table.
 
 #+BEGIN_SRC emacs-lisp
@@ -81,6 +71,7 @@ Calls `org-insert-heading', `org-insert-item' or
 #+END_SRC
 
 *** ta-avy-copy-sexp
+
 ~ta-avy-copy-sexp~: Copy ta point a visible sexp selected with ~avy~.
 
 #+BEGIN_SRC emacs-lisp
@@ -99,6 +90,7 @@ Calls `org-insert-heading', `org-insert-item' or
 #+END_SRC
 
 *** ta-avy-goto-end-of-line
+
 ~ta-avy-goto-end-of-line~: Jump to the visible end of line.
 
 #+BEGIN_SRC emacs-lisp
@@ -112,6 +104,7 @@ Call `avy-goto-char' with \"\n\" as argument."
 #+END_SRC
 
 *** ta-kill-whole-line
+
 ~ta-kill-whole-line~: Kill the whole current line.
 
 #+BEGIN_SRC emacs-lisp
@@ -125,6 +118,7 @@ Preserve the column position of the cursor."
 #+END_SRC
 
 *** ta-mark-inside-dwim
+
 ~ta-mark-inside-dwim~: Mark things inside quotes if point is inside a
 string.
 
@@ -173,7 +167,8 @@ If call two times consecutively mark inside pairs."
 #+END_SRC
 
 *** ta-mark-sexp-at-point
-~ta-mark-sexp-at-point~
+
+~ta-mark-sexp-at-point~: Mark the sexp at point
 
 #+BEGIN_SRC emacs-lisp
 (require 'smartparens)
@@ -214,7 +209,9 @@ and :op non empty. See `sp-get-thing'."
 #+END_SRC
 
 *** ta-org-table-previous-row
-~ta-org-table-previous-row~
+
+~ta-org-table-previous-row~: Go to the previous row (same column) in
+the current table.
 
 #+BEGIN_SRC emacs-lisp
 (defun ta-org-table-previous-row ()

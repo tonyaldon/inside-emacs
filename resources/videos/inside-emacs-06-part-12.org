@@ -7,42 +7,36 @@
 #+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-12/
 #+TAGS: FIXME
 
-* Description
-
 * Commands
 ** built-in
 *** global-map
 
-~info~ (~C-h i~): Enter Info, the documentation browser.
-
-~isearch-forward~ (~C-s~): Do incremental search forward.
-
-~recenter-top-bottom~ (~C-l~): Scroll the window so that current line is
-in the middle of the window.
+- ~info~ (~C-h i~): Enter Info, the documentation browser.
+- ~isearch-forward~ (~C-s~): Do incremental search forward.
+- ~recenter-top-bottom~ (~C-l~): Scroll the window so that current line is
+  in the middle of the window.
 
 *** Info-mode-map
 
-~Info-goto-node~ (~g~): Go to Info node read in the minibuffer.
+- ~Info-goto-node~ (~g~): Go to Info node read in the minibuffer.
 
 *** org-mode-map
 
-~org-yank~ (~C-y~): Yank.  If the kill is a subtree, treat it specially.
-
-~org-return~ (~RET~): Goto next table row or insert a newline.
+- ~org-yank~ (~C-y~): Yank.  If the kill is a subtree, treat it
+  specially.
+- ~org-return~ (~RET~): Goto next table row or insert a newline.
 
 *** calc-dispatch
 
-~calc-dispatch~ (~C-x *~): Invoke the GNU Emacs Calculator.
-
-~quick-calc~ (~C-x * q~): Do a quick calculation in the minibuffer without
-invoking full Calculator.
+- ~calc-dispatch~ (~C-x *~): Invoke the GNU Emacs Calculator.
+- ~quick-calc~ (~C-x * q~): Do a quick calculation in the minibuffer
+  without invoking full Calculator.
 
 *** calc-alg-ent-map
 
-~calcAlg-enter~ (~C-j~): Insert calc calculation in the current buffer.
+- ~calcAlg-enter~ (~C-j~): Insert calc calculation in the current buffer.
 
 ** external
 
-~counsel-M-x~ (from [[https://github.com/abo-abo/swiper][counsel]]): Ivy version of ~execute-extended-command~.
-
-** customized
+- ~counsel-M-x~ (from [[https://github.com/abo-abo/swiper][counsel]]): Ivy version of
+  ~execute-extended-command~.

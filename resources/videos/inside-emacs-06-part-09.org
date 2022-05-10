@@ -7,21 +7,18 @@
 #+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-09/
 #+TAGS: FIXME
 
-* Description
-
 * Commands
 ** built-in
 *** org-mode-map
 
-~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update according
-to changed information at point.
-
-~org-yank~ (~C-y~): Yank.  If the kill is a subtree, treat it specially.
-
-** external
+- ~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update
+  according to changed information at point.
+- ~org-yank~ (~C-y~): Yank.  If the kill is a subtree, treat it
+  specially.
 
 ** customized
 *** handy-mark-line
+
 ~handy-mark-line~: Mark the current line.
 
 #+BEGIN_SRC emacs-lisp
@@ -41,6 +38,7 @@ If call with `universal-argument', copy the line."
 #+END_SRC
 
 *** ta-avy-goto-end-of-line
+
 ~ta-avy-goto-end-of-line~: Jump to the visible end of line.
 
 #+BEGIN_SRC emacs-lisp

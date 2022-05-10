@@ -7,79 +7,60 @@
 #+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-11/
 #+TAGS: FIXME
 
-* Description
-
 * Commands
 ** built-in
 *** without default key binding
 
-~kill-word~: Kill characters forward until encountering the end of a
-word.
+- ~kill-word~: Kill characters forward until encountering the end of a word.
 
 *** global-map
 
-~forward-word~ (~M-f~): Move point forward word.
-
-~universal-argument~ (~C-u~): Begin a numeric argument for the following
-command.
-
-~move-end-of-line~ (~C-e~): Move point to end of current line as
-displayed.
-
-~isearch-forward~ (~C-s~): Do incremental search forward.
+- ~forward-word~ (~M-f~): Move point forward word.
+- ~universal-argument~ (~C-u~): Begin a numeric argument for the following
+  command.
+- ~move-end-of-line~ (~C-e~): Move point to end of current line as
+  displayed.
+- ~isearch-forward~ (~C-s~): Do incremental search forward.
 
 *** minibuffer-local-map
 
-~previous-history-element~ (~M-p~): Puts previous element of the
-minibuffer history in the minibuffer.
-
-~next-history-element~ (~M-n~): Puts next element of the minibuffer
-history in the minibuffer.
+- ~previous-history-element~ (~M-p~): Puts previous element of the
+  minibuffer history in the minibuffer.
+- ~next-history-element~ (~M-n~): Puts next element of the minibuffer
+  history in the minibuffer.
 
 *** org-mode-map
 
-~org-cycle~ (~TAB~): TAB-action and visibility cycling for Org mode.
-
-~org-return~ (~RET~): Goto next table row or insert a newline.
-
-~org-table-field-info~ (~C-c ?~): Show info about the current field, and
-highlight any reference at point.
-
-~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update according
-
-~org-table-eval-formula~ (~C-c =~): Replace the table field value at the
-cursor by the result of a calculation.
-
-~org-table-toggle-coordinate-overlays~ (~C-c }~): Toggle the display of
-Row/Column numbers in tables.
-
-~org-metaup~ (~M-<up>~): Move subtree up or move table row up.
-
-~org-metaright~ (~M-<right>~): Demote heading, list item at point or move
-table column right.
-
-~org-shiftmetaleft~ (~M-S-<left>~): Promote subtree or delete table
-column.
-
-~org-edit-special~ (~C-c '~): Call a special editor for the element at point.
+- ~org-cycle~ (~TAB~): TAB-action and visibility cycling for Org mode.
+- ~org-return~ (~RET~): Goto next table row or insert a newline.
+- ~org-table-field-info~ (~C-c ?~): Show info about the current field, and
+  highlight any reference at point.
+- ~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update
+  according
+- ~org-table-eval-formula~ (~C-c =~): Replace the table field value at the
+  cursor by the result of a calculation.
+- ~org-table-toggle-coordinate-overlays~ (~C-c }~): Toggle the display of
+  Row/Column numbers in tables.
+- ~org-metaup~ (~M-<up>~): Move subtree up or move table row up.
+- ~org-metaright~ (~M-<right>~): Demote heading, list item at point or
+  move table column right.
+- ~org-shiftmetaleft~ (~M-S-<left>~): Promote subtree or delete table
+  column.
+- ~org-edit-special~ (~C-c '~): Call a special editor for the element at
+  point.
 
 *** org-table-fedit-map
 
-~org-table-fedit-finish~ (~C-c '~): Parse the buffer for formula
-definitions and install them.
-
-~org-table-fedit-abort~ (~C-c C-q~): Abort editing formulas, without
-installing the changes.
-
-~org-table-fedit-ref-right~ (~S-<right>~): Shift the reference at point
-one field to the right.
-
-~org-table-fedit-ref-down~ (~S-<down>~): Shift the reference at point one
-row/hline down.
+- ~org-table-fedit-finish~ (~C-c '~): Parse the buffer for formula
+  definitions and install them.
+- ~org-table-fedit-abort~ (~C-c C-q~): Abort editing formulas, without
+  installing the changes.
+- ~org-table-fedit-ref-right~ (~S-<right>~): Shift the reference at point
+  one field to the right.
+- ~org-table-fedit-ref-down~ (~S-<down>~): Shift the reference at point
+  one row/hline down.
 
 ** external
 
-~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read in
-the minibuffer).
-
-** customized
+- ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
+  in the minibuffer).

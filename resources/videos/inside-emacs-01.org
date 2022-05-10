@@ -7,61 +7,52 @@
 #+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-01/
 #+TAGS: FIXME
 
-* Description
-
 * Commands
 ** built-in
 *** without default key binding
 
-~replace-string~: Interactively, replace occurrences of a string read in
-the minibuffer by another string read in the minibuffer.
+- ~replace-string~: Interactively, replace occurrences of a string read
+  in the minibuffer by another string read in the minibuffer.
 
 *** global-map
 
-~scroll-left~ (~C-x <~): Scroll selected window display ARG columns left.
-
-~scroll-right~ (~C-x >~): Scroll selected window display ARG columns right.
-
-~yank-rectangle~ (~C-x r y~): Yank the last killed rectangle with upper
-left corner at point.
+- ~scroll-left~ (~C-x <~): Scroll selected window display ARG columns
+  left.
+- ~scroll-right~ (~C-x >~): Scroll selected window display ARG columns
+  right.
+- ~yank-rectangle~ (~C-x r y~): Yank the last killed rectangle with upper
+  left corner at point.
 
 ** external
 
-~avy-goto-word-or-subword-1~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible
-char (read in the minibuffer) at a subword or word start.
-
-~company-complete-selection~ (from [[https://github.com/company-mode/company-mode][company]]): Insert the selected
-candidate.
-
-~er/expand-region~ (from [[https://github.com/magnars/expand-region.el][expand-region]]): Increase selected region by
-semantic units.
-
-~iedit-mode~ (from [[https://github.com/victorhge/iedit][iedit]]): Toggle Iedit mode.  When Iedit mode is turned
-on, all the occurrences of the current region in the buffer (possibly
-narrowed) or a region are highlighted.  If one occurrence is modified,
-the change are propagated to all other occurrences simultaneously.
-
-~iy-go-to-char~ (from [[https://github.com/doitian/iy-go-to-char][iy-go-to-char]]):  Move forward to next char read in
-the minibuffer.
-
-~iy-go-to-char-kill-region~ (from [[https://github.com/doitian/iy-go-to-char][iy-go-to-char]]): Kill region between
-jump start position and current position.
-
-~iy-go-to-char-kill-ring-save~ (from [[https://github.com/doitian/iy-go-to-char][iy-go-to-char]]): Save region between
-jump start position and current position.
-
-~mc/insert-numbers~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Insert increasing numbers
-for each cursor, starting at ~mc/insert-numbers-default~ or universal
-argument.
-
-~mc/mark-next-like-this~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark the next
-part of the buffer matching the currently active region.
-
-~mc/mark-next-like-this-word~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark the
-next part of the buffer matching the currently active region.
+- ~avy-goto-word-or-subword-1~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible
+  char (read in the minibuffer) at a subword or word start.
+- ~company-complete-selection~ (from [[https://github.com/company-mode/company-mode][company]]): Insert the selected
+  candidate.
+- ~er/expand-region~ (from [[https://github.com/magnars/expand-region.el][expand-region]]): Increase selected region by
+  semantic units.
+- ~iedit-mode~ (from [[https://github.com/victorhge/iedit][iedit]]): Toggle Iedit mode.  When Iedit mode is
+  turned on, all the occurrences of the current region in the buffer
+  (possibly narrowed) or a region are highlighted.  If one occurrence
+  is modified, the change are propagated to all other occurrences
+  simultaneously.
+- ~iy-go-to-char~ (from [[https://github.com/doitian/iy-go-to-char][iy-go-to-char]]):  Move forward to next char read
+  in the minibuffer.
+- ~iy-go-to-char-kill-region~ (from [[https://github.com/doitian/iy-go-to-char][iy-go-to-char]]): Kill region between
+  jump start position and current position.
+- ~iy-go-to-char-kill-ring-save~ (from [[https://github.com/doitian/iy-go-to-char][iy-go-to-char]]): Save region
+  between jump start position and current position.
+- ~mc/insert-numbers~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Insert increasing numbers
+  for each cursor, starting at ~mc/insert-numbers-default~ or universal
+  argument.
+- ~mc/mark-next-like-this~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark the
+  next part of the buffer matching the currently active region.
+- ~mc/mark-next-like-this-word~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark
+  the next part of the buffer matching the currently active region.
 
 ** customized
 *** cleanup-buffer
+
 ~cleanup-buffer~: Convert all tabs into spaces, delete trailing spaces
 and indent buffer.
 
@@ -75,6 +66,7 @@ and indent buffer.
 #+END_SRC
 
 *** ta-avy-goto-end-of-line
+
 ~ta-avy-goto-end-of-line~: Jump to the visible end of line.
 
 #+BEGIN_SRC emacs-lisp
@@ -88,6 +80,7 @@ Call `avy-goto-char' with \"\n\" as argument."
 #+END_SRC
 
 *** ta-mark-sexp-at-point
+
 ~ta-mark-sexp-at-point~: Mark the ~sexp~ at point.
 
 #+BEGIN_SRC emacs-lisp
@@ -128,6 +121,7 @@ and :op non empty. See `sp-get-thing'."
 #+END_SRC
 
 *** ta-toggle-narrow
+
 ~ta-toggle-narrow~: Toggle between ~widen~ and ~org-narrow-to-subtree~.
 
 #+BEGIN_SRC emacs-lisp

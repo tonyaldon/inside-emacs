@@ -7,35 +7,28 @@
 #+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-03/
 #+TAGS: FIXME
 
-* Description
-
 * Commands
 ** built-in
 *** global-map
 
-~scroll-other-window~ (~M-<next>~): Scroll next window upward.
-
-~scroll-other-window-down~ (~M-<prior>~): Scroll next window downward.
+- ~scroll-other-window~ (~M-<next>~): Scroll next window upward.
+- ~scroll-other-window-down~ (~M-<prior>~): Scroll next window downward.
 
 ** external
 
-~drag-stuff-down~ (from [[https://github.com/rejeep/drag-stuff.el][drag-stuff]]): Drag stuff down.
-
-~mc/add-cursor-on-click~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Add a cursor where you
-click, or remove a fake cursor that is already there.
-
-~mc/mark-next-like-this~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark the next
-part of the buffer matching the currently active region.
-
-~sp-splice-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Unwrap the current list.
-
-~sp-backward-kill-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Kill the balanced expression
-preceding point.
-
-~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point.
+- ~drag-stuff-down~ (from [[https://github.com/rejeep/drag-stuff.el][drag-stuff]]): Drag stuff down.
+- ~mc/add-cursor-on-click~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Add a cursor where
+  you click, or remove a fake cursor that is already there.
+- ~mc/mark-next-like-this~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark the
+  next part of the buffer matching the currently active region.
+- ~sp-splice-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Unwrap the current list.
+- ~sp-backward-kill-sexp~ (from [[https://github.com/Fuco1/smartparens][smartparens]]): Kill the balanced
+  expression preceding point.
+- ~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point.
 
 ** customized
 *** ta-mark-sexp-at-point
+
 ~ta-mark-sexp-at-point~: Mark the ~sexp~ at point.
 
 #+BEGIN_SRC emacs-lisp
@@ -77,6 +70,7 @@ and :op non empty. See `sp-get-thing'."
 #+END_SRC
 
 *** ta-aw-other-window-scroll-buffer
+
 ~ta-aw-other-window-scroll-buffer~: Use ~ace-window~ to set
 ~other-window-scroll-buffer~ variable.
 

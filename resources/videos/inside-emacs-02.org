@@ -7,77 +7,60 @@
 #+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-02/
 #+TAGS: FIXME
 
-* Description
-
 * Commands
 ** built-in
 *** without default key binding
 
-~replace-string~: Interactively, replace occurrences of a string read in
-the minibuffer by another string read in the minibuffer.
+- ~replace-string~: Interactively, replace occurrences of a string
+  read in the minibuffer by another string read in the minibuffer.
 
 *** global-map
 
-~forward-paragraph~ (~C-<down>~): Move forward to end of paragraph.
-
-~isearch-backward~ (~C-r~): Do incremental search backward.
-
-~isearch-forward~ (~C-s~): Do incremental search forward.
-
-~kmacro-bind-to-key~ (~C-x C-k b~): When not defining or executing a
-macro, offer to bind last macro to a key.
-
-~kmacro-end-macro~ (~C-x )~): Finish defining a keyboard macro.
-
-~kmacro-start-macro~ (~C-x (~): Record subsequent keyboard input, defining
-a keyboard macro.
-
-~set-mark-command~ (~C-@~): Set the mark where point is, and activate it;
-or jump to the mark.
-
-~universal-argument~ (~C-u~): Begin a numeric argument for the following
-command.
-
-~winner-undo~ (~C-c <left>~): Switch back to an earlier window
-configuration saved by Winner mode.
+- ~forward-paragraph~ (~C-<down>~): Move forward to end of paragraph.
+- ~isearch-backward~ (~C-r~): Do incremental search backward.
+- ~isearch-forward~ (~C-s~): Do incremental search forward.
+- ~kmacro-bind-to-key~ (~C-x C-k b~): When not defining or executing a
+  macro, offer to bind last macro to a key.
+- ~kmacro-end-macro~ (~C-x )~): Finish defining a keyboard macro.
+- ~kmacro-start-macro~ (~C-x (~): Record subsequent keyboard input,
+  defining a keyboard macro.
+- ~set-mark-command~ (~C-@~): Set the mark where point is, and activate
+  it; or jump to the mark.
+- ~universal-argument~ (~C-u~): Begin a numeric argument for the following
+  command.
+- ~winner-undo~ (~C-c <left>~): Switch back to an earlier window
+  configuration saved by Winner mode.
 
 *** dired-mode-map
 
-~dired-do-find-marked-files~ (~F~): Find all marked files displaying all
-of them simultaneously.
-
-~dired-mark~ (~m~): Mark the file at point in the Dired buffer.
-
-~dired-unmark-all-marks~ (~U~): Remove all marks from all files in the
-Dired buffer.
+- ~dired-do-find-marked-files~ (~F~): Find all marked files displaying all
+  of them simultaneously.
+- ~dired-mark~ (~m~): Mark the file at point in the Dired buffer.
+- ~dired-unmark-all-marks~ (~U~): Remove all marks from all files in the
+  Dired buffer.
 
 ** external
 
-~avy-goto-word-or-subword-1~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible
-char (read in the minibuffer) at a subword or word start.
-
-~dired-narrow~ (from [[https://melpa.org/#/dired-narrow][dired-narrow]]): Narrow a dired buffer to the files
-matching a string.
-
-~er/expand-region~ (from [[https://github.com/magnars/expand-region.el][expand-region]]):
-
-~mc/insert-numbers~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Insert increasing numbers
-for each cursor, starting at ~mc/insert-numbers-default~ or universal
-argument.
-
-~mc/mark-next-like-this~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark the next
-part of the buffer matching the currently active region.
-
-~transpose-frame~ (from [[https://melpa.org/#/transpose-frame][transpose-frame]]): Transpose windows arrangement
-at the current frame.
-
-~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point. If no
-snippet
+- ~avy-goto-word-or-subword-1~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible
+  char (read in the minibuffer) at a subword or word start.
+- ~dired-narrow~ (from [[https://melpa.org/#/dired-narrow][dired-narrow]]): Narrow a dired buffer to the files
+  matching a string.
+- ~er/expand-region~ (from [[https://github.com/magnars/expand-region.el][expand-region]]):
+- ~mc/insert-numbers~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Insert increasing numbers
+  for each cursor, starting at ~mc/insert-numbers-default~ or universal
+  argument.
+- ~mc/mark-next-like-this~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark the
+  next part of the buffer matching the currently active region.
+- ~transpose-frame~ (from [[https://melpa.org/#/transpose-frame][transpose-frame]]): Transpose windows
+  arrangement at the current frame.
+- ~yas-expand~ (from [[https://github.com/joaotavora/yasnippet][yasnippet]]): Expand a snippet before point. If no
+  snippet
 
 ** customized
 *** ta-mark-inside-quotes-or-pairs
-~ta-mark-inside-quotes-or-pairs~: Mark inside quotes or inside pairs if
-called with universal argument.
+
+~ta-mark-inside-quotes-or-pairs~: Mark inside quotes or inside pairs
+if called with universal argument.
 
 #+BEGIN_SRC emacs-lisp
 (require 'expand-region)
@@ -116,6 +99,7 @@ When ARG is 4, mark inside pairs calling `ta-mark-inside-pairs'."
 #+END_SRC
 
 *** ta-toggle-write-mode
+
 ~ta-toggle-write-mode~: Toggle to the Writable variant of the current
 mode.
 
@@ -135,6 +119,7 @@ Call command `dired-toggle-read-only' if `major-mode' is equal
 #+END_SRC
 
 *** ta-w-finish-edit
+
 ~ta-w-finish-edit~: Abort changes and return to the appropiate mode.
 
 #+BEGIN_SRC emacs-lisp

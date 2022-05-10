@@ -7,37 +7,31 @@
 #+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-06/
 #+TAGS: FIXME
 
-* Description
-
 * Commands
 ** built-in
 *** org-mode-map
 
-~org-cycle~ (~TAB~): TAB-action and visibility cycling for Org mode.
-
-~org-set-property~ (~C-c C-x p~): In the current entry, set a property
-read in the minibuffer with a value read in the minibuffer.
-
-~org-shiftmetaright~ (~M-S-<right>~): Demote subtree or insert table
-column.
+- ~org-cycle~ (~TAB~): TAB-action and visibility cycling for Org mode.
+- ~org-set-property~ (~C-c C-x p~): In the current entry, set a property
+  read in the minibuffer with a value read in the minibuffer.
+- ~org-shiftmetaright~ (~M-S-<right>~): Demote subtree or insert table
+  column.
 
 *** org-mode
 
-~org-table-export~: Export table to a file, with configurable format.
+- ~org-table-export~: Export table to a file, with configurable format.
 
 ** external
 
-~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read in
-the minibuffer).
-
-~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
-
-~counsel-M-x~ (from [[https://github.com/abo-abo/swiper][counsel]]): Ivy version of ~execute-extended-command~.
-
-~counsel-find-file~ (from [[https://github.com/abo-abo/swiper][swiper]]): Forward to ~find-file~.
+- ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
+  in the minibuffer).
+- ~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
+- ~counsel-M-x~ (from [[https://github.com/abo-abo/swiper][counsel]]): Ivy version of ~execute-extended-command~.
+- ~counsel-find-file~ (from [[https://github.com/abo-abo/swiper][swiper]]): Forward to ~find-file~.
 
 ** customized
 *** handy-expand-region-dwim
+
 ~handy-expand-region-dwim~: If region is active, call
 ~er/expand-region~.  If not call ~er/mark-word~.
 
@@ -54,6 +48,7 @@ the minibuffer).
 #+END_SRC
 
 *** handy-mark-dwim
+
 ~handy-mark-dwim~: Mark the url, sexp or sentence at point.
 
 #+BEGIN_SRC emacs-lisp
@@ -107,7 +102,8 @@ If call 2 times consecutively, call `er/mark-sentence'."
 #+END_SRC
 
 *** handy-mark-line
-~handy-mark-line~:
+
+~handy-mark-line~: Mark the current line.
 
 #+BEGIN_SRC emacs-lisp
 (defun handy-mark-line (arg)
@@ -126,6 +122,7 @@ If call with `universal-argument', copy the line."
 #+END_SRC
 
 *** insight-scroll-up-half-window
+
 ~insight-scroll-up-half-window~: Scroll up of half window height.
 
 #+BEGIN_SRC emacs-lisp
@@ -140,6 +137,7 @@ If call with `universal-argument', copy the line."
 #+END_SRC
 
 *** ta-describe-thing-at-point
+
 ~ta-describe-thing-at-point~: Display the full documentation of the
 ~thing-at-point~.
 
@@ -163,6 +161,7 @@ nor a variable."
 #+END_SRC
 
 *** ta-org-shiftmetadown
+
 ~ta-org-shiftmetadown~: Drag the line at point down.
 
 #+BEGIN_SRC emacs-lisp

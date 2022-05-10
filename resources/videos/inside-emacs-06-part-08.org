@@ -7,57 +7,49 @@
 #+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-06-part-08/
 #+TAGS: FIXME
 
-* Description
-
 * Commands
 ** built-in
 *** without default key binding
 
-~org-table-transpose-table-at-point~: Transpose Org table at point and
-eliminate hlines.
-
-~orgtbl-insert-radio-table~: Insert a radio table template appropriate
-for this major mode.
-
-~orgtbl-mode~: Toggle ~orgtbl-mode~ mode.
+- ~org-table-transpose-table-at-point~: Transpose Org table at point and
+  eliminate hlines.
+- ~orgtbl-insert-radio-table~: Insert a radio table template appropriate
+  for this major mode.
+- ~orgtbl-mode~: Toggle ~orgtbl-mode~ mode.
 
 *** global-map
 
-~recenter-top-bottom~ (~C-l~): Scroll the window so that current line is
-in the middle of the window.
+- ~recenter-top-bottom~ (~C-l~): Scroll the window so that current line is
+  in the middle of the window.
 
 *** orgtbl-mode-map
 
-~orgtbl-hijacker-command-4~ (~M-S-<right>~): In tables, run
-~org-table-insert-column~.  Outside of tables, run the binding of
-~M-S-<right>~.
-
-~orgtbl-hijacker-command-100~ (~<return>~): In tables, run ~orgtbl-ret~.
-Outside of tables, run the binding of ~<return>~ or ~RET~.
-
-~orgtbl-hijacker-command-102~ (~<tab>~): In tables, run ~orgtbl-tab~.
-Outside of tables, run the binding of ~<tab>~ or ~TAB~.
-
-~orgtbl-hijacker-command-17~ (~S-<return>~): In tables, run
-~org-table-copy-down~.  Outside of tables, run the binding of
-~S-<return>~.
-
-~orgtbl-hijacker-command-109~ (~<backspace>~): In tables, run
-~org-delete-backward-char~.  Outside of tables, run the binding of
-~<backspace>~ or ~DEL~.
-
-~orgtbl-ctrl-c-ctrl-c~ (~C-c C-c~): If the cursor is inside a table,
-realign the table.  If it is a table to be sent away to a receiver, do
-it.  With universal argument, also recompute table.
+- ~orgtbl-hijacker-command-4~ (~M-S-<right>~): In tables, run
+  ~org-table-insert-column~.  Outside of tables, run the binding of
+  ~M-S-<right>~.
+- ~orgtbl-hijacker-command-100~ (~<return>~): In tables, run
+  ~orgtbl-ret~. Outside of tables, run the binding of ~<return>~ or ~RET~.
+- ~orgtbl-hijacker-command-102~ (~<tab>~): In tables, run
+  ~orgtbl-tab~. Outside of tables, run the binding of ~<tab>~ or ~TAB~.
+- ~orgtbl-hijacker-command-17~ (~S-<return>~): In tables, run
+  ~org-table-copy-down~.  Outside of tables, run the binding of
+  ~S-<return>~.
+- ~orgtbl-hijacker-command-109~ (~<backspace>~): In tables, run
+  ~org-delete-backward-char~.  Outside of tables, run the binding of
+  ~<backspace>~ or ~DEL~.
+- ~orgtbl-ctrl-c-ctrl-c~ (~C-c C-c~): If the cursor is inside a table,
+  realign the table.  If it is a table to be sent away to a receiver,
+  do it.  With universal argument, also recompute table.
 
 ** external
 
-~counsel-M-x~ (from [[https://github.com/abo-abo/swiper][counsel]]): Ivy version of ~execute-extended-command~.
-
-~counsel-yank-pop~ (from [[https://github.com/abo-abo/swiper][swiper]]): Ivy replacement for ~yank-pop~.
+- ~counsel-M-x~ (from [[https://github.com/abo-abo/swiper][counsel]]): Ivy version of
+  ~execute-extended-command~.
+- ~counsel-yank-pop~ (from [[https://github.com/abo-abo/swiper][swiper]]): Ivy replacement for ~yank-pop~.
 
 ** customized
 *** ta-avy-goto-end-of-line
+
 ~ta-avy-goto-end-of-line~: Jump to the visible end of line.
 
 #+BEGIN_SRC emacs-lisp

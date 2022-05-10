@@ -7,9 +7,11 @@
 #+PROPERTY: VIDEO_SCR_DIR ../src/inside-emacs-05-part-02/
 #+TAGS: FIXME
 
-* Description
+* Commands
 
-#+BEGIN_EXAMPLE
+The commands used in the video are the following:
+
+#+BEGIN_SRC bash
 cd ~/.config/systemd/user
 locate emacs.service
 cp /usr/share/emacs/28.0.50/etc/emacs.service .
@@ -20,11 +22,4 @@ systemctl enable emacs --user
 systemctl status emacs --user
 systemctl start emacs --user
 emacsclient -nc
-#+END_EXAMPLE
-
-* Commands
-** built-in
-
-** external
-
-** customized
+#+END_SRC

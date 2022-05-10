@@ -13,45 +13,37 @@
 ** built-in
 *** global-map
 
-~isearch-forward~ (~C-s~): Do incremental search forward.
-
-~kill-ring-save~ (~M-w~): Save the region as if killed, but don’t kill
-it.
+- ~isearch-forward~ (~C-s~): Do incremental search forward.
+- ~kill-ring-save~ (~M-w~): Save the region as if killed, but don’t kill
+  it.
 
 *** org-mode-map
 
-~org-set-property~ (~C-c C-x p~): In the current entry, set a property
-read in the minibuffer with a value read in the minibuffer.
-
-~org-edit-special~ (~C-c '~): Call a special editor for the element at
-point.
-
-~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update according
-
-~org-yank~ (~C-y~): Yank.  If the kill is a subtree, treat it specially.
-
-~org-cycle~ (~TAB~): TAB-action and visibility cycling for Org mode.
-
-~org-mark-element~ (~M-h~): Put point at beginning of this element, mark
-at end.
+- ~org-set-property~ (~C-c C-x p~): In the current entry, set a property
+  read in the minibuffer with a value read in the minibuffer.
+- ~org-edit-special~ (~C-c '~): Call a special editor for the element at point.
+- ~org-ctrl-c-ctrl-c~ (~C-c C-c~): Set tags in headline, or update according
+- ~org-yank~ (~C-y~): Yank.  If the kill is a subtree, treat it specially.
+- ~org-cycle~ (~TAB~): TAB-action and visibility cycling for Org mode.
+- ~org-mark-element~ (~M-h~): Put point at beginning of this element, mark at end.
 
 *** org-table-fedit-map
 
-~org-table-fedit-finish~ (~C-c '~): Parse the buffer for formula
-definitions and install them.
+- ~org-table-fedit-finish~ (~C-c '~): Parse the buffer for formula
+  definitions and install them.
 
 ** external
 
-~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read in
-the minibuffer).
-
-~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
-
-~mc/mark-previous-like-this-word~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and mark
-the previous part of the buffer matching the currently active region.
+- ~avy-goto-char~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to the currently visible char (read
+  in the minibuffer).
+- ~avy-goto-line~ (from [[https://github.com/abo-abo/avy][avy]]): Jump to a line start in current buffer.
+- ~mc/mark-previous-like-this-word~ (from [[https://github.com/magnars/multiple-cursors.el][multiple-cursors]]): Find and
+  mark the previous part of the buffer matching the currently active
+  region.
 
 ** customized
 *** handy-expand-region-dwim
+
 ~handy-expand-region-dwim~: If region is active, call
 ~er/expand-region~.  If not call ~er/mark-word~.
 
@@ -68,6 +60,7 @@ the previous part of the buffer matching the currently active region.
 #+END_SRC
 
 *** handy-mark-dwim
+
 ~handy-mark-dwim~: Mark the url, sexp or sentence at point.
 
 #+BEGIN_SRC emacs-lisp
@@ -121,6 +114,7 @@ If call 2 times consecutively, call `er/mark-sentence'."
 #+END_SRC
 
 *** ta-avy-goto-end-of-line
+
 ~ta-avy-goto-end-of-line~: Jump to the visible end of line.
 
 #+BEGIN_SRC emacs-lisp
