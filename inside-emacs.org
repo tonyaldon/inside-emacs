@@ -9,7 +9,7 @@
 :YOUTUBE_UPLOAD_DATE: [2021-07-23 Fri]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 08912d6e6ef29158d1fa8ebbb98d90214ddc805e
-:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-14/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-06-part-14/]]
 :END:
 ** Built-in commands
 *** global-map
@@ -74,7 +74,7 @@ Call `avy-goto-char' with \"\n\" as argument."
 :YOUTUBE_UPLOAD_DATE: [2021-07-20 Tue]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 08912d6e6ef29158d1fa8ebbb98d90214ddc805e
-:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-13/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-06-part-13/]]
 :END:
 ** Built-in commands
 *** global-map
@@ -209,7 +209,7 @@ Call `avy-goto-char' with \"\n\" as argument."
 :YOUTUBE_UPLOAD_DATE: [2021-07-18 Sun]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 08912d6e6ef29158d1fa8ebbb98d90214ddc805e
-:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-12/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-06-part-12/]]
 :END:
 ** Built-in commands
 *** global-map
@@ -251,7 +251,7 @@ Call `avy-goto-char' with \"\n\" as argument."
 :YOUTUBE_UPLOAD_DATE: [2021-07-14 Wed]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 08912d6e6ef29158d1fa8ebbb98d90214ddc805e
-:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-11/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-06-part-11/]]
 :END:
 ** Built-in commands
 *** without default key binding
@@ -317,7 +317,7 @@ Call `avy-goto-char' with \"\n\" as argument."
 :YOUTUBE_UPLOAD_DATE: [2021-07-07 Wed]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 15379cdd5e548f1540d677d4386bb5da7d5bc5b0
-:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-10/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-06-part-10/]]
 :END:
 ** Built-in commands
 *** without default key binding
@@ -437,7 +437,7 @@ If call with `universal-argument', copy the line."
 :YOUTUBE_UPLOAD_DATE: [2021-07-02 Fri]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 15379cdd5e548f1540d677d4386bb5da7d5bc5b0
-:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-09/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-06-part-09/]]
 :END:
 ** Built-in commands
 *** org-mode-map
@@ -489,7 +489,7 @@ Call `avy-goto-char' with \"\n\" as argument."
 :YOUTUBE_UPLOAD_DATE: [2021-06-17 Thu]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 06ba16e26da4fbedb430090287aec096bf491037
-:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-08/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-06-part-08/]]
 :END:
 ** Built-in commands
 *** without default key binding
@@ -560,7 +560,7 @@ Call `avy-goto-char' with \"\n\" as argument."
 :YOUTUBE_UPLOAD_DATE: [2021-06-16 Wed]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 06ba16e26da4fbedb430090287aec096bf491037
-:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-07/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-06-part-07/]]
 :END:
 ** Built-in commands
 *** without default key binding
@@ -794,7 +794,7 @@ nor a variable."
 :YOUTUBE_UPLOAD_DATE: [2021-06-12 Sat]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 06ba16e26da4fbedb430090287aec096bf491037
-:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-06/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-06-part-06/]]
 :END:
 ** Built-in
 *** org-mode-map
@@ -985,7 +985,7 @@ Everywhere else, drag the line at point down."
 :YOUTUBE_UPLOAD_DATE: [2020-12-29 Tue]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 852afb87e258c90a8e79a026dae369272b3b5280
-:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-05/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-06-part-05/]]
 :END:
 ** Built-in commands
 *** global-map
@@ -1175,7 +1175,7 @@ Before doing so, re-align the table if necessary."
 :YOUTUBE_UPLOAD_DATE: [2020-12-26 Sat]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 124a1958e4e222722980ced00724f0ee7c948575
-:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-04/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-06-part-04/]]
 :END:
 ** Built-in commands
 *** global-map
@@ -1212,7 +1212,7 @@ the minibuffer).
 :YOUTUBE_UPLOAD_DATE: [2020-12-24 Thu]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 124a1958e4e222722980ced00724f0ee7c948575
-:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-03/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-06-part-03/]]
 :END:
 ** Built-in commands
 *** without default key binding
@@ -1457,7 +1457,7 @@ Before doing so, re-align the table if necessary."
 :YOUTUBE_UPLOAD_DATE: [2020-12-19 Sat]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 6982f26e031a6aaa82515274d8572204fffaec56
-:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-02/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-06-part-02/]]
 :END:
 ** Built-in commands
 *** without default key binding
@@ -1711,7 +1711,7 @@ and :op non empty. See `sp-get-thing'."
 :YOUTUBE_UPLOAD_DATE: [2020-11-26 Thu]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: fc02ec1c2d2caa52b22410adb465f79c115c7e2a
-:VIDEO_SCR_DIR: ../src/inside-emacs-06-part-01/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-06-part-01/]]
 :END:
 ** Built-in
 *** without default key binding
@@ -1753,7 +1753,7 @@ and :op non empty. See `sp-get-thing'."
 :YOUTUBE_UPLOAD_DATE: [2020-09-11 Fri]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 33c04510f94e5eb96ed7b072dfba410cbc70a9d0
-:VIDEO_SCR_DIR: ../src/inside-emacs-05-part-02/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-05-part-02/]]
 :END:
 ** Commands
 
@@ -1803,7 +1803,7 @@ emacs -nw
 :YOUTUBE_UPLOAD_DATE: [2020-08-28 Fri]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 4cbdb3ce735ae296387069ef7ff309f0cfa812e8
-:VIDEO_SCR_DIR: ../src/inside-emacs-04-part-02/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-04-part-02/]]
 :END:
 ** Built-in commands
 *** without default key binding
@@ -1931,7 +1931,7 @@ and :op non empty. See `sp-get-thing'."
 :YOUTUBE_UPLOAD_DATE: [2020-08-23 Sun]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 4cbdb3ce735ae296387069ef7ff309f0cfa812e8
-:VIDEO_SCR_DIR: ../src/inside-emacs-04-part-01/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-04-part-01/]]
 :END:
 ** Built-in commands
 *** without default key binding
@@ -2123,7 +2123,7 @@ If the frame contains buffers in `dired-mode', delete them."
 :YOUTUBE_UPLOAD_DATE: [2020-08-13 Thu]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: 4cbdb3ce735ae296387069ef7ff309f0cfa812e8
-:VIDEO_SCR_DIR: ../src/inside-emacs-03/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-03/]]
 :END:
 ** Built-in commands
 *** global-map
@@ -2241,7 +2241,7 @@ See `ta-aw-other-window-scroll-buffer'."
 :YOUTUBE_UPLOAD_DATE: [2020-08-07 Fri]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: f760601bfc92bac7570f74396dbe1e4910af86af
-:VIDEO_SCR_DIR: ../src/inside-emacs-02/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-02/]]
 :END:
 ** Built-in commands
 *** without default key binding
@@ -2379,7 +2379,7 @@ Call command `wdired-finish-edit' if `major-mode' is
 :YOUTUBE_UPLOAD_DATE: [2020-07-30 Thu]
 :CONFIG_REPO:   https://github.com/tonyaldon/emacs.d
 :CONFIG_COMMIT: f760601bfc92bac7570f74396dbe1e4910af86af
-:VIDEO_SCR_DIR: ../src/inside-emacs-01/
+:VIDEO_SCR_DIR: [[./src/inside-emacs-01/]]
 :END:
 ** Built-in commands
 *** without default key binding
